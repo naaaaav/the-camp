@@ -1,2 +1,0 @@
-# camp_front
-
