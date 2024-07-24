@@ -24,7 +24,7 @@ const Login = () => {
       body : JSON.stringify(loginForm),
     })
 
-    if (response.status == 200) {
+    if (response.status === 200) {
       const access = response.headers.get('access')
       localStorage.setItem('access', access)
       alert('로그인 성공')
