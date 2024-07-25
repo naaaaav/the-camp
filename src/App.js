@@ -3,6 +3,7 @@ import Home from './routes/Home';
 import TestPage from './routes/test/TestPage';
 import Login from './routes/user/Login';
 import Join from './routes/user/Join';
+import Profile from './routes/user/Profile';
 
 function App() {
   return (
@@ -13,8 +14,8 @@ function App() {
           <Route path='/test' element={<TestPage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/join' element={<Join />} />
-          
-        </Routes>
+          <Route path="/profile" element={<Profile />} />
+          </Routes>
       </BrowserRouter>
     </div>
   );
