@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './routes/Home';
 import TestPage from './routes/test/TestPage';
+import TestPayment from './routes/test/TestPayment';
 import Login from './routes/user/Login';
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
           <Route path='/' element= {<Home />} />
           <Route path='/test' element={<TestPage />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/payment' element={<TestPayment />} />
         </Routes>
       </BrowserRouter>
     </div>
