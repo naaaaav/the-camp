@@ -3,7 +3,7 @@ import * as PortOne from "@portone/browser-sdk/v2";
 const TestPayment = () => {
   
   const kaKaoPaymentAlert = async () => {
-    const paymentId = `payment-${crypto.randomUUID()}`;
+    const paymentId = `kakao-payment-${crypto.randomUUID()}`;
 
     const response = await PortOne.requestPayment({
       storeId: "store-5c664fd7-4801-4c86-8776-e090581e64f7",
@@ -11,6 +11,11 @@ const TestPayment = () => {
       paymentId: paymentId,
       orderName: "나이키 와플 트레이너 2 SD",
       totalAmount: 1000,
+      customer : {
+        fullName : '안민형',
+        phoneNumber : '010-1234-5678',
+        email : 'cba@gmail.com',
+      },
       currency: "CURRENCY_KRW",
       payMethod: "EASY_PAY",
     });
@@ -21,7 +26,10 @@ const TestPayment = () => {
   
     const notified = await fetch(`http://localhost:8080/payment/complete`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "access" : localStorage.getItem("access")
+      },
       body: JSON.stringify({
         paymentId
       }),
@@ -29,7 +37,7 @@ const TestPayment = () => {
   }
 
   const TossPaymentAlert = async () => {
-    const paymentId = `payment${Math.random().toString(36).slice(2)}`;
+    const paymentId = `toss-payment-${Math.random().toString(36).slice(2)}`;
     
     const response = await PortOne.requestPayment({
       storeId: "store-5c664fd7-4801-4c86-8776-e090581e64f7",
@@ -37,6 +45,11 @@ const TestPayment = () => {
       paymentId: paymentId,
       orderName: "캠핑톡 캠핑장 예약",
       totalAmount: 1000000,
+      customer : {
+        fullName : '안민형',
+        phoneNumber : '010-1234-5678',
+        email : 'cba@gmail.com',
+      },
       currency: "CURRENCY_KRW",
       payMethod: "EASY_PAY",
     });
@@ -47,7 +60,10 @@ const TestPayment = () => {
   
     const notified = await fetch(`http://localhost:8080/payment/complete`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "access" : localStorage.getItem("access")
+      },
       body: JSON.stringify({
         paymentId
       }),
