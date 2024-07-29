@@ -53,10 +53,7 @@ const Profile = () => {
           <p>Gender: {profile.gender}</p>
           <p>PhoneNumber: {profile.phoneNumber}</p>
           <p>Email: {profile.email}</p>
-          <p>Birthday: {profile.birthday}</p>
-          
-          
-         
+          <p>Birthday: {profile.birthday}</p>    
         </div>
       ) : (
         <p>No profile information available.</p>
