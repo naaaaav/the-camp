@@ -10,7 +10,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem('access'); // 로컬 스토리지에서 JWT 토큰 가져오기
+        const token = localStorage.getItem('Authorization'); // 로컬 스토리지에서 JWT 토큰 가져오기
 
         if (!token) {
           navigate('/login'); // JWT 토큰이 없으면 로그인 페이지로 리디렉션
@@ -20,7 +20,7 @@ const Profile = () => {
         const response = await fetch('http://localhost:8080/api/user/profile', {
           method: 'GET',
           headers: {
-            'access': token, // 커스텀 헤더를 포함
+            'Authorization': token, // 커스텀 헤더를 포함
             'Content-Type': 'application/json'
           }
         });

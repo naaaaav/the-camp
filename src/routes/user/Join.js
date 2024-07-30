@@ -16,6 +16,14 @@ const Join = () => {
   const [errors, setErrors] = useState({});
   const [isEmailVerified, setIsEmailVerified] = useState(false);
 
+  // 이메일을 joinForm 상태에 저장하는 함수
+  const setEmail = (email) => {
+    setJoinForm((prev) => ({
+      ...prev,
+      email,
+    }));
+  };
+
   const onChangeForm = (e) => {
     setJoinForm((prev) => ({
       ...prev,
@@ -52,19 +60,28 @@ const Join = () => {
       return;
     }
 
-    const response = await fetch('http://localhost:8080/join', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(joinForm),
-    });
+    try {
+      const response = await fetch('http://localhost:8080/join', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(joinForm),
+      });
 
-    if (response.status === 200) {
-      alert('회원가입 성공');
-      navigate('/login');
-    } else if (response.status === 500) {
-      alert('이미 가입된 이메일이 존재 합니다.');
+      console.log('Response status:', response.status);
+
+      if (response.ok) {
+        alert('회원가입 성공');
+        navigate('/login');
+      } else if (response.status === 500) {
+        alert('이미 가입된 이메일이 존재 합니다.');
+      } else {
+        alert('회원가입 실패');
+      }
+    } catch (error) {
+      console.error('회원가입 중 오류 발생:', error);
+      alert('회원가입 중 오류가 발생했습니다.');
     }
   };
 
@@ -72,7 +89,10 @@ const Join = () => {
     <div>
       <h1>회원가입</h1>
       <form>
-        <EmailVerification onVerificationSuccess={() => setIsEmailVerified(true)} />
+        <EmailVerification
+          onVerificationSuccess={() => setIsEmailVerified(true)}
+          onEmailChange={setEmail} // 이메일을 전달하기 위한 콜백 함수
+        />
         <input
           type="password"
           name="password"

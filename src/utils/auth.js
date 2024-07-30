@@ -1,11 +1,11 @@
 export const logOut = () => {
-  localStorage.removeItem('access');
+  localStorage.removeItem('Authorization');
   };
   
   export const isLoggedIn = () => {
     
-    const access = localStorage.getItem('access');
+    const Authorization = localStorage.getItem('Authorization');
 
-    return !!access;
+    return !!Authorization;
   };
   

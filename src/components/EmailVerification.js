@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const EmailVerification = ({ onVerificationSuccess }) => {
+const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
   const [email, setEmail] = useState('');
   const [authCode, setAuthCode] = useState('');
   const [sentAuthCode, setSentAuthCode] = useState('');
@@ -9,25 +9,29 @@ const EmailVerification = ({ onVerificationSuccess }) => {
 
   const sendVerificationEmail = async () => {
     try {
-        const response = await fetch('http://localhost:8080/mailSend', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({ mail: email }),
-          });
+      const response = await fetch('http://localhost:8080/mailSend', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({ mail: email }),
+      });
 
       const data = await response.json();
+      console.log('Mail send response data:', data);
+
       if (response.ok) {
         alert('인증 이메일이 전송되었습니다.');
         setSentAuthCode(data.number);
         setIsEmailSent(true);
         setError('');
+        onEmailChange(email); // 이메일을 상위 컴포넌트로 전달
       } else {
         alert('이메일 전송에 실패했습니다.');
         setError('이메일 전송에 실패했습니다.');
       }
     } catch (error) {
+      console.error('이메일 전송 중 오류 발생:', error);
       alert('서버 오류입니다.');
       setError('서버 오류입니다.');
     }
