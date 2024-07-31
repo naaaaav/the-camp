@@ -5,28 +5,42 @@ import Login from './routes/user/Login';
 import DetailPage from './routes/detail/DetailPage';
 import Join from './routes/user/Join';
 import Profile from './routes/user/Profile';
+import GuestRoutes from './utils/GuestRoutes';
+import UserProtectedRoutes from './utils/UserProtectedRoutes';
+import AdminProtectedRoutes from './utils/AdminProtectedRoutes';
+
+import LayoutRoutes from './utils/LayoutRoutes';
 
 function App() {
   return (
     <div className="App">
-<<<<<<< HEAD
-      
-=======
->>>>>>> 75c7fe2fca64e29da31747e63644c5ec3be68812
         <Routes>
-          <Route path='/' element= {<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/detail' element={<DetailPage />} />
-          <Route path='/detail/:id' element={<DetailPage />} />
-          <Route path='/payment' element={<Payment />} />
-<<<<<<< HEAD
-          <Route path='/join' element={<Join />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route element={<LayoutRoutes />}>
+            <Route element={<GuestRoutes />}>
+              <Route path='/' element= {<Home />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/detail' element={<DetailPage />} />
+              <Route path='/detail/:id' element={<DetailPage />} />
+              <Route path='/payment' element={<Payment />} />
+              <Route path='/join' element={<Join />} />
+              <Route path="/profile" element={<Profile />} />
+            </Route>
+            <Route element={<UserProtectedRoutes />}>
+              <Route path='/user/'>
+                <Route path='test' />
+                <Route path='no' />
+                <Route path='yes' />
+              </Route>
+            </Route>
+            <Route element={<AdminProtectedRoutes />}>
+              <Route path='/admin/'>
+                <Route path='test' />
+                <Route path='no' />
+                <Route path='yes' />
+              </Route>
+            </Route>
+          </Route>
         </Routes>
-    
-=======
-        </Routes>
->>>>>>> 75c7fe2fca64e29da31747e63644c5ec3be68812
     </div>
   );
 }
