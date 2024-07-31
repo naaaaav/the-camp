@@ -24,9 +24,10 @@ const Login = () => {
       body : JSON.stringify(loginForm),
     })
 
-    if (response.status == 200) {
-      const access = response.headers.get('access')
-      localStorage.setItem('access', access)
+    if (response.status === 200) {
+      const Authorization = response.headers.get('Authorization')
+      localStorage.setItem('Authorization', Authorization)
+
       alert('로그인 성공')
       navigate("/");
     } else {
