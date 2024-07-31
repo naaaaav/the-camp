@@ -35,16 +35,9 @@ function DetailPage(){
              setCampsite(data);
         });
         
-    
-
-        
-
-        
-         
-        
-
-
     },[id]);
+
+    
     return(
         <div style={{margin:"0 auto"}}>
             <h1>{campsite.facltNm}</h1>
