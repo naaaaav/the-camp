@@ -5,28 +5,33 @@ import Login from './routes/user/Login';
 import DetailPage from './routes/detail/DetailPage';
 import Join from './routes/user/Join';
 import Profile from './routes/user/Profile';
+import AdminPage from './routes/admin/AdminPage';
+import CampSettingPage from './routes/admin/CampSettingPage';
+import CampListPage from './routes/campList/CampListPage';
+import CampSettingDetailPage from './routes/admin/CampSettingDetailPage';
+
 
 function App() {
   return (
     <div className="App">
-<<<<<<< HEAD
-      
-=======
->>>>>>> 75c7fe2fca64e29da31747e63644c5ec3be68812
+
         <Routes>
           <Route path='/' element= {<Home />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/detail' element={<DetailPage />} />
           <Route path='/detail/:id' element={<DetailPage />} />
+
           <Route path='/payment' element={<Payment />} />
-<<<<<<< HEAD
+
           <Route path='/join' element={<Join />} />
           <Route path="/profile" element={<Profile />} />
+
+          <Route path='/campList' element={<CampListPage />}/>
+          <Route path="/admin" element={<AdminPage />}> 
+                <Route path="camp" element={<CampSettingPage />}></Route>
+                <Route path="camp/:id" element={<CampSettingDetailPage />}></Route>
+          </Route>
+
         </Routes>
-    
-=======
-        </Routes>
->>>>>>> 75c7fe2fca64e29da31747e63644c5ec3be68812
     </div>
   );
 }

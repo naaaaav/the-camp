@@ -25,13 +25,9 @@ const Login = () => {
     })
 
     if (response.status === 200) {
-<<<<<<< HEAD
       const Authorization = response.headers.get('Authorization')
       localStorage.setItem('Authorization', Authorization)
-=======
-      const access = response.headers.get('access')
-      localStorage.setItem('access', access)
->>>>>>> 75c7fe2fca64e29da31747e63644c5ec3be68812
+
       alert('로그인 성공')
       navigate("/");
     } else {
