@@ -1,39 +1,22 @@
-import { Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './routes/Home';
-import Payment from './routes/payment/Payment';
-import Login from './routes/user/Login';
 import DetailPage from './routes/detail/DetailPage';
-import Join from './routes/user/Join';
-import Profile from './routes/user/Profile';
-import AdminPage from './routes/admin/AdminPage';
-import CampSettingPage from './routes/admin/CampSettingPage';
-import CampListPage from './routes/campList/CampListPage';
-import CampSettingDetailPage from './routes/admin/CampSettingDetailPage';
+import Login from './routes/user/Login';
+import './App.css'; 
 
-
-function App() {
+const App = () => {
   return (
-    <div className="App">
-
+    <div className="app-container">
+      <Router>
         <Routes>
-          <Route path='/' element= {<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/detail/:id' element={<DetailPage />} />
-
-          <Route path='/payment' element={<Payment />} />
-
-          <Route path='/join' element={<Join />} />
-          <Route path="/profile" element={<Profile />} />
-
-          <Route path='/campList' element={<CampListPage />}/>
-          <Route path="/admin" element={<AdminPage />}> 
-                <Route path="camp" element={<CampSettingPage />}></Route>
-                <Route path="camp/:id" element={<CampSettingDetailPage />}></Route>
-          </Route>
-
+          <Route path="/" element={<Home />} />
+          <Route path="/detail/:id" element={<DetailPage />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
