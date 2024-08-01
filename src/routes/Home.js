@@ -1,14 +1,17 @@
 // routes/Home.js
 import { useNavigate } from 'react-router-dom';
 import { logOut, isLoggedIn } from '../utils/auth';
-
+import { useRecoilState } from 'recoil';
+import { roleFlagAtom } from '../recoil/atom/UserAtom';
 const Home = () => {
+  const [roleFlag, setRoleFlag] = useRecoilState(roleFlagAtom);
   const navigate = useNavigate();
   const isUserLoggedIn = isLoggedIn();
 
   const handleLogout = () => {
     logOut();
     navigate('/login');
+    setRoleFlag(!roleFlag);
   };
 
   console.log(isUserLoggedIn);
