@@ -3,7 +3,6 @@ import { useState } from 'react';
 const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
   const [email, setEmail] = useState('');
   const [authCode, setAuthCode] = useState('');
-  const [sentAuthCode, setSentAuthCode] = useState('');
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [error, setError] = useState('');
 
@@ -14,21 +13,20 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: new URLSearchParams({ mail: email }),
+        body: new URLSearchParams({ email }), // RequestParam에 맞춰 'mail'을 'email'로 변경
       });
 
       const data = await response.json();
       console.log('Mail send response data:', data);
 
-      if (response.ok) {
+      if (data.success) {
         alert('인증 이메일이 전송되었습니다.');
-        setSentAuthCode(data.number);
         setIsEmailSent(true);
         setError('');
-        onEmailChange(email); // 이메일을 상위 컴포넌트로 전달
+        onEmailChange(email); 
       } else {
         alert('이메일 전송에 실패했습니다.');
-        setError('이메일 전송에 실패했습니다.');
+        setError(data.error || '이메일 전송에 실패했습니다.');
       }
     } catch (error) {
       console.error('이메일 전송 중 오류 발생:', error);
@@ -37,14 +35,31 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
     }
   };
 
-  const checkAuthCode = () => {
-    if (authCode === sentAuthCode) {
-      alert('인증 성공');
-      onVerificationSuccess(); // 인증 성공 시 호출
-      setError('');
-    } else {
-      alert('인증 코드가 일치하지 않습니다.');
-      setError('인증 코드가 일치하지 않습니다.');
+  const checkAuthCode = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/verify-code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, authNumber: authCode }), // 서버로 email과 authNumber를 전송
+      });
+
+      const data = await response.json();
+      console.log('Verify code response data:', data);
+
+      if (data.success) {
+        alert('인증 성공');
+        onVerificationSuccess(); 
+        setError('');
+      } else {
+        alert(data.message || '인증 코드가 일치하지 않습니다.');
+        setError(data.message || '인증 코드가 일치하지 않습니다.');
+      }
+    } catch (error) {
+      console.error('인증 코드 확인 중 오류 발생:', error);
+      alert('서버 오류입니다.');
+      setError('서버 오류입니다.');
     }
   };
 
