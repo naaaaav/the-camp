@@ -4,6 +4,8 @@ import Home from './routes/Home';
 import DetailPage from './routes/detail/DetailPage';
 import Login from './routes/user/Login';
 import './App.css'; 
+import Join from './routes/user/Join';
+import Profile from './routes/user/Profile';
 
 const App = () => {
   return (

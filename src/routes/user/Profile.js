@@ -10,49 +10,49 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem('Authorization'); // 로컬 스토리지에서 JWT 토큰 가져오기
+        const token = localStorage.getItem('Authorization'); 
 
         if (!token) {
-          navigate('/login'); // JWT 토큰이 없으면 로그인 페이지로 리디렉션
+          navigate('/login'); 
           return;
         }
 
         const response = await fetch('http://localhost:8080/api/user/profile', {
           method: 'GET',
           headers: {
-            'Authorization': token, // 커스텀 헤더를 포함
+            'Authorization': token, 
             'Content-Type': 'application/json'
           }
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`); // HTTP 상태 코드가 2xx가 아니면 에러 발생
+          throw new Error(`HTTP error! status: ${response.status}`); 
         }
 
         const data = await response.json();
-        setProfile(data); // 응답 데이터를 상태에 저장
+        setProfile(data); 
       } catch (err) {
-        setError(err.message); // 에러 메시지 상태에 저장
+        setError(err.message); 
       } finally {
-        setLoading(false); // 로딩 완료
+        setLoading(false); 
       }
     };
 
-    fetchProfile(); // 컴포넌트가 마운트될 때 API 호출
+    fetchProfile(); 
   }, [navigate]);
 
-  if (loading) return <p>Loading...</p>; // 로딩 중일 때
-  if (error) return <p>Error: {error}</p>; // 에러가 발생한 경우
+  if (loading) return <p>Loading...</p>; 
+  if (error) return <p>Error: {error}</p>; 
 
   return (
     <div>
       <h1>User Profile</h1>
       {profile ? (
         <div>
+          <p>Email: {profile.email}</p>
           <p>Name: {profile.name}</p>
           <p>Gender: {profile.gender}</p>
           <p>PhoneNumber: {profile.phoneNumber}</p>
-          <p>Email: {profile.email}</p>
           <p>Birthday: {profile.birthday}</p>    
         </div>
       ) : (

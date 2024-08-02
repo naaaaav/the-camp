@@ -16,7 +16,7 @@ const Join = () => {
   const [errors, setErrors] = useState({});
   const [isEmailVerified, setIsEmailVerified] = useState(false);
 
-  // 이메일을 joinForm 상태에 저장하는 함수
+  // 이메일 저장
   const setEmail = (email) => {
     setJoinForm((prev) => ({
       ...prev,
@@ -31,7 +31,7 @@ const Join = () => {
     }));
     setErrors((prev) => ({
       ...prev,
-      [e.target.name]: '', // Clear error message when user starts typing
+      [e.target.name]: '', 
     }));
   };
 
@@ -91,7 +91,7 @@ const Join = () => {
       <form>
         <EmailVerification
           onVerificationSuccess={() => setIsEmailVerified(true)}
-          onEmailChange={setEmail} // 이메일을 전달하기 위한 콜백 함수
+          onEmailChange={setEmail} // 이메일 전달
         />
         <input
           type="password"
