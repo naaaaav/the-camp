@@ -1,5 +1,3 @@
-import { atom, selector, useRecoilState } from 'recoil';
-
 export const logOut = () => {
   localStorage.removeItem('Authorization');
 };

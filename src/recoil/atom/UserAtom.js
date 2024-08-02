@@ -1,12 +1,11 @@
-import React from 'react';
-import { atom, selector, useRecoilState } from 'recoil';
+import { atom } from 'recoil';
 
 export const roleAtom = atom({
   key: 'roleAtom',
   default: "ROLE_GUEST",
 });
 
-export const roleFlagAtom = atom({
-  key: 'roleFlagAtom',
-  default: false,
+export const rolePathAtom = atom({
+  key: 'rolePathAtom',
+  default: '/',
 });

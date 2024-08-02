@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { roleAtom, roleFlagAtom } from '../recoil/atom/UserAtom';
-import { AdminProtectedRoutes, GuestRoutes, UserProtectedRoutes } from '../App';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { roleAtom, rolePathAtom } from '../recoil/atom/UserAtom';
 import { Outlet } from 'react-router-dom';
 
 const AuthRoutes = () => {
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useRecoilState(roleAtom);
-  const [roleFlag, setRoleFlag] = useRecoilState(roleFlagAtom);
+  const rolePath = useRecoilValue(rolePathAtom);
   
   useEffect(() => {
     setLoading(false);
@@ -47,27 +46,21 @@ const AuthRoutes = () => {
         console.error(error);
       }
     })()
-  }, [roleFlag])
+  }, [rolePath])
   
   return (
     (!loading) ? <></> : 
-      (role === "ROLE_GUEST") ? 
+    (role === "ROLE_GUEST") ? 
+    <>
+      <Outlet />
+    </> :
+    (role === "ROLE_USER") ? 
         <>
-          <h1>게스트 헤더</h1>
           <Outlet />
-          <h1>게스트 푸터</h1>
-        </>:
-      (role === "ROLE_USER") ? 
-        <>
-          <h1>유저 헤더</h1>
-          <Outlet />
-          <h1>유저 푸터</h1>
         </> :
     (role === "ROLE_ADMIN") ? 
       <>
-        <h1>관리자 헤더</h1>
         <Outlet />
-        <h1>관리자 푸터</h1>
       </>
     : <></>
   )
