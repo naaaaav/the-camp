@@ -1,5 +1,5 @@
 import { useEffect, useState} from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Pagination from 'react-js-pagination'
 import styled from 'styled-components'
 import ImageBox from "../../components/detail/ImageBox";
@@ -34,10 +34,12 @@ function CampSettingPage(){
             <div>
                 {
                     campList?.content?.map( item =>
+                        <Link to={`/admin/camp/${ item.seq }`}>
                         <div style={{display:"flex"}}>
                             <ImageBox width="80px" height="80px" src={item.firstImageUrl}></ImageBox>
                             <TitleBox title={item.facltNm}></TitleBox>
                         </div>
+                        </Link>
                     )
                 }
             <PaginationBox>

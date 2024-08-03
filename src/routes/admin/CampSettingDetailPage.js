@@ -1,14 +1,14 @@
 import React,{ useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import TitleBox from "../../components/detail/TitleBox";
-import ZoneBox from "../../components/admin/ZoneBox";
+
 
 function CampSettingDetailPage(){
 
     const { id } = useParams();
 
     const [camp,setCamp] = useState({});
-    const [zones,setZones] = useState([]);
+   // const [zones,setZones] = useState([]);
 
     const [inputs,setInputs] = useState({
         title:'',
@@ -90,7 +90,7 @@ function CampSettingDetailPage(){
                                 method: 'POST',
                                 headers:{
                                     'Content-Type': 'application/json',
-                                    'Authorization': 'Bearer '+localStorage.getItem('Authorization')
+                                    'Authorization': localStorage.getItem('Authorization')
                                 },
                                 body: JSON.stringify({
                                     ...inputs,

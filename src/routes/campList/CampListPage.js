@@ -14,6 +14,8 @@ function CampListPage(){
     const [total, setTotal] = useState(0);
     useEffect(()=>{
 
+        // mount  -> index.html 의 script
+
         const response = fetch("http://localhost:8080/campsite?page="+query.get("page"),{
             method:'GET'
         }).then((res) => res.json())
@@ -29,6 +31,8 @@ function CampListPage(){
             setCampList(data.content);
            
         });
+        
+        
 
     },[query]);
 
@@ -48,7 +52,7 @@ function CampListPage(){
              activePage={query.get("page")}
              itemsCountPerPage={6}
              totalItemsCount={total*6}
-             pageRangeDisplayed={5}
+             pageRangeDisplayed={10}
              onChange={(page)=> setQuery({page:page})}>
             </Pagination>
             </PaginationBox>
