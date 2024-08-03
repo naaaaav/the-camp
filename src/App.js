@@ -1,31 +1,54 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './routes/Home';
-import TestPage from './routes/test/TestPage';
-import Login from './routes/user/Login';
 import DetailPage from './routes/detail/DetailPage';
-import AdminPage from './routes/admin/AdminPage';
-import CampSettingPage from './routes/admin/CampSettingPage';
-import CampListPage from './routes/campList/CampListPage';
-import CampSettingDetailPage from './routes/admin/CampSettingDetailPage';
+import Login from './routes/user/Login';
+import './App.css'; 
+import Join from './routes/user/Join';
+import Profile from './routes/user/Profile';
+import AuthRoutes from './utils/AuthRoutes';
+import UserProtectedRoutes from './utils/UserProtectedRoutes';
+import AdminProtectedRoutes from './utils/AdminProtectedRoutes';
+import Test from './routes/test/Test';
+import Payment from './routes/payment/Payment';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element= {<Home />} />
-          <Route path='/test' element={<TestPage />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/detail/:id' element={<DetailPage />} />
-          <Route path='/campList' element={<CampListPage />}/>
-          <Route path="/admin" element={<AdminPage />}> 
-                <Route path="camp" element={<CampSettingPage />}></Route>
-                <Route path="camp/:id" element={<CampSettingDetailPage />}></Route>
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <>
+      <Routes>
+        <Route path='/' element= {<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/detail/:id' element={<DetailPage />} />
+        <Route path='/payment' element={<Payment />} />
+        <Route path='/join' element={<Join />} />
+        <Route path="/profile" element={<Profile />} />
+
+        <Route element={<AuthRoutes />}>
+          <Route path="/user/*" element={<UserProtectedRoutes />} />
+          <Route path="/admin/*" element={<AdminProtectedRoutes />} />
+        </Route>
+      </Routes>
+    </>
   );
+};
+
+export function UserRoutes() {
+  return (
+    <>
+      <Routes>
+        <Route path='/test' element={<Test />} />
+      </Routes>
+    </>
+  )
+}
+
+export function AdminRoutes() {
+  return (
+    <>
+      <Routes>
+        <Route path='/test' element={<Test />} />
+      </Routes>
+    </>
+  )
 }
 
 export default App;

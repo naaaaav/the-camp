@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,9 +23,9 @@ const Login = () => {
       body : JSON.stringify(loginForm),
     })
 
-    if (response.status == 200) {
-      const access = response.headers.get('access')
-      localStorage.setItem('access', access)
+    if (response.status === 200) {
+      const Authorization = response.headers.get('Authorization')
+      localStorage.setItem('Authorization', Authorization)
       alert('로그인 성공')
       navigate("/");
     } else {
