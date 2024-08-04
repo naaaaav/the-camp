@@ -10,6 +10,9 @@ import UserProtectedRoutes from './utils/UserProtectedRoutes';
 import AdminProtectedRoutes from './utils/AdminProtectedRoutes';
 import Test from './routes/test/Test';
 import Payment from './routes/payment/Payment';
+import AdminPage from './routes/admin/AdminPage';
+import CampSettingPage from './routes/admin/CampSettingPage';
+import CampSettingDetailPage from './routes/admin/CampSettingDetailPage';
 
 const App = () => {
   return (
@@ -22,10 +25,10 @@ const App = () => {
         <Route path='/join' element={<Join />} />
         <Route path="/profile" element={<Profile />} />
 
-        <Route element={<AuthRoutes />}>
+         <Route element={<AuthRoutes />}> 
           <Route path="/user/*" element={<UserProtectedRoutes />} />
           <Route path="/admin/*" element={<AdminProtectedRoutes />} />
-        </Route>
+          </Route> 
       </Routes>
     </>
   );
@@ -46,7 +49,10 @@ export function AdminRoutes() {
     <>
       <Routes>
         <Route path='/test' element={<Test />} />
-      </Routes>
+        <Route path="/" element={<AdminPage/>} />
+        <Route path="/camp" element={<CampSettingPage/>} />
+        <Route path="/camp/:id" element={<CampSettingDetailPage/>} />
+      </Routes> 
     </>
   )
 }
