@@ -13,10 +13,14 @@ import Payment from './routes/payment/Payment';
 import AdminPage from './routes/admin/AdminPage';
 import CampSettingPage from './routes/admin/CampSettingPage';
 import CampSettingDetailPage from './routes/admin/CampSettingDetailPage';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import CampListPage from './routes/campList/CampListPage';
 
 const App = () => {
   return (
     <>
+      <Header />
       <Routes>
         <Route path='/' element= {<Home />} />
         <Route path='/login' element={<Login />} />
@@ -24,12 +28,13 @@ const App = () => {
         <Route path='/payment' element={<Payment />} />
         <Route path='/join' element={<Join />} />
         <Route path="/profile" element={<Profile />} />
-
+        <Route path="/campList" element={<CampListPage />}/>
          <Route element={<AuthRoutes />}> 
           <Route path="/user/*" element={<UserProtectedRoutes />} />
           <Route path="/admin/*" element={<AdminProtectedRoutes />} />
           </Route> 
       </Routes>
+      <Footer/>
     </>
   );
 };

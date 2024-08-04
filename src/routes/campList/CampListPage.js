@@ -2,7 +2,7 @@
 import { useEffect,useState } from "react";
 import CampBox from "../../components/campList/CampBox";
 import SearchBar from "../../components/campList/SearchBar";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Pagination from 'react-js-pagination'
 import styled from 'styled-components'
 
@@ -43,7 +43,8 @@ function CampListPage(){
         <div style={{width:"1000px" , display:"flex" , flexWrap:"wrap"}}>
             {
                 campList?.map( item => 
-                    <CampBox src={item.firstImageUrl} price="50000원~" facltNm={item.facltNm}></CampBox>
+
+                  <Link to={`/detail/${item.seq}`} ><CampBox src={item.firstImageUrl} price="50000원~" facltNm={item.facltNm}></CampBox></Link>  
                 )
             }
         </div>

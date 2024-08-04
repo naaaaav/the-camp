@@ -42,7 +42,7 @@ const Home = () => {
 
   return (
     <div className="content">
-      <Header />
+      
       <header className="home-header">
         <h1>오늘은 어디로 가볼까?</h1>
       </header>
@@ -90,7 +90,7 @@ const Home = () => {
           ))}
         </div>
       )}
-      <Footer />
+      
     </div>
   );
 };

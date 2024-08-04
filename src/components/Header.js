@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Header = () => {
       <div className="logo">더캠프</div>
       <div className="nav-login-container">
         <nav className="nav">
-          <button onClick={() => handleNavClick('전체')}>전체</button>
+          <button><Link to="/campList?page=1">전체</Link></button>
           <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
           <button onClick={() => handleNavClick('카라반')}>카라반</button>
           <button onClick={() => handleNavClick('테마별')}>테마별</button>
