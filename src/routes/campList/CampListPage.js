@@ -16,6 +16,11 @@ function CampListPage(){
 
         // mount  -> index.html 의 script
 
+        const script = document.createElement("script");
+        script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=7b68b4d5b5ae9659c8d9d36de208ea73&autoload=false";
+        script.async = true;
+        document.body.appendChild(script);
+
         const response = fetch("http://localhost:8080/campsite?page="+query.get("page"),{
             method:'GET'
         }).then((res) => res.json())
@@ -32,6 +37,7 @@ function CampListPage(){
            
         });
         
+        return ()=> script.remove();
         
 
     },[query]);

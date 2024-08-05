@@ -16,6 +16,12 @@ function DetailPage(){
 
     useEffect(()=>{
 
+        const script = document.createElement("script");
+        script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=7b68b4d5b5ae9659c8d9d36de208ea73&autoload=false";
+        script.async = true;
+        document.body.appendChild(script);
+
+
         const response = fetch("http://localhost:8080/campsite/"+id , {
             method:'GET',
         }).then((res) => res.json())
@@ -34,6 +40,8 @@ function DetailPage(){
             console.log(data);
              setCampsite(data);
         });
+
+        return ()=> script.remove();
         
     },[id]);
 
