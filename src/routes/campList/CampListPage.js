@@ -32,6 +32,16 @@ function CampListPage(){
                 level: 14 
              };
             const map = new kakao.maps.Map(container, options);
+
+
+            for(let i =0;i<data.content.length;i++){
+                var marker = new kakao.maps.Marker({
+                    map:map,
+                    position: new kakao.maps.LatLng(data.content[i].mapY,data.content[i].mapX)
+                });
+            }
+
+
             setTotal(data.totalPages);
             setCampList(data.content);
            
@@ -56,11 +66,11 @@ function CampListPage(){
         </div>
             <PaginationBox>
             <Pagination
-             activePage={query.get("page")}
+             activePage={Number(query.get("page"))+1}
              itemsCountPerPage={6}
              totalItemsCount={total*6}
              pageRangeDisplayed={10}
-             onChange={(page)=> setQuery({page:page})}>
+             onChange={(page)=> setQuery({page:page-1})}>
             </Pagination>
             </PaginationBox>
         <div id="map" style={{width:'500px' , height:'400px'}}/>

@@ -37,6 +37,12 @@ function DetailPage(){
              };
 
             const map = new kakao.maps.Map(container, options);
+
+            var marker = new kakao.maps.Marker({
+                map:map,
+                position: new kakao.maps.LatLng(data?.mapY,data?.mapX)
+            });
+
             console.log(data);
              setCampsite(data);
         });
