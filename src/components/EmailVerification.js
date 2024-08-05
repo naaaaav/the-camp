@@ -13,11 +13,15 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: new URLSearchParams({ email }), // RequestParam에 맞춰 'mail'을 'email'로 변경
+        body: new URLSearchParams({ email }),
       });
 
+      if (!response.ok) {
+        throw new Error('인증 이메일 전송 실패');
+      }
+
       const data = await response.json();
-      console.log('Mail send response data:', data);
+      console.log('메일 전송 응답 데이터:', data);
 
       if (data.success) {
         alert('인증 이메일이 전송되었습니다.');
@@ -42,11 +46,15 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, authNumber: authCode }), // 서버로 email과 authNumber를 전송
+        body: JSON.stringify({ email, authNumber: authCode }),
       });
 
+      if (!response.ok) {
+        throw new Error('인증 코드 확인 실패');
+      }
+
       const data = await response.json();
-      console.log('Verify code response data:', data);
+      console.log('인증 코드 확인 응답 데이터:', data);
 
       if (data.success) {
         alert('인증 성공');
@@ -66,10 +74,11 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
   return (
     <div>
       <input
-        type="text"
+        type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="이메일"
+        required
       />
       <button type="button" onClick={sendVerificationEmail}>
         인증 이메일 전송
@@ -82,6 +91,7 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
             value={authCode}
             onChange={(e) => setAuthCode(e.target.value)}
             placeholder="인증 코드"
+            required
           />
           <button type="button" onClick={checkAuthCode}>
             인증 코드 확인
