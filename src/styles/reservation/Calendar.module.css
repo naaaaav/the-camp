@@ -1,0 +1,11 @@
+.calendarContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.dateInfo {
+    margin-top: 10px;
+    text-align: center;
+}
