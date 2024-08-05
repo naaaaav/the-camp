@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './routes/Home';
 import DetailPage from './routes/detail/DetailPage';
 import Login from './routes/user/Login';
-import './App.css'; 
+import './App.css';
 import Join from './routes/user/Join';
 import Profile from './routes/user/Profile';
 import AuthRoutes from './utils/AuthRoutes';
@@ -16,25 +16,27 @@ import CampSettingDetailPage from './routes/admin/CampSettingDetailPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import CampListPage from './routes/campList/CampListPage';
+import ReservationPage from './routes/reservation/ReservationPage';
 
 const App = () => {
   return (
     <>
       <Header />
       <Routes>
-        <Route path='/' element= {<Home />} />
+        <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/detail/:id' element={<DetailPage />} />
         <Route path='/payment' element={<Payment />} />
         <Route path='/join' element={<Join />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/campList" element={<CampListPage />}/>
-         <Route element={<AuthRoutes />}> 
+        <Route path="/campList" element={<CampListPage />} />
+        <Route element={<AuthRoutes />}>
           <Route path="/user/*" element={<UserProtectedRoutes />} />
           <Route path="/admin/*" element={<AdminProtectedRoutes />} />
-          </Route> 
+          <Route path='/reservation/:id' element={<ReservationPage />} />
+        </Route>
       </Routes>
-      <Footer/>
+      <Footer />
     </>
   );
 };
@@ -54,10 +56,10 @@ export function AdminRoutes() {
     <>
       <Routes>
         <Route path='/test' element={<Test />} />
-        <Route path="/" element={<AdminPage/>} />
-        <Route path="/camp" element={<CampSettingPage/>} />
-        <Route path="/camp/:id" element={<CampSettingDetailPage/>} />
-      </Routes> 
+        <Route path="/" element={<AdminPage />} />
+        <Route path="/camp" element={<CampSettingPage />} />
+        <Route path="/camp/:id" element={<CampSettingDetailPage />} />
+      </Routes>
     </>
   )
 }

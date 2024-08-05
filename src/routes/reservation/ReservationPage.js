@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from './../../components/Header';
 import Footer from './../../components/Footer';
-import Calendar from './../../components/Calendars';
+import Calendar from './../../components/Calendar';
 import styles from "../../styles/reservation/ReservationPage.module.css";
-import { getSiteByZone, getZoneByZoneSeq } from '../../tools/ZoneFunctions';
+import { getZoneByZoneSeq } from '../../tools/ZoneFunctions';
+import { getSiteByZone } from '../../tools/SiteFunctions';
 
 const formatTime = (timeString) => {
     const [hours, minutes] = timeString.split(':');
