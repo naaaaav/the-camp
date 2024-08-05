@@ -64,7 +64,6 @@ const ReservationPage = () => {
 
     return (
         <div className={styles.reservationPage}>
-            <Header />
             <div className={styles.content}>
                 {zone && (
                     <>
@@ -144,7 +143,6 @@ const ReservationPage = () => {
                     </>
                 )}
             </div>
-            <Footer />
         </div>
     );
 };
