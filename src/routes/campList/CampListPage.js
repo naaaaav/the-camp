@@ -34,7 +34,7 @@ function CampListPage(){
             const map = new kakao.maps.Map(container, options);
 
 
-            for(let i =0;i<data.content.length;i++){
+            for(let i =0;i<data?.content?.length;i++){
                 var marker = new kakao.maps.Marker({
                     map:map,
                     position: new kakao.maps.LatLng(data.content[i].mapY,data.content[i].mapX)
@@ -53,27 +53,29 @@ function CampListPage(){
     },[query]);
 
     return(
-    <div>
+    <div style={{display:"flex" , flexDirection:"column" , justifyContent:"center" , alignItems:"center"}}>
         <SearchBar></SearchBar>
-       
+        <div style={{display:"flex"}}>
         <div style={{width:"1000px" , display:"flex" , flexWrap:"wrap"}}>
             {
-                campList?.map( item => 
+                campList?.map( (item,i) => 
 
-                  <Link to={`/detail/${item.seq}`} ><CampBox src={item.firstImageUrl} price="50000원~" facltNm={item.facltNm}></CampBox></Link>  
+                  <Link to={`/detail/${item.seq}`} key={i} ><CampBox src={item.firstImageUrl} price="50000원~" facltNm={item.facltNm}></CampBox></Link>  
                 )
             }
+        </div>
+        <div id="map" style={{width:'500px' , height:'400px' , marginTop:"100px"}}/>
         </div>
             <PaginationBox>
             <Pagination
              activePage={Number(query.get("page"))+1}
              itemsCountPerPage={6}
              totalItemsCount={total*6}
-             pageRangeDisplayed={10}
+             pageRangeDisplayed={5}
              onChange={(page)=> setQuery({page:page-1})}>
             </Pagination>
             </PaginationBox>
-        <div id="map" style={{width:'500px' , height:'400px'}}/>
+        
     </div>
     );
 }

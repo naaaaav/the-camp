@@ -4,6 +4,7 @@ import TitleBox from "../../components/detail/TitleBox";
 import styles from "../../styles/detail/DetailPage.module.css"
 import ReviewBox from "../../components/detail/ReviewBox";
 import { useParams } from "react-router-dom";
+import ZoneBox from "../../components/admin/ZoneBox"
 
 const { kakao } = window;
 
@@ -22,7 +23,7 @@ function DetailPage(){
         document.body.appendChild(script);
 
 
-        const response = fetch("http://localhost:8080/campsite/"+id , {
+        const response = fetch("http://localhost:8080/campsite/zone/site/"+id , {
             method:'GET',
         }).then((res) => res.json())
         .then((data) => {
@@ -72,6 +73,21 @@ function DetailPage(){
             <TitleBox title="시설">
                 {
                     campsite.sbrsCl
+                }
+            </TitleBox>
+
+            <TitleBox title="구역">
+                {
+                    campsite?.zones?.map((item,i)=>
+                        <div style={{border:"1px solid black" , borderRadius:"10px",margin:"10px", width:"1200px"}}>
+                            <h3>{ item.title }</h3>
+                            <p>{ item.intro}</p>
+                            <p>
+                                <span>체크인:{item.checkin}</span>
+                                <span style={{marginLeft:"10px"}}>체크아웃:{item.checkin}</span>
+                            </p>
+                        </div>
+                    )
                 }
             </TitleBox>
 
