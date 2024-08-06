@@ -63,7 +63,7 @@ const Header = () => {
         </nav>
         {loggedIn ? (
           <div>
-            <button onClick={() => navigate('/profile')}>내정보</button>
+            <button className="profile-button" onClick={() => navigate('/profile')}>내정보</button>
             <button className="login-button" onClick={handleLogout}>Logout</button>
           </div>
         ) : (
