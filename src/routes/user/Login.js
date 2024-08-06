@@ -35,7 +35,7 @@ const Login = () => {
         const Authorization = response.headers.get('Authorization');
         if (Authorization) {
           localStorage.setItem('Authorization', Authorization);
-          logIn(); // Update authentication state
+          logIn(); 
 
           const roleResponse = await fetch('http://localhost:8080/api/role', {
             method: 'GET',
@@ -49,7 +49,7 @@ const Login = () => {
             const roleData = await roleResponse.json();
             const userRole = roleData.role;
 
-            setRole(userRole); // Update role in Recoil state
+            setRole(userRole); 
             alert('로그인 성공');
             navigate('/'); // 로그인 후 메인 페이지로 이동
           } else {
