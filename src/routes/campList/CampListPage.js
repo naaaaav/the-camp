@@ -37,9 +37,24 @@ function CampListPage(){
             for(let i =0;i<data?.content?.length;i++){
                 var marker = new kakao.maps.Marker({
                     map:map,
-                    position: new kakao.maps.LatLng(data.content[i].mapY,data.content[i].mapX)
+                    position: new kakao.maps.LatLng(data.content[i].mapY,data.content[i].mapX),
                 });
+
+                var content = '<div class="label" style="border: 1px solid gray ; background-color: white ; margin-bottom: 90px; border-radius:10px"><span class="center">'+
+                    data.content[i].facltNm
+                +'</span></div>';
+
+                var position = new kakao.maps.LatLng(data.content[i].mapY,data.content[i].mapX);
+
+                var customOverlay = new kakao.maps.CustomOverlay({
+                    position:position,
+                    content:content
+                });
+
+                customOverlay.setMap(map);
             }
+
+            
 
 
             setTotal(data.totalPages);

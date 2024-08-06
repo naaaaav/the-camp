@@ -54,7 +54,8 @@ function DetailPage(){
 
     
     return(
-        <div style={{margin:"0 auto"}}>
+        <div style={{margin:"0 auto", display:"flex" , justifyContent:"center"}}>
+            <div>
             <h1>{campsite.facltNm}</h1>
             <ImageBox width="1200px" height="200px" src={campsite.firstImageUrl}></ImageBox>
             <h5>{campsite.addr1}</h5>
@@ -106,7 +107,7 @@ function DetailPage(){
                    
                     
             </TitleBox>
-
+            </div>
         </div>
     );
 }
