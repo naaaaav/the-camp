@@ -5,11 +5,13 @@ import SearchBar from "../../components/campList/SearchBar";
 import { Link, useSearchParams } from "react-router-dom";
 import Pagination from 'react-js-pagination'
 import styled from 'styled-components'
+import { CampListAtom } from "../../recoil/atom/CampListAtom";
+import { useRecoilState } from "recoil";
 
 const { kakao } = window;
 function CampListPage(){
     //const [page,setPage] = useState(1);
-    const [campList,setCampList] =useState([]);
+    const [campList,setCampList] = useState([]);
     let [query, setQuery] = useSearchParams();
     const [total, setTotal] = useState(0);
     useEffect(()=>{
@@ -21,7 +23,8 @@ function CampListPage(){
         script.async = true;
         document.body.appendChild(script);
 
-        const response = fetch("http://localhost:8080/campsite?page="+query.get("page"),{
+        const response = fetch("http://localhost:8080/campsite/searchCampsites?page="+query.get("page")+"&query="+query.get("query")+"&type="+query.get("type")
+        +"&size=6",{
             method:'GET'
         }).then((res) => res.json())
         .then((data) => {
@@ -69,7 +72,7 @@ function CampListPage(){
 
     return(
     <div style={{display:"flex" , flexDirection:"column" , justifyContent:"center" , alignItems:"center"}}>
-        <SearchBar></SearchBar>
+        <SearchBar setQuery={setQuery}></SearchBar>
         <div style={{display:"flex"}}>
         <div style={{width:"1000px" , display:"flex" , flexWrap:"wrap"}}>
             {
@@ -87,7 +90,18 @@ function CampListPage(){
              itemsCountPerPage={6}
              totalItemsCount={total*6}
              pageRangeDisplayed={5}
-             onChange={(page)=> setQuery({page:page-1})}>
+             onChange={(page)=> {
+                
+                setQuery((prev) => {
+                    
+                    prev.set('page',page-1);
+                    prev.set('type', prev.get("type"));
+                    prev.set('query',prev.get("query"));
+
+                    return prev;
+                    
+                })
+             }}>
             </Pagination>
             </PaginationBox>
         

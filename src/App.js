@@ -35,8 +35,9 @@ const App = () => {
           <Route path="/admin/*" element={<AdminProtectedRoutes />} />
           <Route path='/reservation/:id' element={<ReservationPage />} />
         </Route>
-      </Routes>
+      </Routes> 
       <Footer />
+      
     </>
   );
 };
