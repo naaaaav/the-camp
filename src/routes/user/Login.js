@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ResetPasswordForm from '../../components/ResetPassword'; // 비밀번호 찾기 폼 컴포넌트 import
+import ResetPasswordForm from '../../components/ResetPassword'; 
+import { useAuth } from '../../utils/AuthContext';
+import { useSetRecoilState } from 'recoil';
+import { roleAtom } from '../../recoil/atom/UserAtom';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { logIn } = useAuth(); // Get logIn function from context
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: ''
   });
   const [showResetPassword, setShowResetPassword] = useState(false);
+  const setRole = useSetRecoilState(roleAtom);
 
   const onChangeForm = (e) => {
     setLoginForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -30,8 +35,8 @@ const Login = () => {
         const Authorization = response.headers.get('Authorization');
         if (Authorization) {
           localStorage.setItem('Authorization', Authorization);
+          logIn(); // Update authentication state
 
-          
           const roleResponse = await fetch('http://localhost:8080/api/role', {
             method: 'GET',
             headers: {
@@ -44,18 +49,11 @@ const Login = () => {
             const roleData = await roleResponse.json();
             const userRole = roleData.role;
 
+            setRole(userRole); // Update role in Recoil state
             alert('로그인 성공');
-
-           
-            if (userRole === 'ADMIN') {
-              navigate('/api/admin');
-            } else if (userRole === 'USER') {
-              navigate('/api/user');
-            } else {
-              navigate('/');
-            }
+            navigate('/'); // 로그인 후 메인 페이지로 이동
           } else {
-            alert('사용자 역할을 가져오는 중 오류가 발생했습니다.');
+            alert('역할 정보를 가져오는 중 오류가 발생했습니다.');
           }
         } else {
           alert('인증 토큰을 가져오는 중 오류가 발생했습니다.');

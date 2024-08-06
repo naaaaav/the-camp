@@ -1,11 +1,23 @@
-export const logOut = () => {
-  localStorage.removeItem('Authorization');
-  };
-  
-  export const isLoggedIn = () => {
-    
-    const Authorization = localStorage.getItem('Authorization');
+// AuthContext.js
+import React, { createContext, useState, useContext } from 'react';
 
-    return !!Authorization;
+const AuthContext = createContext();
+
+export const AuthProvider = ({ children }) => {
+  const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('Authorization'));
+
+  const logIn = () => setLoggedIn(true);
+  const logOut = () => {
+    localStorage.removeItem('Authorization');
+    
+    setLoggedIn(false);
   };
-  
+
+  return (
+    <AuthContext.Provider value={{ loggedIn, logIn, logOut }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => useContext(AuthContext);

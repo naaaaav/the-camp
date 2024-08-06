@@ -1,0 +1,32 @@
+.zoneContainer{
+    border: 1px solid black;
+}
+
+.siteBox{
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+
+.siteContainer{
+    display: flex;
+}
+
+.table{
+    width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+}
+
+.table  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.table th{
+   
+    background-color: #f4f4f4;
+}
