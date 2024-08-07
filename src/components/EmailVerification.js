@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './EmailVerification.css'; // Import the CSS file
 
 const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
   const [email, setEmail] = useState('');
@@ -72,33 +73,44 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
   };
 
   return (
-    <div>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="이메일"
-        required
-      />
-      <button type="button" onClick={sendVerificationEmail}>
-        인증 이메일 전송
-      </button>
-      <br />
+    <div className="EmailVerification">
+      <div className="input-container">
+        <input
+          type="email"
+          className="email-input"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="이메일"
+          required
+        />
+        <button
+          type="button"
+          className="send-button"
+          onClick={sendVerificationEmail}
+        >
+          인증 이메일 전송
+        </button>
+      </div>
       {isEmailSent && (
-        <>
+        <div className="auth-code-container">
           <input
             type="text"
+            className="auth-code-input"
             value={authCode}
             onChange={(e) => setAuthCode(e.target.value)}
             placeholder="인증 코드"
             required
           />
-          <button type="button" onClick={checkAuthCode}>
+          <button
+            type="button"
+            className="verify-button"
+            onClick={checkAuthCode}
+          >
             인증 코드 확인
           </button>
-        </>
+        </div>
       )}
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {error && <div className="error-message">{error}</div>}
     </div>
   );
 };

@@ -1,14 +1,47 @@
-import React from 'react';
+import React, { useEffect }  from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { roleAtom } from '../recoil/atom/UserAtom';
 import { useAuth } from '../utils/AuthContext'; 
 import './Header.css';
+import { useSetRecoilState } from 'recoil';
 
 const Header = () => {
   const navigate = useNavigate();
   const { loggedIn, logOut } = useAuth();
   const role = useRecoilValue(roleAtom);
+  const setRole = useSetRecoilState(roleAtom);
+
+  useEffect(() => {
+    const fetchRole = async () => {
+      const Authorization = localStorage.getItem('Authorization');
+      if (Authorization) {
+        try {
+          const response = await fetch('http://localhost:8080/api/role', {
+            method: 'GET',
+            headers: {
+              "Authorization": Authorization,
+              "Content-Type": "application/json",
+            },
+          });
+
+          if (response.ok) {
+            const roleData = await response.json();
+            setRole(roleData.role);
+          } else {
+            console.error('역할을 가져오는 데 실패했습니다');
+          }
+        } catch (error) {
+          console.error('역할을 가져오는 중 오류 발생:', error);
+        }
+      }
+    };
+
+    if (loggedIn) {
+      fetchRole();
+    }
+  }, [loggedIn, setRole]);
+
 
   const handleNavClick = (category) => {
     navigate(`/?category=${category}`);
@@ -44,8 +77,13 @@ const Header = () => {
       case 'ROLE_USER':
         return (
           <>
-            <button onClick={() => navigate('/user/profile')}>Profile</button>
-            <button onClick={() => navigate('/user/settings')}>Settings</button>
+            <button><a href="/campList?page=0">전체</a></button>
+            <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
+            <button onClick={() => handleNavClick('카라반')}>카라반</button>
+            <button onClick={() => handleNavClick('테마별')}>테마별</button>
+            <button onClick={() => handleNavClick('리뷰')}>리뷰</button>
+            <button onClick={() => navigate('/profile')}>Profile</button>
+
           </>
         );
       case 'ROLE_GUEST':
@@ -63,11 +101,14 @@ const Header = () => {
         </nav>
         {loggedIn ? (
           <div>
-            <button className="profile-button" onClick={() => navigate('/profile')}>내정보</button>
-            <button className="login-button" onClick={handleLogout}>Logout</button>
+            <button className="logout-button" onClick={handleLogout}>Logout</button>
           </div>
         ) : (
-          <button className="login-button" onClick={() => navigate('/login')}>Login</button>
+          <>
+            <button className="login-button" onClick={() => navigate('/login')}>Login</button>
+            
+            <button className="join-button" onClick={() => navigate('/join')}>Join</button>
+          </>
         )}
       </div>
     </header>

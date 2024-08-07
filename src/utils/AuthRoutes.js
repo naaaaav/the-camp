@@ -46,7 +46,7 @@ const AuthRoutes = () => {
         console.error(error);
       }
     })()
-  }, [rolePath])
+  }, [rolePath, setRole])
   
   return (
     (!loading) ? <></> : 

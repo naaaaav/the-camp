@@ -24,8 +24,11 @@
   }
   
   .nav button {
+    
     background: none;
     border: none;
+    text-align: center;
+
     cursor: pointer;
     font-size: 16px;
   }
@@ -35,7 +38,20 @@
   }
   
   .login-button {
+    width: 80px;
+    height: 38px;
     padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .logout-button{
+    width: 80px;
+    height: 38px;
+    padding: 10px 10px;
     background-color: #007bff;
     border: none;
     color: white;
@@ -43,14 +59,22 @@
     cursor: pointer;
   }
 
-  .profile-button{
-    background-color: #0e6fd6;
+  .join-button{
+    width: 80px;
+    height: 38px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
     color: white;
     border-radius: 4px;
-
+    cursor: pointer;
+    
   }
   
   .login-button:hover {
+    background-color: #0056b3;
+  }
+  .join-button:hover{
     background-color: #0056b3;
   }
   
