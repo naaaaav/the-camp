@@ -16,6 +16,7 @@ import CampSettingDetailPage from './routes/admin/CampSettingDetailPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import CampListPage from './routes/campList/CampListPage';
+import ZonePage from './routes/reservation/ZonePage';
 import ReservationPage from './routes/reservation/ReservationPage';
 
 const App = () => {
@@ -33,11 +34,12 @@ const App = () => {
         <Route element={<AuthRoutes />}>
           <Route path="/user/*" element={<UserProtectedRoutes />} />
           <Route path="/admin/*" element={<AdminProtectedRoutes />} />
-          <Route path='/reservation/:id' element={<ReservationPage />} />
+          <Route path='/zone/:id' element={<ZonePage />} />
+          <Route path='/reservation' element={<ReservationPage />} />
         </Route>
-      </Routes> 
+      </Routes>
       <Footer />
-      
+
     </>
   );
 };
@@ -60,6 +62,7 @@ export function AdminRoutes() {
         <Route path="/" element={<AdminPage />} />
         <Route path="/camp" element={<CampSettingPage />} />
         <Route path="/camp/:id" element={<CampSettingDetailPage />} />
+
       </Routes>
     </>
   )
