@@ -97,7 +97,9 @@ const Header = () => {
       <div className="logo">더캠프</div>
       <div className="nav-login-container">
         <nav className="nav">
+
           {renderMenu()}
+
         </nav>
         {loggedIn ? (
           <div>
