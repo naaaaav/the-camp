@@ -12,14 +12,25 @@ const formatTime = (timeString) => {
     return `${hours}:${minutes}`;
 };
 
+const calculateTotalPrice = (start, end, pricePerDay) => {
+    if (!start || !end || !pricePerDay) return 0;
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const days = (endDate - startDate) / (1000 * 60 * 60 * 24);
+    return days * pricePerDay;
+};
+
 const ReservationPage = () => {
     const { id } = useParams();
     const [adults, setAdults] = useState(1);
     const [children, setChildren] = useState(1);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [days, setDays] = useState(null);
     const [datesSelected, setDatesSelected] = useState(false);
     const [sites, setSites] = useState([]);
     const [zone, setZone] = useState(null);
-    const [selectedSite, setSelectedSite] = useState(null); // 선택된 사이트 정보를 저장하는 상태
+    const [selectedSite, setSelectedSite] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,27 +52,32 @@ const ReservationPage = () => {
         fetchData();
     }, [id]);
 
-    useEffect(() => {
-        console.log('Sites:', sites);
-    }, [sites]);
-
-    useEffect(() => {
-        console.log('Zone:', zone);
-    }, [zone]);
-
     const handleIncrease = (setter, value) => setter(value + 1);
     const handleDecrease = (setter, value) => value > 1 && setter(value - 1);
 
     const handleDatesSelected = (start, end) => {
         if (start && end) {
+            setStartDate(start);
+            setEndDate(end);
             setDatesSelected(true);
+            const startDate = new Date(start);
+            const endDate = new Date(end);
+            const days = (endDate - startDate) / (1000 * 60 * 60 * 24);
+            setDays(days);
+        } else {
+            setDatesSelected(false);
+            setDays(null);
         }
     };
 
     const handleSiteClick = (site) => {
-        setSelectedSite(site); // 클릭된 사이트 정보를 상태에 저장
-        console.log(selectedSite);
+        setSelectedSite(site);
+        console.log(site);
     };
+
+    const totalPrice = zone ? calculateTotalPrice(startDate, endDate, zone.offSeasonPrice) : 0;
+    console.log(startDate, endDate);
+    console.log(totalPrice);
 
     return (
         <div className={styles.reservationPage}>
@@ -71,13 +87,19 @@ const ReservationPage = () => {
                         <img src={zone.campSiteImg} alt="캠핑장 이미지" className={styles.mainImage} />
                         <h1>{zone.campSiteName}</h1>
                         <h2>{zone.title}</h2>
+                        <h3>캠핑존 소개</h3>
                         <p>{zone.intro}</p>
+                        <h3>캠핑존 세부 정보</h3>
                         <p>체크인·체크아웃 {formatTime(zone.checkin)} ~ {formatTime(zone.checkout)}</p>
                         <p>비성수기 가격: {zone.offSeasonPrice}</p>
                         <p>성수기 가격: {zone.peakSeasonPrice}</p>
                         <p>극성수기 가격: {zone.bestPeakSeasonPrice}</p>
                     </>
                 )}
+                <div className={styles.map}>
+                    <h3>배치도</h3>
+                    {/* <img src="https://your-map-url.com" alt="배치도" /> */}
+                </div>
                 <h2>예약안내</h2>
                 <div className={styles.selection}>
                     <div className={styles.calendar}>
@@ -115,10 +137,6 @@ const ReservationPage = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className={styles.map}>
-                            <h3>배치도</h3>
-                            <img src="https://your-map-url.com" alt="배치도" />
-                        </div>
                         <div className={styles.info}>
                             <h3>안내사항</h3>
                             <ul>
@@ -126,16 +144,13 @@ const ReservationPage = () => {
                                 <li>취소 및 변경 불가...</li>
                             </ul>
                         </div>
-                        {selectedSite && (
-                            <div className={styles.selectedSiteInfo}>
-                                <h3>선택된 사이트 정보</h3>
-                                <p>사이트 제목: {selectedSite.title}</p>
-                                {/* 필요에 따라 다른 사이트 정보도 추가할 수 있습니다 */}
-                            </div>
-                        )}
                         <div className={styles.price}>
-                            <p>1박 2일 (2023 08 28 ~ 29)</p>
-                            <p>총 99,000 원</p>
+                            {startDate && endDate && (
+                                <>
+                                    <p>{(startDate).toLocaleDateString()} ~ {(endDate).toLocaleDateString()}</p>
+                                    <p>총 {totalPrice} 원 / {days}박</p>
+                                </>
+                            )}
                         </div>
                         <div className={styles.actions}>
                             <button className={styles.couponButton}>쿠폰 적용하기</button>
