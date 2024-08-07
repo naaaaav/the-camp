@@ -23,7 +23,13 @@ const Calendar = ({ isAdmin, onDatesSelected }) => {
                 setStartDate(null);
                 setEndDate(null);
                 setDays(0);
-            } else {
+            } else if (diffDays === 0) {
+                alert('1박 이상만 가능합니다.');
+                setStartDate(null);
+                setEndDate(null);
+                setDays(0);
+            }
+            else {
                 onDatesSelected(start, end);
             }
         }
