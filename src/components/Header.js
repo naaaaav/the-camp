@@ -18,7 +18,7 @@ const Header = () => {
           <button><Link to="/campList?page=0">전체</Link></button>
           <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
           <button onClick={() => handleNavClick('카라반')}>카라반</button>
-          <button onClick={() => handleNavClick('테마별')}>테마별</button>
+          <button><Link to="/theme">테마별</Link></button>
           <button onClick={() => handleNavClick('리뷰')}>리뷰</button>
         </nav>
         <button className="login-button" onClick={() => navigate('/login')}>Login</button>

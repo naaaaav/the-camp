@@ -17,6 +17,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import CampListPage from './routes/campList/CampListPage';
 import ReservationPage from './routes/reservation/ReservationPage';
+import ThemePage from './routes/campList/ThemePage';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Route path='/join' element={<Join />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/campList" element={<CampListPage />} />
+        <Route path="/theme" element={<ThemePage/>}/>
         <Route element={<AuthRoutes />}>
           <Route path="/user/*" element={<UserProtectedRoutes />} />
           <Route path="/admin/*" element={<AdminProtectedRoutes />} />

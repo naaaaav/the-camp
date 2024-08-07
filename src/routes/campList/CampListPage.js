@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import { CampListAtom } from "../../recoil/atom/CampListAtom";
 import { useRecoilState } from "recoil";
 
-const { kakao } = window;
+
 function CampListPage(){
     //const [page,setPage] = useState(1);
     const [campList,setCampList] = useState([]);
@@ -21,35 +21,36 @@ function CampListPage(){
         const script = document.createElement("script");
         script.src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=7b68b4d5b5ae9659c8d9d36de208ea73&autoload=false";
         script.async = true;
-        document.body.appendChild(script);
+        document.head.appendChild(script);
 
-        const response = fetch("http://localhost:8080/campsite/searchCampsites?page="+query.get("page")+"&query="+query.get("query")+"&type="+query.get("type")
+        script.addEventListener("load", ()=>{
+            window.kakao.maps.load(()=>{
+                const container = document.getElementById('map');
+             const options = {
+                center: new window.kakao.maps.LatLng(37.499453350021426, 127.03316070814535),
+                level: 14 
+             };
+                const map = new window.kakao.maps.Map(container, options);
+
+                const response = fetch("http://localhost:8080/campsite/searchCampsites?page="+query.get("page")+"&query="+query.get("query")+"&type="+query.get("type")
         +"&size=6",{
             method:'GET'
         }).then((res) => res.json())
         .then((data) => {
             
-            const container = document.getElementById('map');
-             const options = {
-                center: new kakao.maps.LatLng(37.499453350021426, 127.03316070814535),
-                level: 14 
-             };
-            const map = new kakao.maps.Map(container, options);
-
-
             for(let i =0;i<data?.content?.length;i++){
-                var marker = new kakao.maps.Marker({
+                var marker = new window.kakao.maps.Marker({
                     map:map,
-                    position: new kakao.maps.LatLng(data.content[i].mapY,data.content[i].mapX),
+                    position: new window.kakao.maps.LatLng(data.content[i].mapY,data.content[i].mapX),
                 });
 
-                var content = '<div class="label" style="border: 1px solid gray ; background-color: white ; margin-bottom: 90px; border-radius:10px"><span class="center">'+
+                const content = '<div class="label" style="border: 1px solid gray ; background-color: white ; margin-bottom: 90px; border-radius:10px"><span class="center">'+
                     data.content[i].facltNm
                 +'</span></div>';
 
-                var position = new kakao.maps.LatLng(data.content[i].mapY,data.content[i].mapX);
+                const position = new window.kakao.maps.LatLng(data.content[i].mapY,data.content[i].mapX);
 
-                var customOverlay = new kakao.maps.CustomOverlay({
+                const customOverlay = new window.kakao.maps.CustomOverlay({
                     position:position,
                     content:content
                 });
@@ -63,6 +64,11 @@ function CampListPage(){
             setTotal(data.totalPages);
             setCampList(data.content);
            
+        });
+
+
+
+            })
         });
         
         return ()=> script.remove();
