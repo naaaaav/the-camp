@@ -35,8 +35,8 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
       }
     } catch (error) {
       console.error('이메일 전송 중 오류 발생:', error);
-      alert('서버 오류입니다.');
-      setError('서버 오류입니다.');
+      alert('이메일을 입력하세요');
+      setError('이메일을 입력하세요');
     }
   };
 
@@ -55,7 +55,6 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
       }
 
       const data = await response.json();
-      console.log('인증 코드 확인 응답 데이터:', data);
 
       if (data.success) {
         alert('인증 성공');
@@ -80,7 +79,7 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
           className="email-input"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="이메일"
+          placeholder="이메일을 입력해주세요"
           required
         />
         <button
@@ -91,14 +90,18 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
           인증 이메일 전송
         </button>
       </div>
+      
       {isEmailSent && (
+        <>
+        <div className="verify-label">Verfiy-code</div>
         <div className="auth-code-container">
+          
           <input
             type="text"
             className="auth-code-input"
             value={authCode}
             onChange={(e) => setAuthCode(e.target.value)}
-            placeholder="인증 코드"
+            placeholder="인증 코드를 입력해주세요"
             required
           />
           <button
@@ -109,6 +112,7 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
             인증 코드 확인
           </button>
         </div>
+        </>
       )}
       {error && <div className="error-message">{error}</div>}
     </div>

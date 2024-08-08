@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import Header from '../components/Header';
 import SearchBar from '../components/home/SearchBar';
 import Footer from '../components/Footer';
 import './Home.css';

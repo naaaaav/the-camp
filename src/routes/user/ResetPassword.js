@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './ResetPassword.css'
 
 const ResetPasswordForm = ({ setShowResetPassword }) => {
   const [email, setEmail] = useState('');
@@ -33,21 +34,24 @@ const ResetPasswordForm = ({ setShowResetPassword }) => {
   };
 
   return (
-    <div>
+    <div className="reset-password-container">
       <h2>비밀번호 재설정</h2>
       <form onSubmit={handleResetPassword}>
-        <div>
+        <div className="form-group">
           <label htmlFor="reset-email">이메일 주소:</label>
           <input
             type="email"
             id="reset-email"
+            className='input-email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
-        <button type="submit">임시 비밀번호 요청</button>
-        <button type="button" onClick={() => setShowResetPassword(false)}>취소</button>
+        <div className="button-group">
+          <button type="submit">임시 비밀번호 요청</button>
+          <button type="button" onClick={() => setShowResetPassword(false)}>취소</button>
+        </div>
         {message && <p>{message}</p>}
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
