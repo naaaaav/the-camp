@@ -8,6 +8,7 @@ const AuthRoutes = () => {
   const [role, setRole] = useRecoilState(roleAtom);
   const rolePath = useRecoilValue(rolePathAtom);
   
+  
   useEffect(() => {
     setLoading(false);
     const authorization = localStorage.getItem('Authorization');
@@ -19,6 +20,7 @@ const AuthRoutes = () => {
     
     (async () => {
       try {
+        if (rolePath === '/') return;
         const response =  await fetch('http://localhost:8080/api/role', {
           method : 'GET',
           headers : {
@@ -46,6 +48,7 @@ const AuthRoutes = () => {
         console.error(error);
       }
     })()
+    console.log(rolePath);
   }, [rolePath])
   
   return (
