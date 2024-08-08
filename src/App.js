@@ -27,7 +27,6 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/detail/:id' element={<DetailPage />} />
-        <Route path='/payment' element={<Payment />} />
         <Route path='/join' element={<Join />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/campList" element={<CampListPage />} />
@@ -48,6 +47,7 @@ export function UserRoutes() {
   return (
     <>
       <Routes>
+        <Route path='/payment' element={<Payment />} />
         <Route path='/test' element={<Test />} />
       </Routes>
     </>

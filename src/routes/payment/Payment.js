@@ -1,6 +1,13 @@
 import * as PortOne from "@portone/browser-sdk/v2";
 import apiFetch from "../../utils/api";
+import { useLocation } from 'react-router-dom';
+
 const Payment = () => {
+  const location = useLocation();
+  const { state } = location;
+  console.log("테스트 시작");
+  console.log(state);
+  console.log("테스트 끝");
   const kaKaoPaymentAlert = async () => {
     try {
       const paymentId = `kakao-payment-${crypto.randomUUID()}`;
@@ -118,24 +125,6 @@ const Payment = () => {
     if (response.status === 201) {
       alert("결제 취소 성공");
     }
-  }
-
-  const reservationData = async (reservationId) => {
-    const response = await apiFetch(`/reservation/${reservationId}`,{
-      method: "GET",
-      headers: { 
-        "Content-Type": "application/json",
-        "access" : localStorage.getItem("access")
-      },
-    });
-
-    const json = await response.json();
-
-    //json 가공
-    
-    //예약명
-    //예약시간
-    //총금액
   }
   
   return (

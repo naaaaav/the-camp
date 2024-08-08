@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Header from './../../components/Header';
 import Footer from './../../components/Footer';
 import Calendar from './../../components/Calendar';
@@ -21,6 +21,7 @@ const calculateTotalPrice = (start, end, pricePerDay) => {
 };
 
 const ReservationPage = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const [adults, setAdults] = useState(1);
     const [children, setChildren] = useState(1);
@@ -78,6 +79,20 @@ const ReservationPage = () => {
     const totalPrice = zone ? calculateTotalPrice(startDate, endDate, zone.offSeasonPrice) : 0;
     console.log(startDate, endDate);
     console.log(totalPrice);
+
+    const sendToPayment = () => {
+        const data = {
+            campSiteName : zone.campSiteName,
+            totalPrice : totalPrice,
+            campsiteSeq : id, //id가 camsiteSeq가 맞나요?
+            siteSeq : selectedSite, //siteSeq를 어디서 가져와야할지 잘 모르겠습니다...
+            reserveStartDate : startDate,
+            reserveEndDate : endDate,
+            adults : adults,
+            children : children,
+        }
+        navigate('/user/payment', {state : data});
+    }
 
     return (
         <div className={styles.reservationPage}>
@@ -154,7 +169,12 @@ const ReservationPage = () => {
                         </div>
                         <div className={styles.actions}>
                             <button className={styles.couponButton}>쿠폰 적용하기</button>
-                            <button className={styles.paymentButton}>결제하기</button>
+                            <button
+                                className={styles.paymentButton}
+                                onClick={sendToPayment}
+                            >
+                                결제하기
+                            </button>
                         </div>
                     </>
                 )}
