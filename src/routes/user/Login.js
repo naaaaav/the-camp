@@ -1,9 +1,13 @@
 import {  useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import ResetPasswordForm from '../../components/ResetPassword'; 
 import { useAuth } from '../../utils/AuthContext';
 import { useSetRecoilState } from 'recoil';
 import { roleAtom } from '../../recoil/atom/UserAtom';
+
+import apiFetch from '../../utils/api';
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,15 +25,18 @@ const Login = () => {
 
   const LoginProcess = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginForm),
-      });
+
+    const response =  await apiFetch('/login', {
+      method : 'POST',
+      credentials : 'include',
+      headers : {
+        "Content-Type": "application/json",
+      },
+      body : JSON.stringify(loginForm),
+    })
+
 
       if (response.ok) {
         const Authorization = response.headers.get('Authorization');

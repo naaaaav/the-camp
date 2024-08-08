@@ -1,6 +1,7 @@
+import apiFetch from "../../utils/api"
 const TestPage = () => {
   const api_test =  async (e) => {
-    const response =  await fetch('http://localhost:8080', {
+    const response =  await apiFetch('/', {
       method : 'GET',
       headers : {
         "Content-Type": "application/json",

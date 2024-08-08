@@ -7,6 +7,7 @@ import Pagination from 'react-js-pagination'
 import styled from 'styled-components'
 import { CampListAtom } from "../../recoil/atom/CampListAtom";
 import { useRecoilState } from "recoil";
+import apiFetch from "../../utils/api";
 
 
 function CampListPage(){
@@ -32,7 +33,7 @@ function CampListPage(){
              };
                 const map = new window.kakao.maps.Map(container, options);
 
-                const response = fetch("http://localhost:8080/campsite/searchCampsites?page="+query.get("page")+"&query="+query.get("query")+"&type="+query.get("type")
+                const response = apiFetch("/campsite/searchCampsites?page="+query.get("page")+"&query="+query.get("query")+"&type="+query.get("type")
         +"&size=6",{
             method:'GET'
         }).then((res) => res.json())

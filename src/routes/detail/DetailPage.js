@@ -5,7 +5,7 @@ import styles from "../../styles/detail/DetailPage.module.css"
 import ReviewBox from "../../components/detail/ReviewBox";
 import { useParams } from "react-router-dom";
 import ZoneBox from "../../components/admin/ZoneBox"
-
+import apiFetch from "../../utils/api";
 
 
 function DetailPage(){
@@ -23,7 +23,7 @@ function DetailPage(){
 
         script.addEventListener("load", ()=>{
             window.kakao.maps.load(()=>{
-                const response = fetch("http://localhost:8080/campsite/zone/site/"+id , {
+                const response = apiFetch("/campsite/zone/site/"+id , {
                     method:'GET',
                 }).then((res) => res.json())
                 .then((data) => {

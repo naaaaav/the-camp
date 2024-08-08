@@ -1,5 +1,8 @@
 import { useState } from 'react';
+
 import './EmailVerification.css'; // Import the CSS file
+
+import apiFetch from '../utils/api';
 
 const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
   const [email, setEmail] = useState('');
@@ -9,7 +12,7 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
 
   const sendVerificationEmail = async () => {
     try {
-      const response = await fetch('http://localhost:8080/mailSend', {
+      const response = await apiFetch('/mailSend', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -42,7 +45,7 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
 
   const checkAuthCode = async () => {
     try {
-      const response = await fetch('http://localhost:8080/verify-code', {
+      const response = await apiFetch('/verify-code', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
