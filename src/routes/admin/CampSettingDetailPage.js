@@ -2,6 +2,8 @@ import React,{ useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import TitleBox from "../../components/detail/TitleBox";
 import styles from '../../styles/admin/campSettingDetailPage.module.css';
+import apiFetch from "../../utils/api";
+
 
 function CampSettingDetailPage(){
 
@@ -40,7 +42,7 @@ function CampSettingDetailPage(){
 
     useEffect(()=>{
 
-        fetch("http://localhost:8080/campsite/zone/site/"+id , {
+        apiFetch("/campsite/zone/site/"+id , {
             method:'GET',
         }).then((res) => res.json())
         .then(data => {
@@ -49,7 +51,7 @@ function CampSettingDetailPage(){
         });
 
 
-        fetch("http://localhost:8080/season/campsiteSeq/"+id , {
+        apiFetch("/season/campsiteSeq/"+id , {
             method:'GET'
         }).then((res) => res.json())
         .then(data => {
@@ -60,7 +62,7 @@ function CampSettingDetailPage(){
     },[id]);
 
     const deleteZone = (seq) => {
-        fetch("http://localhost:8080/zone/"+seq , {
+        apiFetch("/zone/"+seq , {
             method:'DELETE',
         }).then((res) => res.json())
         .then(data => {
@@ -69,7 +71,7 @@ function CampSettingDetailPage(){
     }
 
     const deleteSeason = (seq) => {
-        fetch("http://localhost:8080/season/"+seq , {
+        apiFetch("/season/"+seq , {
             method:'DELETE',
         }).then((res)=> res.json())
         .then(data => {
@@ -104,7 +106,7 @@ function CampSettingDetailPage(){
     }
 
     const insertSeason = (e) => {
-        fetch("http://localhost:8080/season" , {
+        apiFetch("/season" , {
             method:'POST',
             headers:{
                 'Content-Type': 'application/json',
@@ -190,7 +192,7 @@ function CampSettingDetailPage(){
                                 
                         </table>
                         <button onClick={()=> {
-                            fetch("http://localhost:8080/zone" ,{
+                            apiFetch("/zone" ,{
                                 method: 'POST',
                                 headers:{
                                     'Content-Type': 'application/json',

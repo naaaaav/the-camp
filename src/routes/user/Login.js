@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import apiFetch from '../../utils/api';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Login = () => {
 
   const LoginProcess =  async (e) => {
     e.preventDefault();
-    const response =  await fetch('http://localhost:8080/login', {
+    const response =  await apiFetch('/login', {
       method : 'POST',
       credentials : 'include',
       headers : {

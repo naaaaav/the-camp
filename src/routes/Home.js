@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import SearchBar from '../components/home/SearchBar';
 import Footer from '../components/Footer';
 import './Home.css';
+import apiFetch from '../utils/api';
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -20,7 +21,9 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   const fetchResults = async (query, region, category, page) => {
-    const response = await fetch(`/searchCampsites?query=${query || ''}&region=${region || ''}&category=${category || ''}&page=${page}&size=9`);
+    const response = await apiFetch(`/campsite/searchCampsites?query=${query || ''}&region=${region || ''}&category=${category || ''}&page=${page}&size=9`,{
+      method:'GET'
+    });
     const data = await response.json();
     setResults(data.content);
     setTotalPages(data.totalPages);

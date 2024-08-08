@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import apiFetch from '../../utils/api';
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -17,7 +18,7 @@ const Profile = () => {
           return;
         }
 
-        const response = await fetch('http://localhost:8080/api/user/profile', {
+        const response = await apiFetch('http://localhost:8080/api/user/profile', {
           method: 'GET',
           headers: {
             'Authorization': token, 

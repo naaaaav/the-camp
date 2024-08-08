@@ -1,5 +1,5 @@
 import * as PortOne from "@portone/browser-sdk/v2";
-
+import apiFetch from "../../utils/api";
 const Payment = () => {
   const kaKaoPaymentAlert = async () => {
     try {
@@ -24,7 +24,7 @@ const Payment = () => {
         return alert(response.message);
       }
         
-      const notified = await fetch(`http://localhost:8080/payment/complete`, {
+      const notified = await apiFetch(`/payment/complete`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const Payment = () => {
         return alert(response.message);
       }
         
-      const notified = await fetch(`http://localhost:8080/payment/complete`, {
+      const notified = await apiFetch(`/payment/complete`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -104,7 +104,7 @@ const Payment = () => {
   const cancelPayment = async () => {
     const paymentId = "kakao-payment-28676157-fe33-4243-bffe-bc842bfc2003";
     
-    const response = await fetch(`http://localhost:8080/payment/cancel`,{
+    const response = await apiFetch(`/payment/cancel`,{
       method: "POST",
       headers: { 
         "Content-Type": "application/json",
@@ -121,7 +121,7 @@ const Payment = () => {
   }
 
   const reservationData = async (reservationId) => {
-    const response = await fetch(`http://localhost:8080/reservation/${reservationId}`,{
+    const response = await apiFetch(`/reservation/${reservationId}`,{
       method: "GET",
       headers: { 
         "Content-Type": "application/json",

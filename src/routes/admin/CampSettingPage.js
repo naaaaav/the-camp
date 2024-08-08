@@ -4,6 +4,7 @@ import Pagination from 'react-js-pagination'
 import styled from 'styled-components'
 import ImageBox from "../../components/detail/ImageBox";
 import TitleBox from "../../components/detail/TitleBox";
+import apiFetch from "../../utils/api";
 
 function CampSettingPage(){
     const [keyword,setKeyword] = useState("");
@@ -11,7 +12,7 @@ function CampSettingPage(){
     let [searchParam, setSearchParam ] = useSearchParams();
     useEffect(()=>{
 
-        fetch("http://localhost:8080/campsite/searchCampsites?page="+searchParam.get("page")+"&query="+searchParam.get("keyword") , {
+        apiFetch("/campsite/searchCampsites?page="+searchParam.get("page")+"&query="+searchParam.get("keyword") , {
             method:'GET'
         } ).then((res) => res.json())
         .then((data)=>{
