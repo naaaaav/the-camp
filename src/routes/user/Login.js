@@ -44,7 +44,7 @@ const Login = () => {
           localStorage.setItem('Authorization', Authorization);
           logIn(); 
 
-          const roleResponse = await fetch('http://localhost:8080/api/role', {
+          const roleResponse = await apiFetch('/api/role', {
             method: 'GET',
             headers: {
               "Authorization": Authorization,

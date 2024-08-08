@@ -18,7 +18,7 @@ const Profile = () => {
           return;
         }
 
-        const response = await apiFetch('http://localhost:8080/api/user/profile', {
+        const response = await apiFetch('/api/user/profile', {
           method: 'GET',
           headers: {
             'Authorization': token, 

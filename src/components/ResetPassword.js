@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import apiFetch from '../utils/api';
 
 const ResetPasswordForm = ({ setShowResetPassword }) => {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ const ResetPasswordForm = ({ setShowResetPassword }) => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:8080/reset-password', {
+      const response = await apiFetch('/reset-password', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

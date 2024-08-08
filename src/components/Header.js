@@ -5,6 +5,7 @@ import { roleAtom } from '../recoil/atom/UserAtom';
 import { useAuth } from '../utils/AuthContext'; 
 import './Header.css';
 import { useSetRecoilState } from 'recoil';
+import apiFetch from '../utils/api';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const Header = () => {
       const Authorization = localStorage.getItem('Authorization');
       if (Authorization) {
         try {
-          const response = await fetch('http://localhost:8080/api/role', {
+          const response = await apiFetch('/api/role', {
             method: 'GET',
             headers: {
               "Authorization": Authorization,
