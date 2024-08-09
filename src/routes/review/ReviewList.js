@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import PagingComponent from './PagingComponent';
+import Review from './Review';
 
 const ReviewList = () => {
   return (
@@ -44,13 +45,7 @@ const ReviewLikeDesc = () => {
     <div>
       <h1>리뷰 좋아요 순</h1>
       {likeData?.content.map((item, idx) => (
-        <div key={idx}>
-          <input type={'hidden'} name={item.id} value={item.id} />
-          <h3>캠핑장 명 : {item.campName}</h3>
-          <p>작성자 : {item.userName}</p>
-          <p>내용 : {item.content}</p>
-          <p>좋아요 수 : {item.likeCount}</p>
-        </div>
+        <Review item={item} idx={idx} />
       ))}
       <PagingComponent currentPage={likeData?.number} pageCount={likeData?.totalPages} onPageChange={onLikeDataPageChange} />
     </div>
