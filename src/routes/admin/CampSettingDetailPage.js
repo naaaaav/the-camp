@@ -64,9 +64,15 @@ function CampSettingDetailPage(){
     const deleteZone = (seq) => {
         apiFetch("/zone/"+seq , {
             method:'DELETE',
-        }).then((res) => res.json())
+        }).then((res) =>  {
+           return res.json();
+        })
         .then(data => {
             console.log(data);
+            setCamp(prev => ({
+                ...prev,
+                zones:prev.zones.filter(item => item.seq !== data)
+            }));
         })
     }
 
@@ -157,14 +163,7 @@ function CampSettingDetailPage(){
                                         극 성수기 가격: {item.bestPeakSeasonPrice}
                                     </div>
                                     <div className={styles.siteContainer}>
-                                        {
-                                            item.sites.map(
-                                                site => 
-                                                    <div className={styles.siteBox}>
-                                                        {site.title}
-                                                    
-                                                    </div>                                            )
-                                        }
+                                        구획 수: {item?.sites?.length}
                                     </div>
                                     <button onClick={()=>deleteZone(item.seq)}>삭제</button>
                                 </div>
@@ -208,12 +207,18 @@ function CampSettingDetailPage(){
                                 })
                             })
                             .then(res => {
-                                res.json()
+                                console.log(res);
+                                return res.json()
                             })
                             .then(data => {
                                 console.log(data);
-                               
-                            })
+                                setCamp(prev => ({
+                                    ...prev,
+                                    zones:[...prev.zones,data] 
+                                }));
+                            }
+                                
+                            )
                             .catch( err => {
                                 console.log(err);
                             })
