@@ -120,11 +120,15 @@ function CampSettingDetailPage(){
         
         )
         .then(data => {
+          
             console.log("data:" + data.seq);
             setSeasons(prevData => [...prevData, data]);
             console.log(seasons);
         }
-    )
+    ).catch(err => {
+        console.log(err);
+        alert(err);
+    })
     }
 
     return(
