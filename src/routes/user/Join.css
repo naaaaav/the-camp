@@ -1,7 +1,7 @@
-/* 전체 레이아웃 스타일 */
+
 .Group11 {
-  width: 550px; /* 너비를 줄였습니다 */
-  padding: 20px; /* 패딩을 줄였습니다 */
+  width: 550px; 
+  padding: 20px; 
   background: white;
   border-radius: 8px;
   border: 1px solid #D9D9D9;
@@ -17,9 +17,9 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* 폼 필드 스타일 */
+
 .form-field {
-  margin-bottom: 12px; /* 필드 간 간격 조정 */
+  margin-bottom: 12px; 
   margin-right: 30px;
 }
 
@@ -43,26 +43,25 @@ h1 {
 .field-label {
   font-size: 20px;
   font-weight: 400;
-  margin-bottom: 6px; /* 라벨과 입력 필드 간 간격 조정 */
+  margin-bottom: 6px;
 }
 
-/* 에러 메시지 스타일 */
+
 .error-message {
   color: red;
   font-size: 14px;
   margin-top: 4px;
 }
 
-/* 버튼 그룹 스타일 */
 .ButtonGroup {
   display: flex;
-  gap: 100px; /* 버튼 간 간격 조정 */
-  margin-top: 40px; /* 버튼 그룹 위쪽 간격 조정 */
+  gap: 100px; 
+  margin-top: 40px; 
 }
 
 .Main-Button {
   flex: 1;
-  height: 40px; /* 버튼 높이 줄이기 */
+  height: 40px; 
   background-color: #2C2C2C;
   border-radius: 8px;
   border: 1px solid #2C2C2C;
@@ -70,14 +69,14 @@ h1 {
   justify-content: center;
   align-items: center;
   color: #F5F5F5;
-  font-size: 16px; /* 버튼 텍스트 크기 줄이기 */
+  font-size: 16px; 
   font-weight: 400;
-  cursor: pointer; /* 버튼 영역 전체 클릭 가능하게 하기 */
+  cursor: pointer; 
 }
 
 .Join-Button {
   flex: 1;
-  height: 40px; /* 버튼 높이 줄이기 */
+  height: 40px; 
   background-color: #2C2C2C;
   border-radius: 8px;
   border: 1px solid #2C2C2C;
@@ -85,9 +84,9 @@ h1 {
   justify-content: center;
   align-items: center;
   color: #F5F5F5;
-  font-size: 16px; /* 버튼 텍스트 크기 줄이기 */
+  font-size: 16px; 
   font-weight: 400;
-  cursor: pointer; /* 버튼 영역 전체 클릭 가능하게 하기 */
+  cursor: pointer; 
 }
 
 .Join-Button:hover,
@@ -97,8 +96,8 @@ h1 {
 
 
 .Button:disabled {
-  background-color: #E0E0E0; /* 비활성화된 버튼의 배경색 */
-  border: 1px solid #B0B0B0; /* 비활성화된 버튼의 테두리 색상 */
+  background-color: #E0E0E0; 
+  border: 1px solid #B0B0B0; 
 }
 
 .Join-Button:disabled {
