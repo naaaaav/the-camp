@@ -6,6 +6,7 @@ import { useAuth } from '../utils/AuthContext';
 import './Header.css';
 import { useSetRecoilState } from 'recoil';
 import apiFetch from '../utils/api';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -56,11 +57,11 @@ const Header = () => {
   const renderMenu = () => {
     if (!loggedIn) {
       return (
-        <>
-          <button><a href="/campList?page=0">전체</a></button>
+        <>  
+          <button><Link to={"/campList?page=0"}>전체</Link></button>
           <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
           <button onClick={() => handleNavClick('카라반')}>카라반</button>
-          <button onClick={() => handleNavClick('테마별')}>테마별</button>
+          <button><Link to={"/theme"}>테마별</Link></button>
           <button onClick={() => handleNavClick('리뷰')}>리뷰</button>
         </>
       );
@@ -78,10 +79,10 @@ const Header = () => {
       case 'ROLE_USER':
         return (
           <>
-            <button><a href="/campList?page=0">전체</a></button>
+            <button><Link to={"/campList?page=0"}>전체</Link></button>
             <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
             <button onClick={() => handleNavClick('카라반')}>카라반</button>
-            <button onClick={() => handleNavClick('테마별')}>테마별</button>
+            <button><Link to={"/theme"}>테마별</Link></button>
             <button onClick={() => handleNavClick('리뷰')}>리뷰</button>
             <button onClick={() => navigate('/profile')}>Profile</button>
 
@@ -95,7 +96,7 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="logo">더캠프</div>
+      <div className="logo"><Link to={"/"}>더캠프</Link></div>
       <div className="nav-login-container">
         <nav className="nav">
 

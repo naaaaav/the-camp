@@ -4,8 +4,7 @@ import IconBox from "../../components/campList/IconBox";
 import { MdOutlineSurfing } from "react-icons/md";
 import { MdLocalConvenienceStore } from "react-icons/md";
 import { TbHorseToy } from "react-icons/tb";
-
-
+import { Link } from "react-router-dom";
 function ThemePage(){
     return(
         <div style={{margin:"auto"}}>
@@ -27,7 +26,7 @@ function ThemePage(){
                     <GiWaterGun size="70"/>
                 </IconBox>
 
-                <IconBox title="수상 레저">
+                <IconBox title="수상레저">
                     <MdOutlineSurfing size="70"/>
                 </IconBox>
                 <IconBox title="낚시">
@@ -36,13 +35,13 @@ function ThemePage(){
                 <IconBox title="해수욕">
                     <FaUmbrellaBeach size="70"/>
                 </IconBox>
-                <IconBox title="어린이 놀이시설">
+                <IconBox title="어린이놀이시설">
                     <TbHorseToy size="70"/>
                 </IconBox>
                 <IconBox title="운동장">
                     <GiSoccerField size="70"/>
                 </IconBox>
-                <IconBox title="농어촌 체험시설">
+                <IconBox title="농어촌체험시설">
                     <GiFarmer size="70"/>
                 </IconBox>
                 <IconBox title="전기">
@@ -51,7 +50,7 @@ function ThemePage(){
                 <IconBox title="온수">
                     <GiWaterDrop size="70"/>
                 </IconBox>
-                <IconBox title="트램폴린">
+                <IconBox title="트렘폴린">
                     <GiJumpingRope size="70"/>
                 </IconBox>
                 <IconBox title="무선인터넷">
