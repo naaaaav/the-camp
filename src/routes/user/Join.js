@@ -96,7 +96,7 @@ const Join = () => {
           <EmailVerification
             onVerificationSuccess={() => setIsEmailVerified(true)}
             onEmailChange={setEmail}
-            required
+      
           />
         </div>
         <div className="form-field">

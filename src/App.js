@@ -17,7 +17,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import CampListPage from './routes/campList/CampListPage';
 import ReservationPage from './routes/reservation/ReservationPage';
-import ResetPasswordForm from './routes/user/ResetPassword';
+import ResetPasswordForm from './components/ResetPassword';
+import UpdatePasswordForm from './components/UpdatePassword';
 const App = () => {
   return (
     <>
@@ -29,6 +30,8 @@ const App = () => {
         <Route path='/payment' element={<Payment />} />
         <Route path='/join' element={<Join />} />
         <Route path='/reset-password' element={<ResetPasswordForm />} />
+        <Route path='/update-password' element={<UpdatePasswordForm />} />
+        
         <Route path="/profile" element={<Profile />} />
         <Route path="/campList" element={<CampListPage />} />
         <Route element={<AuthRoutes />}>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ResetPasswordForm from '../user/ResetPassword';
+import ResetPasswordForm from '../../components/ResetPassword';
 import { useAuth } from '../../utils/AuthContext';
 import { useSetRecoilState } from 'recoil';
 import { roleAtom } from '../../recoil/atom/UserAtom';

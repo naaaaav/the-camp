@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './ResetPassword.css'
+import './ResetPassword.css';
 
 const ResetPasswordForm = ({ setShowResetPassword }) => {
   const [email, setEmail] = useState('');
@@ -12,12 +12,15 @@ const ResetPasswordForm = ({ setShowResetPassword }) => {
     setError('');
 
     try {
+      const formData = new URLSearchParams();
+      formData.append('email', email);
+
       const response = await fetch('http://localhost:8080/reset-password', {
         method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify({ email }),
+        body: formData.toString(),
       });
 
       if (response.ok) {
@@ -42,7 +45,8 @@ const ResetPasswordForm = ({ setShowResetPassword }) => {
           <input
             type="email"
             id="reset-email"
-            className='input-email'
+            className="input-email"
+            placeholder="이메일을 입력해주세요"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
