@@ -5,6 +5,7 @@ import styles from '../../styles/admin/campSettingDetailPage.module.css';
 import apiFetch from "../../utils/api";
 
 
+
 function CampSettingDetailPage(){
 
     const { id } = useParams();
@@ -112,6 +113,15 @@ function CampSettingDetailPage(){
     }
 
     const insertSeason = (e) => {
+
+        const start = new Date(seasonInput.start);
+        const end = new Date(seasonInput.end);
+
+        if(start > end){
+            alert('시작일은 종료일보다 작아야 합니다.');
+            return;
+        }
+
         apiFetch("/season" , {
             method:'POST',
             headers:{
@@ -139,8 +149,8 @@ function CampSettingDetailPage(){
 
     return(
         <div>
-            <TitleBox title={camp.facltNm}>
-                <div style={{ border:"1px solid black"}}>
+            <h1>{camp.facltNm}</h1>
+                <div>
                     <h1>구역 목록</h1>
                     <div id="zoneBox">
                         
@@ -228,7 +238,7 @@ function CampSettingDetailPage(){
                 </div>
                 
 
-            </TitleBox>
+            
             <div>
                 <h1>성수기 설정</h1>
                 <span>시작:</span><input type="date" onChange={onStartChange}></input>
