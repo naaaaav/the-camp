@@ -18,26 +18,34 @@ import Footer from './components/Footer';
 import CampListPage from './routes/campList/CampListPage';
 import ReservationPage from './routes/reservation/ReservationPage';
 import ThemePage from './routes/campList/ThemePage';
+import ResetPasswordForm from './components/ResetPassword';
+import UpdatePasswordForm from './components/UpdatePassword';
+import TokenRefresh from './components/TokenRefresh';
 
 const App = () => {
   return (
     <>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/detail/:id' element={<DetailPage />} />
-        <Route path='/join' element={<Join />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/campList" element={<CampListPage />} />
-        <Route path="/theme" element={<ThemePage/>}/>
-        <Route element={<AuthRoutes />}>
-          <Route path="/user/*" element={<UserProtectedRoutes />} />
-          <Route path="/admin/*" element={<AdminProtectedRoutes />} />
-          <Route path='/reservation/:id' element={<ReservationPage />} />
-        </Route>
-      </Routes> 
-      <Footer />
+    <TokenRefresh>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/detail/:id' element={<DetailPage />} />
+          <Route path='/payment' element={<Payment />} />
+          <Route path='/join' element={<Join />} />
+          <Route path='/reset-password' element={<ResetPasswordForm />} />
+          <Route path='/update-password' element={<UpdatePasswordForm />} />
+          <Route path="/theme" element={<ThemePage/>}/>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/campList" element={<CampListPage />} />
+          <Route element={<AuthRoutes />}>
+            <Route path="/user/*" element={<UserProtectedRoutes />} />
+            <Route path="/admin/*" element={<AdminProtectedRoutes />} />
+            <Route path='/reservation/:id' element={<ReservationPage />} />
+          </Route>
+        </Routes> 
+        <Footer />
+      </TokenRefresh>
       
     </>
   );

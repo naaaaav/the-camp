@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiFetch from '../../utils/api';
+import Modal from '../../tools/Modal';
+import UpdatePasswordForm from '../../components/UpdatePassword'; 
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showUpdatePassword, setShowUpdatePassword] = useState(false); // 모달 상태
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -54,10 +57,19 @@ const Profile = () => {
           <p>Name: {profile.name}</p>
           <p>Gender: {profile.gender}</p>
           <p>PhoneNumber: {profile.phoneNumber}</p>
-          <p>Birthday: {profile.birthday}</p>    
+          <p>Birthday: {profile.birthday}</p>
+          <button onClick={() => setShowUpdatePassword(true)}>
+            비밀번호 변경
+          </button> 
         </div>
       ) : (
         <p>No profile information available.</p>
+      )}
+
+      {showUpdatePassword && (
+        <Modal onClose={() => setShowUpdatePassword(false)}>
+          <UpdatePasswordForm onClose={() => setShowUpdatePassword(false)} />
+        </Modal>
       )}
     </div>
   );
