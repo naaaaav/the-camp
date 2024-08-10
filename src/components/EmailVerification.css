@@ -1,68 +1,93 @@
-/* EmailVerification.css */
 .EmailVerification {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .EmailVerification .input-container,
-  .EmailVerification .auth-code-container {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* Space between input and button */
-  }
-  
-  .EmailVerification .email-input,
-  .EmailVerification .auth-code-input {
-    flex: 1; /* Ensure input takes up available space */
-    height: 94px; /* Match form-field height */
-    background-color: white;
-    border-radius: 12.24px;
-    border: 1.53px solid #D9D9D9;
-    padding: 18.36px;
-    font-size: 41.31px;
-    color: #B3B3B3;
-    box-sizing: border-box;
-  }
-  
-  .EmailVerification .email-input::placeholder,
-  .EmailVerification .auth-code-input::placeholder {
-    color: #B3B3B3;
-  }
-  
-  .EmailVerification .send-button{
-    width: 731px;
-    height: 90px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center; 
+  display: flex;
+  flex-direction: column;
+}
 
-    background-color: #2C2C2C;
-    border-radius: 11.92px;
-    color: #F5F5F5;
-    margin: 20px auto;
-  }
-  .EmailVerification .verify-button {
-    width: 731px;
-    height: 90px;
-    justify-content: center; 
+.EmailVerification .input-container,
+.EmailVerification .auth-code-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
 
-    display: inline-flex;
-    align-items: center;
-    background-color: #2C2C2C;
-    border-radius: 11.92px;
-    color: #F5F5F5;
-    margin: 20px auto;
-  }
-  
-  .EmailVerification .send-button:disabled,
-  .EmailVerification .verify-button:disabled {
-    background-color: #B3B3B3;
-    border: 1.53px solid #B3B3B3;
-    cursor: not-allowed;
-  }
-  
-  .EmailVerification .error-message {
-    color: red;
-    font-size: 16px;
-  }
-  
+}
+
+.EmailVerification .email-input{
+  flex: 1;
+  width: 100%;
+
+  background-color: white;
+  border-radius: 8px; 
+  border: 1px solid #D9D9D9;
+  padding: 10px; 
+  font-size: 16px; 
+  color: #B3B3B3;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+.EmailVerification .auth-code-input {
+ 
+  flex: 1;
+  width: 100%;
+
+  background-color: white;
+  border-radius: 8px; 
+  border: 1px solid #D9D9D9;
+  padding: 10px; 
+  font-size: 16px; 
+  color: #B3B3B3;
+  box-sizing: border-box;
+}
+
+.EmailVerification .email-input::placeholder,
+.EmailVerification .auth-code-input::placeholder {
+  color: #B3B3B3;
+}
+
+.verify-label{
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+.EmailVerification .send-button{
+  height: 40px;
+  margin-bottom: 5px;
+  margin-left: 30px;
+  align-items: center;
+  background-color: #2C2C2C;
+  border-radius: 8px; 
+  color: #F5F5F5;
+  font-size: 14px; 
+  font-weight: 400;
+}
+.EmailVerification .verify-button {
+  height: 40px;
+  width: 121.78px;
+  margin-top: 10px;
+  margin-left: 30px;
+  align-items: center;
+  background-color: #2C2C2C;
+  border-radius: 8px; 
+  color: #F5F5F5;
+  font-size: 14px; 
+  font-weight: 400;
+}
+
+.EmailVerification .send-button:hover,
+.EmailVerification .verify-button:hover
+{
+  color: #5e5e5e;
+}
+
+.EmailVerification .send-button:disabled,
+.EmailVerification .verify-button:disabled {
+  background-color: #B3B3B3;
+  border: 1px solid #B3B3B3;
+  cursor: not-allowed;
+}
+
+.EmailVerification .error-message {
+  color: red;
+  font-size: 14px; 
+
+}

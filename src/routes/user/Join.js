@@ -95,33 +95,29 @@ const Join = () => {
     <div className="Group11">
       <h1>회원가입</h1>
       <form>
-        <EmailVerification
-          onVerificationSuccess={() => setIsEmailVerified(true)}
-          onEmailChange={setEmail}
-        />
         <div className="form-field">
-          <input
-            type="email"
-            name="email"
-            value={joinForm.email}
-            onChange={onChangeForm}
-            placeholder="이메일"
-            disabled={!isEmailVerified} 
+          <label className="field-label">Email</label>
+          <EmailVerification
+            onVerificationSuccess={() => setIsEmailVerified(true)}
+            onEmailChange={setEmail}
+      
           />
-          {errors.email && <div className="error-message">{errors.email}</div>}
         </div>
         <div className="form-field">
+          <label className="field-label">Password</label>
           <input
             type="password"
             name="password"
             value={joinForm.password}
             onChange={onChangeForm}
-            placeholder="비밀번호"
+            placeholder="비밀번호를 입력해주세요"
             disabled={!isEmailVerified} 
+            required
           />
-          {errors.password && <div className="error-message">{errors.password}</div>}
+          {errors.password && <div className="error-message">alert({errors.password})</div>}
         </div>
         <div className="form-field">
+          <label className="field-label">Password Check</label>
           <input
             type="password"
             name="passwordConfirmation"
@@ -129,21 +125,25 @@ const Join = () => {
             onChange={onChangeForm}
             placeholder="비밀번호 확인"
             disabled={!isEmailVerified} 
+            required
           />
           {errors.passwordConfirmation && <div className="error-message">{errors.passwordConfirmation}</div>}
         </div>
         <div className="form-field">
+          <label className="field-label">NickName</label>
           <input
             type="text"
             name="name"
             value={joinForm.name}
             onChange={onChangeForm}
-            placeholder="이름"
+            placeholder="닉네임을 입력해주세요"
             disabled={!isEmailVerified} 
+            required
           />
           {errors.name && <div className="error-message">{errors.name}</div>}
         </div>
         <div className="form-field">
+          <label className="field-label">Birthday</label>
           <input
             type="date"
             name="birthday"
@@ -151,10 +151,12 @@ const Join = () => {
             onChange={onChangeForm}
             placeholder="생년월일"
             disabled={!isEmailVerified}
+            required
           />
           {errors.birthday && <div className="error-message">{errors.birthday}</div>}
         </div>
         <div className="form-field">
+          <label className="field-label">PhoneNumber</label>
           <input
             type="text"
             name="phoneNumber"
@@ -162,10 +164,12 @@ const Join = () => {
             onChange={onChangeForm}
             placeholder="전화번호"
             disabled={!isEmailVerified} 
+            required
           />
           {errors.phoneNumber && <div className="error-message">{errors.phoneNumber}</div>}
         </div>
         <div className="form-field">
+          <label className="field-label">Gender</label>
           <input
             type="text"
             name="gender"
@@ -173,16 +177,13 @@ const Join = () => {
             onChange={onChangeForm}
             placeholder="성별"
             disabled={!isEmailVerified} 
+            required
           />
           {errors.gender && <div className="error-message">{errors.gender}</div>}
         </div>
         <div className="ButtonGroup">
-          <div className="Button">
-            <button className="button-text" onClick={joinProcess} disabled={!isEmailVerified}>회원가입</button>
-          </div>
-          <div className="Button">
-            <button className="button-text" onClick={(e) => { e.preventDefault(); navigate('/'); }}>메인</button>
-          </div>
+          <button className="Join-Button" onClick={joinProcess} disabled={!isEmailVerified}>회원가입</button>
+          <button className="Main-Button" onClick={(e) => { e.preventDefault(); navigate('/'); }}>메인</button>
         </div>
       </form>
     </div>

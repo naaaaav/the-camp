@@ -19,10 +19,14 @@ import CampListPage from './routes/campList/CampListPage';
 import ZonePage from './routes/reservation/ZonePage';
 import ReservationPage from './routes/reservation/ReservationPage';
 import ThemePage from './routes/campList/ThemePage';
+import ResetPasswordForm from './components/ResetPassword';
+import UpdatePasswordForm from './components/UpdatePassword';
+import TokenRefresh from './components/TokenRefresh';
 
 const App = () => {
   return (
     <>
+<<<<<<< HEAD
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
@@ -41,6 +45,30 @@ const App = () => {
       </Routes>
       <Footer />
 
+=======
+    <TokenRefresh>
+        <Header />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/detail/:id' element={<DetailPage />} />
+          <Route path='/payment' element={<Payment />} />
+          <Route path='/join' element={<Join />} />
+          <Route path='/reset-password' element={<ResetPasswordForm />} />
+          <Route path='/update-password' element={<UpdatePasswordForm />} />
+          <Route path="/theme" element={<ThemePage/>}/>
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/campList" element={<CampListPage />} />
+          <Route element={<AuthRoutes />}>
+            <Route path="/user/*" element={<UserProtectedRoutes />} />
+            <Route path="/admin/*" element={<AdminProtectedRoutes />} />
+            <Route path='/reservation/:id' element={<ReservationPage />} />
+          </Route>
+        </Routes> 
+        <Footer />
+      </TokenRefresh>
+      
+>>>>>>> e34ec249a0fc758c6e66e3a42059d3780e474ee9
     </>
   );
 };
