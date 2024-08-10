@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ResetPasswordForm from '../../components/ResetPassword';
 import { useAuth } from '../../utils/AuthContext';
-import { useSetRecoilState } from 'recoil';
-import { roleAtom } from '../../recoil/atom/UserAtom';
+
 import Modal from '../../tools/Modal'; 
 import './Login.css'; 
 
@@ -15,7 +14,6 @@ const Login = () => {
     password: ''
   });
   const [showResetPassword, setShowResetPassword] = useState(false);
-  const setRole = useSetRecoilState(roleAtom);
 
   const onChangeForm = (e) => {
     setLoginForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -38,31 +36,14 @@ const Login = () => {
         if (Authorization) {
           localStorage.setItem('Authorization', Authorization);
           logIn();
-
-          const roleResponse = await fetch('http://localhost:8080/api/role', {
-            method: 'GET',
-            headers: {
-              "Authorization": Authorization,
-              "Content-Type": "application/json",
-            },
-          });
-
-          if (roleResponse.ok) {
-            const roleData = await roleResponse.json();
-            const userRole = roleData.role;
-
-            setRole(userRole);
-            alert('로그인 성공');
-            navigate('/');
-          } else {
-            alert('역할 정보를 가져오는 중 오류가 발생했습니다.');
-          }
+          alert('로그인 성공');
+          navigate('/');
+          
         } else {
-          alert('인증 토큰을 가져오는 중 오류가 발생했습니다.');
-        }
-      } else {
         alert('아이디 또는 비밀번호가 일치하지 않습니다.');
       }
+    }
+
     } catch (error) {
       console.error('로그인 중 오류 발생:', error);
       alert('로그인 중 오류가 발생했습니다.');
