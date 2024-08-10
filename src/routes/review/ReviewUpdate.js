@@ -1,32 +1,42 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const ReviewUpdate = () => {
-  const {reviewId} = useParams();
-  const navigate = useNavigate();
-  const [reviewData, setReviewData] = useState();
+  const location = useLocation();
+  const { state } = location;
+  const [content, setContent] = useState(state.content);
 
-  const reviewLoadData = async () => {
-    const response = await fetch(`http://localhost:8080/reviews/${reviewId}`, {
-      method: 'GET',
+  const reviewUpdateClick = async () => {
+    const response = await fetch(`http://localhost:8080/reviews/${state.id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-      }
+        'Authorization': localStorage.getItem('Authorization')
+      },
+      body : JSON.stringify({content})
     });
-
-    const json = await response.json();
-    setReviewData(json);
+    
+    if (response.ok) {
+      alert('리뷰 수정 성공');
+    }
   }
 
-  useState(()=>{
-    reviewLoadData();
-  }, [])
+  const onChangeContent = (e) => {
+    setContent(e.target.value);
+  }
 
   return (
     <div>
-      <textarea>
-        {reviewData.content}
+      <h1>{state.campName} 리뷰 수정하기</h1>
+      <h2>작성자 : {state.userName}</h2>
+      <textarea 
+        name='content'
+        onChange={onChangeContent}
+        value={content}
+      >
       </textarea>
-      <button>리뷰 수정하기</button>
+      <br />
+      <button onClick={reviewUpdateClick}>리뷰 수정</button>
     </div>
   )
 }

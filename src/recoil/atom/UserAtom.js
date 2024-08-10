@@ -9,3 +9,13 @@ export const rolePathAtom = atom({
   key: 'rolePathAtom',
   default: '/',
 });
+
+export const reviewFlagAtom = atom({
+  key: 'reviewFlagAtom',
+  default: false,
+});
+
+export const likeFlagAtom = atom({
+  key: 'likeFlagAtom',
+  default: false,
+});

@@ -16,6 +16,7 @@ import CampSettingDetailPage from './routes/admin/CampSettingDetailPage';
 import ReviewCreate from './routes/review/ReviewCreate';
 import ReviewList from './routes/review/ReviewList';
 import ReviewCampsiteList from './routes/review/ReviewCampsiteList';
+import ReviewUpdate from './routes/review/ReviewUpdate';
 
 const App = () => {
   return (
@@ -27,7 +28,9 @@ const App = () => {
         <Route path='/payment' element={<Payment />} />
         <Route path='/join' element={<Join />} />
         <Route path="/profile" element={<Profile />} />
+        
         <Route path='/review/list' element={<ReviewList />} />
+        <Route path='/review/update' element={<ReviewUpdate />} />
         <Route path='/review/list/:campsiteId' element={<ReviewCampsiteList />} />
         <Route path='/review/create/:campsiteId' element={<ReviewCreate />} />
 
