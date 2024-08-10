@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { reviewFlagAtom } from '../../recoil/atom/UserAtom';
-import PagingComponent from './PagingComponent';
+import PagingComponent from '../../components/paging/PagingComponent';
 import ReviewComponent from './ReviewComponent';
 
 const ReviewCampsiteList = () => {

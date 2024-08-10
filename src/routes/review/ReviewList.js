@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil';
 import { reviewFlagAtom } from '../../recoil/atom/UserAtom';
-import PagingComponent from './PagingComponent';
+import PagingComponent from '../../components/paging/PagingComponent';
 import ReviewComponent from './ReviewComponent';
 
 const ReviewList = () => {
