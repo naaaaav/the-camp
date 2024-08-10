@@ -4,7 +4,8 @@ import Calendar from './../../components/Calendar';
 import styles from "../../styles/reservation/ZonePage.module.css";
 import { getZoneByZoneSeq } from '../../tools/ZoneFunctions';
 import { getSiteByZone } from '../../tools/SiteFunctions';
-import { adultsState, childrenState, startDateState, endDateState, daysState, datesSelectedState, sitesState, zoneState, selectedSiteState } from "../../recoil/atom/ReservationAtom";
+import { getReservationExistence } from '../../tools/ReservationFunctions';
+import { adultsState, childrenState, startDateState, endDateState, daysState, datesSelectedState, sitesState, zoneState, selectedSiteState } from '../../recoil/atom/ReservationAtom';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from "recoil";
 
@@ -21,6 +22,13 @@ const calculateTotalPrice = (start, end, pricePerDay) => {
     return days * pricePerDay;
 };
 
+const formatDateToYYYYMMDD = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+};
+
 const ZonePage = () => {
     const { id } = useParams();
     const [adults, setAdults] = useRecoilState(adultsState);
@@ -32,6 +40,7 @@ const ZonePage = () => {
     const [sites, setSites] = useState([]);
     const [zone, setZone] = useRecoilState(zoneState);
     const [selectedSite, setSelectedSite] = useRecoilState(selectedSiteState);
+    const [siteStatus, setSiteStatus] = useState([]);
     const navigate = useNavigate();
 
     const totalGuests = adults + children;
@@ -56,6 +65,37 @@ const ZonePage = () => {
         fetchData();
     }, [id]);
 
+    useEffect(() => {
+        const checkReservations = async () => {
+            if (startDate && endDate) {
+                console.log("start : ", startDate);
+                console.log("end : ", endDate);
+
+                const formattedStartDate = formatDateToYYYYMMDD(startDate);
+                const formattedEndDate = formatDateToYYYYMMDD(endDate);
+
+                console.log("Formatted Start Date:", formattedStartDate);
+                console.log("Formatted End Date:", formattedEndDate);
+
+                const statusPromises = sites.map(site =>
+                    getReservationExistence({
+                        siteSeq: site.seq,
+                        reservationStartDate: formattedStartDate,
+                        reservationEndDate: formattedEndDate
+                    })
+                );
+                const statusResults = await Promise.all(statusPromises);
+                //Promise.allSettled
+                setSiteStatus(statusResults.map(result => result.data.existence));
+
+                console.log(statusResults.map(result => result.data.existence));
+                console.log(statusResults.map(result => result.existence));
+            }
+        };
+
+        checkReservations();
+    }, [startDate, endDate, sites]);
+
     const handleIncrease = (setter, value) => {
         if (totalGuests < 6) {
             setter(value + 1);
@@ -77,6 +117,7 @@ const ZonePage = () => {
             setStartDate(start);
             setEndDate(end);
             setDatesSelected(true);
+            setSelectedSite(null);
             const startDate = new Date(start);
             const endDate = new Date(end);
             const days = (endDate - startDate) / (1000 * 60 * 60 * 24);
@@ -147,11 +188,12 @@ const ZonePage = () => {
                             </div>
                             <h3>사이트 선택</h3>
                             <div className={styles.buttonContainer}>
-                                {sites.map(site => (
+                                {sites.map((site, index) => (
                                     <button
                                         key={site.id}
                                         onClick={() => handleSiteClick(site)}
                                         className={`${styles.siteButton} ${selectedSite === site ? styles.active : ''}`}
+                                        disabled={siteStatus[index] === true} // 상태에 따라 버튼 비활성화
                                     >
                                         {site.title}
                                     </button>

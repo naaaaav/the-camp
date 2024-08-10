@@ -41,6 +41,8 @@ const ReservationPage = () => {
         }
     };
 
+    //인원이 front에서 받은 것과 일치한지 검증(백엔드)
+
     const navigatePaymentPage = () => {
         navigate('/payment');
     };
