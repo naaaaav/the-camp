@@ -66,10 +66,16 @@ const ReviewLikeDesc = ({ loginEmail, reviewFlag }) => {
   }, [likeDataCurrentPage, reviewFlag])
 
   return (
-    <div>
+    <div style={{marginLeft : '200px', marginRight : '200px'}}>
       <h1>리뷰 좋아요 순</h1>
       {likeData?.content.map((item, idx) => (
-        <ReviewComponent key={idx} item={item} loginEmail={loginEmail} isLike={false} />
+        <ReviewComponent 
+          key={idx} 
+          item={item} 
+          loginEmail={loginEmail} 
+          isLike={false}
+          isDisplay={true}
+        />
       ))}
       <PagingComponent currentPage={likeData?.number} pageCount={likeData?.totalPages} onPageChange={onLikeDataPageChange} />
     </div>
@@ -108,10 +114,15 @@ const ReviewDesc = ({ loginEmail, reviewFlag }) => {
   console.log(data);
 
   return (
-    <div>
+    <div style={{marginLeft : '200px', marginRight : '200px'}}>
       <h1>리뷰 최신 순</h1>
       {data?.content.map((item, idx) => (
-        <ReviewComponent key={idx} item={item} loginEmail={loginEmail} isLike={false} />
+        <ReviewComponent
+          key={idx} 
+          item={item} 
+          loginEmail={loginEmail} 
+          isLike={false} 
+          isDisplay={true} />
       ))}
       <PagingComponent currentPage={data?.number} pageCount={data?.totalPages} onPageChange={onDataPageChange} />
     </div>

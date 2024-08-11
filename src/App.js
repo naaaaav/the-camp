@@ -42,13 +42,10 @@ const App = () => {
           <Route path='/update-password' element={<UpdatePasswordForm />} />
           <Route path="/theme" element={<ThemePage/>}/>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/campList" element={<CampListPage />} />
-
+          <Route path="/campList" element={<CampListPage />} />          
           <Route path='/review/list' element={<ReviewList />} />
-          <Route path='/review/update' element={<ReviewUpdate />} />
           <Route path='/review/list/:campsiteId' element={<ReviewCampsiteList />} />
-          <Route path='/review/create/:campsiteId' element={<ReviewCreate />} />
-
+          
           <Route element={<AuthRoutes />}>
             <Route path="/user/*" element={<UserProtectedRoutes />} />
             <Route path="/admin/*" element={<AdminProtectedRoutes />} />
@@ -66,7 +63,8 @@ export function UserRoutes() {
     <>
       <Routes>
         <Route path='/payment' element={<Payment />} />
-        <Route path='/test' element={<Test />} />
+        <Route path='/review/update' element={<ReviewUpdate />} />
+        <Route path='/review/create/:campsiteId' element={<ReviewCreate />} />
       </Routes>
     </>
   )

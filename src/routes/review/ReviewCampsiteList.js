@@ -6,8 +6,7 @@ import PagingComponent from '../../components/paging/PagingComponent';
 import ReviewComponent from './ReviewComponent';
 import apiFetch from '../../utils/api';
 
-const ReviewCampsiteList = () => {
-  const {campsiteId} = useParams();
+const ReviewCampsiteList = ({ campsiteSeq, isDisplay }) => {
   const reviewFlag = useRecoilValue(reviewFlagAtom);
   const [loginEmail, setLoginEmail] = useState();
   const [dataCurrentPage, setDataCurrentPage] = useState(0);
@@ -33,7 +32,7 @@ const ReviewCampsiteList = () => {
   }
 
   const reviewCamsite = async () => {
-    const response = await apiFetch(`/reviews/campsite/${campsiteId}?page=${dataCurrentPage}`, {
+    const response = await apiFetch(`/reviews/campsite/${campsiteSeq}?page=${dataCurrentPage}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -48,17 +47,25 @@ const ReviewCampsiteList = () => {
   }
 
   useEffect(() => {
+    setData(null);
     reviewCamsite();
     LoadLoginUser();
   }, [dataCurrentPage, reviewFlag])
 
+  console.log(data);
+
   return (
     <div>
-      <h1>캠핑장 리뷰</h1>
       {data?.content.map((item, idx) => (
-        <ReviewComponent key={idx} item={item} loginEmail={loginEmail} isLike={true} />
+        <ReviewComponent
+          key={idx} 
+          item={item} 
+          loginEmail={loginEmail} 
+          isLike={true} 
+          display={isDisplay} 
+        />
       ))}
-      <PagingComponent currentPage={data?.number} pageCount={data?.totalPages} onPageChange={onDataPageChange} />
+      {data?.totalElements !== 0 ? <PagingComponent currentPage={data?.number} pageCount={data?.totalPages} onPageChange={onDataPageChange} /> : null}
     </div>
   )
 }
