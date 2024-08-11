@@ -27,6 +27,7 @@ const ReviewCreate = () => {
   
       if (response.ok) {
         alert('리뷰 작성에 성공했습니다.');
+        navigate(`/detail/${campsiteId}`);
       } else {
         alert('작성권한이 없습니다.');
       }
@@ -55,14 +56,15 @@ const ReviewCreate = () => {
   }, [])
 
   return (
-    <div>
-      <h1>리뷰</h1>
-      <h3>작성자 : {loginName} </h3>
+    <div style={{marginLeft : '35%', marginRight : '35%'}}>
+      <h1>리뷰 작성하기</h1>
+      <h2>작성자 : {loginName} </h2>
       <textarea 
         name='content'
         type={'text'}
         value={content}
         onChange={reviewOnChange}
+        style={{width : '500px', height : '600px', fontSize : '25px'}}
       >
       </textarea>
       <br />

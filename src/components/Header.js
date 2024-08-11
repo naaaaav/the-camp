@@ -96,7 +96,7 @@ const Header = () => {
           <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
           <button onClick={() => handleNavClick('카라반')}>카라반</button>
           <button><Link to={"/theme"}>테마별</Link></button>
-          <button onClick={() => handleNavClick('리뷰')}>리뷰</button>
+          <button onClick={() => navigate('/review/list')}>리뷰</button>
         </>
       );
     }
@@ -117,7 +117,7 @@ const Header = () => {
             <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
             <button onClick={() => handleNavClick('카라반')}>카라반</button>
             <button><Link to={"/theme"}>테마별</Link></button>
-            <button onClick={() => handleNavClick('리뷰')}>리뷰</button>
+            <button onClick={() => navigate('/review/list')}>리뷰</button>
             <button onClick={() => navigate('/profile')}>Profile</button>
           </>
         );

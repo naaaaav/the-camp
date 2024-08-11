@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { likeFlagAtom, reviewFlagAtom } from '../../recoil/atom/UserAtom';
 import apiFetch from '../../utils/api';
 
-const ReviewComponent = ({ item, loginEmail, isLike }) => {
+const ReviewComponent = ({ campsiteSeq, item, loginEmail, isLike, isDisplay }) => {
   const navigate = useNavigate();
   const setReviewFlag = useSetRecoilState(reviewFlagAtom);
   const [review, setReview] = useState(item);
   
   const reviewUpdateClick = () => {
-    const data = { 
+    const data = {
+      campsiteSeq : review.campsiteSeq,
       id : review.id, 
       content: review.content,
       campName : review.campName,
       userName : review.userName
     }
-    navigate('/review/update', { state: data});
+    navigate('/user/review/update', { state: data});
   }
 
   const reviewDeleteClick = async () => {
+    console.log(review.id);
     const confirm = window.confirm("정말 리뷰를 삭제하시겠습니까?");
     if (confirm === false) return;
     const response = await apiFetch(`/reviews/${review.id}`, {
@@ -31,9 +33,8 @@ const ReviewComponent = ({ item, loginEmail, isLike }) => {
     });
 
     if (response.ok) {
-      alert("리뷰가 삭제되었습니다.");
-      setReview(null);
       setReviewFlag(prev => !prev);
+      alert("리뷰가 삭제되었습니다.");
     }
   }
 
@@ -53,8 +54,10 @@ const ReviewComponent = ({ item, loginEmail, isLike }) => {
   return (
     <div>
       {review !== null ?       
-      <div>
-        <h3>캠핑장 명 : {review.campName}</h3>
+      <div style={{ border: '1px solid black', padding: '10px' }}>
+        <h4 style={{display : isDisplay ? 'block' : 'none'}}>
+          캠핑장 명 : <Link to={`/detail/${review.campsiteSeq}`}>{review.campName}</Link>
+        </h4>
         <p>작성자 : {review.userName}</p>
         <p>내용 : {review.content}</p>
         <div>
