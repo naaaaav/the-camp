@@ -1,23 +1,22 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import ResetPasswordForm from '../../components/ResetPassword'; 
+import ResetPasswordForm from '../../components/ResetPassword';
 import { useAuth } from '../../utils/AuthContext';
-import { useSetRecoilState } from 'recoil';
-import { roleAtom } from '../../recoil/atom/UserAtom';
+
+import Modal from '../../tools/Modal'; 
+import './Login.css'; 
 
 import apiFetch from '../../utils/api';
 
 
 const Login = () => {
   const navigate = useNavigate();
-  const { logIn } = useAuth(); // Get logIn function from context
+  const { logIn } = useAuth();
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: ''
   });
   const [showResetPassword, setShowResetPassword] = useState(false);
-  const setRole = useSetRecoilState(roleAtom);
 
   const onChangeForm = (e) => {
     setLoginForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -42,32 +41,15 @@ const Login = () => {
         const Authorization = response.headers.get('Authorization');
         if (Authorization) {
           localStorage.setItem('Authorization', Authorization);
-          logIn(); 
-
-          const roleResponse = await apiFetch('/api/role', {
-            method: 'GET',
-            headers: {
-              "Authorization": Authorization,
-              "Content-Type": "application/json",
-            },
-          });
-
-          if (roleResponse.ok) {
-            const roleData = await roleResponse.json();
-            const userRole = roleData.role;
-
-            setRole(userRole); 
-            alert('로그인 성공');
-            navigate('/'); // 로그인 후 메인 페이지로 이동
-          } else {
-            alert('역할 정보를 가져오는 중 오류가 발생했습니다.');
-          }
+          logIn();
+          alert('로그인 성공');
+          navigate('/');
+          
         } else {
-          alert('인증 토큰을 가져오는 중 오류가 발생했습니다.');
-        }
-      } else {
         alert('아이디 또는 비밀번호가 일치하지 않습니다.');
       }
+    }
+
     } catch (error) {
       console.error('로그인 중 오류 발생:', error);
       alert('로그인 중 오류가 발생했습니다.');
@@ -75,38 +57,57 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>로그인</h1>
-      {showResetPassword ? (
-        <ResetPasswordForm setShowResetPassword={setShowResetPassword} />
-      ) : (
+    <div className="login-container">
+      <div className="form-container">
         <form onSubmit={LoginProcess}>
-          <div>
-            <label htmlFor="email">이메일:</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              value={loginForm.email}
-              onChange={onChangeForm}
-              required
-            />
+          <h1>로그인</h1>
+          <div className="form-group">
+            <label className="form-label">Email</label>
+            <div className="form-input">
+              <input
+                type="text"
+                name="email"
+                className="email-input"
+                value={loginForm.email}
+                onChange={onChangeForm}
+                placeholder="이메일을 입력해주세요"
+                required
+              />
+            </div>
           </div>
-          <div>
-            <label htmlFor="password">비밀번호:</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={loginForm.password}
-              onChange={onChangeForm}
-              required
-            />
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <div className="form-input">
+              <input
+                type="password"
+                name="password"
+                className="password-input"
+                value={loginForm.password}
+                onChange={onChangeForm}
+                placeholder="비밀번호를 입력해주세요"
+                required
+              />
+            </div>
           </div>
-          <button type="submit">로그인</button>
-          <button type="button" onClick={() => navigate('/')}>메인</button>
-          <button type="button" onClick={() => setShowResetPassword(true)}>비밀번호 찾기</button>
+          <div className="button-group">
+            <button type="submit" className="button">로그인</button>
+          </div>
+          <span className="text-link" onClick={() => setShowResetPassword(true)}>
+            비밀번호를 잊으셨나요?
+          </span>
         </form>
+        <div className="signup-prompt">
+          <span>아직 회원이 아니신가요? </span>
+          <span className="signup-text" onClick={() => navigate('/join')}>
+            회원가입
+          </span>
+        </div>
+      </div>
+
+      {showResetPassword && (
+        <Modal onClose={() => setShowResetPassword(false)}>
+          <ResetPasswordForm setShowResetPassword={setShowResetPassword} />
+        </Modal>
       )}
     </div>
   );
