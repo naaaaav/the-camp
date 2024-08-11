@@ -26,26 +26,6 @@ import TokenRefresh from './components/TokenRefresh';
 const App = () => {
   return (
     <>
-<<<<<<< HEAD
-      <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/detail/:id' element={<DetailPage />} />
-        <Route path='/join' element={<Join />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/campList" element={<CampListPage />} />
-        <Route path="/theme" element={<ThemePage/>}/>
-        <Route element={<AuthRoutes />}>
-          <Route path="/user/*" element={<UserProtectedRoutes />} />
-          <Route path="/admin/*" element={<AdminProtectedRoutes />} />
-          <Route path='/zone/:id' element={<ZonePage />} />
-          <Route path='/reservation' element={<ReservationPage />} />
-        </Route>
-      </Routes>
-      <Footer />
-
-=======
     <TokenRefresh>
         <Header />
         <Routes>
@@ -68,7 +48,6 @@ const App = () => {
         <Footer />
       </TokenRefresh>
       
->>>>>>> e34ec249a0fc758c6e66e3a42059d3780e474ee9
     </>
   );
 };

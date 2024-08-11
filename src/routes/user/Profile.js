@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiFetch from '../../utils/api';
+import UserReservation from './UserReservation';
 import Modal from '../../tools/Modal';
 import UpdatePasswordForm from '../../components/UpdatePassword'; 
 
@@ -65,6 +66,7 @@ const Profile = () => {
       ) : (
         <p>No profile information available.</p>
       )}
+      <UserReservation />
 
       {showUpdatePassword && (
         <Modal onClose={() => setShowUpdatePassword(false)}>
