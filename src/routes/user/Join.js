@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EmailVerification from './../../components/EmailVerification';
+
 import './Join.css';
+
+import apiFetch from '../../utils/api';
+
 
 const Join = () => {
   const navigate = useNavigate();
@@ -63,7 +67,7 @@ const Join = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/join', {
+      const response = await apiFetch('/join', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

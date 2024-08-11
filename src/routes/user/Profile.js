@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import apiFetch from '../../utils/api';
+import UserReservation from './UserReservation';
 import Modal from '../../tools/Modal';
 import UpdatePasswordForm from '../../components/UpdatePassword'; 
 
@@ -20,7 +22,7 @@ const Profile = () => {
           return;
         }
 
-        const response = await fetch('http://localhost:8080/api/user/profile', {
+        const response = await apiFetch('/api/user/profile', {
           method: 'GET',
           headers: {
             'Authorization': token, 
@@ -64,6 +66,7 @@ const Profile = () => {
       ) : (
         <p>No profile information available.</p>
       )}
+      <UserReservation />
 
       {showUpdatePassword && (
         <Modal onClose={() => setShowUpdatePassword(false)}>

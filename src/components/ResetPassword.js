@@ -1,4 +1,6 @@
+// components/ResetPasswordForm.js
 import { useState } from 'react';
+import apiFetch from '../utils/api';
 import './ResetPassword.css';
 
 const ResetPasswordForm = ({ setShowResetPassword }) => {
@@ -15,7 +17,7 @@ const ResetPasswordForm = ({ setShowResetPassword }) => {
       const formData = new URLSearchParams();
       formData.append('email', email);
 
-      const response = await fetch('http://localhost:8080/reset-password', {
+      const response = await apiFetch('/reset-password', {
         method: 'POST',
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -23,12 +25,14 @@ const ResetPasswordForm = ({ setShowResetPassword }) => {
         body: formData.toString(),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        setMessage(data.message);
-      } else {
-        const errorData = await response.json();
-        setError(errorData.message || '비밀번호 재설정 요청 중 오류 발생');
+      setMessage(response.message);
+
+      if (response.ok){
+        alert('임시 비밀번호 전송 완료');
+        setShowResetPassword(false);
+
+      }else{
+        alert('임시 비밀번호 전송 실패');
       }
     } catch (err) {
       console.error('오류:', err);

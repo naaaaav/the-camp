@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { roleAtom, rolePathAtom } from '../recoil/atom/UserAtom';
 import { Outlet } from 'react-router-dom';
+import apiFetch from './api';
 
 const AuthRoutes = () => {
   const [loading, setLoading] = useState(false);
   const [role, setRole] = useRecoilState(roleAtom);
   const rolePath = useRecoilValue(rolePathAtom);
+  
   
   useEffect(() => {
     setLoading(false);
@@ -19,7 +21,9 @@ const AuthRoutes = () => {
     
     (async () => {
       try {
-        const response =  await fetch('http://localhost:8080/api/role', {
+          //if (rolePath === '/') return;        
+          const response =  await apiFetch('/api/role', {
+
           method : 'GET',
           headers : {
             "Content-Type": "application/json",

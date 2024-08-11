@@ -5,8 +5,7 @@ import styles from "../../styles/detail/DetailPage.module.css"
 import ReviewBox from "../../components/detail/ReviewBox";
 import { useParams } from "react-router-dom";
 import ZoneBox from "../../components/admin/ZoneBox"
-
-const { kakao } = window;
+import apiFetch from "../../utils/api";
 
 
 function DetailPage(){
@@ -22,31 +21,38 @@ function DetailPage(){
         script.async = true;
         document.body.appendChild(script);
 
+        script.addEventListener("load", ()=>{
+            window.kakao.maps.load(()=>{
+                const response = apiFetch("/campsite/zone/site/"+id , {
+                    method:'GET',
+                }).then((res) => res.json())
+                .then((data) => {
+                    
+                    console.log(data.mapX);
+                    console.log(data.mapY);
+        
+                    const container = document.getElementById('map');
+                     const options = {
+                        center: new window.kakao.maps.LatLng(data?.mapY, data?.mapX),
+                     level: 3 
+                     };
+        
+                    const map = new window.kakao.maps.Map(container, options);
+        
+                    var marker = new window.kakao.maps.Marker({
+                        map:map,
+                        position: new window.kakao.maps.LatLng(data?.mapY,data?.mapX)
+                    });
+        
+                    console.log(data);
+                     setCampsite(data);
+                });
+            })
 
-        const response = fetch("http://localhost:8080/campsite/zone/site/"+id , {
-            method:'GET',
-        }).then((res) => res.json())
-        .then((data) => {
-            
-            console.log(data.mapX);
-            console.log(data.mapY);
+        })
 
-            const container = document.getElementById('map');
-             const options = {
-                center: new kakao.maps.LatLng(data?.mapY, data?.mapX),
-             level: 3 
-             };
 
-            const map = new kakao.maps.Map(container, options);
-
-            var marker = new kakao.maps.Marker({
-                map:map,
-                position: new kakao.maps.LatLng(data?.mapY,data?.mapX)
-            });
-
-            console.log(data);
-             setCampsite(data);
-        });
+        
 
         return ()=> script.remove();
         

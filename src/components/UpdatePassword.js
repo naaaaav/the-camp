@@ -1,4 +1,6 @@
+// components/UpdatePasswordForm.js
 import React, { useState } from 'react';
+import apiFetch from '../utils/api';
 import './UpdatePassword.css'; 
 
 const UpdatePasswordForm = ({ onClose }) => {
@@ -13,7 +15,7 @@ const UpdatePasswordForm = ({ onClose }) => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:8080/update-password', {
+      const response = await apiFetch('/update-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -21,17 +23,21 @@ const UpdatePasswordForm = ({ onClose }) => {
         },
         body: JSON.stringify({ currentPassword, newPassword }),
       });
-
+      
       if (response.ok) {
         setMessage('비밀번호가 성공적으로 변경되었습니다.');
         setCurrentPassword('');
         setNewPassword('');
+        onClose();
+
+
       } else {
         const errorData = await response.json();
         setError(errorData.message || '비밀번호 변경 중 오류 발생');
       }
     } catch (err) {
-      setError('비밀번호 변경 중 오류 발생');
+      // 오류 처리
+      setError(err.message || '비밀번호 변경 중 오류 발생');
     }
   };
 

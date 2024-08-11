@@ -6,6 +6,9 @@ import { useAuth } from '../../utils/AuthContext';
 import Modal from '../../tools/Modal'; 
 import './Login.css'; 
 
+import apiFetch from '../../utils/api';
+
+
 const Login = () => {
   const navigate = useNavigate();
   const { logIn } = useAuth();
@@ -21,15 +24,18 @@ const Login = () => {
 
   const LoginProcess = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(loginForm),
-      });
+
+    const response =  await apiFetch('/login', {
+      method : 'POST',
+      credentials : 'include',
+      headers : {
+        "Content-Type": "application/json",
+      },
+      body : JSON.stringify(loginForm),
+    })
+
 
       if (response.ok) {
         const Authorization = response.headers.get('Authorization');

@@ -4,8 +4,12 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { roleAtom } from '../recoil/atom/UserAtom';
 import { useAuth } from '../utils/AuthContext'; 
 import './Header.css';
+import apiFetch from '../utils/api';
+import { Link } from 'react-router-dom';
+
 
 const PRIVATE_PATHS = ["/profile", "/payment"];
+
 
 const Header = () => {
   const location = useLocation(); 
@@ -19,7 +23,7 @@ const Header = () => {
       const Authorization = localStorage.getItem('Authorization');
       if (Authorization) {
         try {
-          const response = await fetch('http://localhost:8080/api/role', {
+          const response = await apiFetch('/api/role', {
             method: 'GET',
             headers: {
               "Authorization": Authorization,
@@ -37,7 +41,8 @@ const Header = () => {
           }
         } catch (error) {
           console.error('Error fetching role:', error);
-          
+          logOut();
+
           navigate('/login');
         }
       }
@@ -52,7 +57,7 @@ const Header = () => {
     const checkAuth = async () => {
       if (PRIVATE_PATHS.includes(location.pathname)) {
         try {
-          const response = await fetch('http://localhost:8080/api/auth', {
+          const response = await apiFetch('/api/auth', {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -61,12 +66,12 @@ const Header = () => {
           });
 
           if (!response.ok) {
-            
+            logOut();
             navigate('/login');
           }
         } catch (error) {
           console.error('Error checking auth:', error);
-          
+          logOut();
           navigate('/login');
         }
       }
@@ -87,11 +92,11 @@ const Header = () => {
   const renderMenu = () => {
     if (!loggedIn) {
       return (
-        <>
-          <button><a href="/campList?page=0">전체</a></button>
+        <>  
+          <button><Link to={"/campList?page=0"}>전체</Link></button>
           <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
           <button onClick={() => handleNavClick('카라반')}>카라반</button>
-          <button onClick={() => handleNavClick('테마별')}>테마별</button>
+          <button><Link to={"/theme"}>테마별</Link></button>
           <button onClick={() => handleNavClick('리뷰')}>리뷰</button>
         </>
       );
@@ -109,10 +114,10 @@ const Header = () => {
       case 'ROLE_USER':
         return (
           <>
-            <button><a href="/campList?page=0">전체</a></button>
+            <button><Link to={"/campList?page=0"}>전체</Link></button>
             <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
             <button onClick={() => handleNavClick('카라반')}>카라반</button>
-            <button onClick={() => handleNavClick('테마별')}>테마별</button>
+            <button><Link to={"/theme"}>테마별</Link></button>
             <button onClick={() => handleNavClick('리뷰')}>리뷰</button>
             <button onClick={() => navigate('/profile')}>Profile</button>
           </>
@@ -125,10 +130,12 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="logo">더캠프</div>
+      <div className="logo"><Link to={"/"}>더캠프</Link></div>
       <div className="nav-login-container">
         <nav className="nav">
+
           {renderMenu()}
+
         </nav>
         {loggedIn ? (
           <div>
