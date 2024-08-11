@@ -41,7 +41,8 @@ const Header = () => {
           }
         } catch (error) {
           console.error('Error fetching role:', error);
-          
+          logOut();
+
           navigate('/login');
         }
       }
@@ -56,7 +57,7 @@ const Header = () => {
     const checkAuth = async () => {
       if (PRIVATE_PATHS.includes(location.pathname)) {
         try {
-          const response = await fetch('http://localhost:8080/api/auth', {
+          const response = await apiFetch('/api/auth', {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -65,12 +66,12 @@ const Header = () => {
           });
 
           if (!response.ok) {
-            
+            logOut();
             navigate('/login');
           }
         } catch (error) {
           console.error('Error checking auth:', error);
-          
+          logOut();
           navigate('/login');
         }
       }
