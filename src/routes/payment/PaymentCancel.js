@@ -1,3 +1,5 @@
+import apiFetch from '../../utils/api';
+
 const PaymentCancel = () => {
   const cancelPayment = async () => {
     const paymentId = "kakao-payment-28676157-fe33-4243-bffe-bc842bfc2003";

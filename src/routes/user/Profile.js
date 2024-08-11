@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import apiFetch from '../../utils/api';
+import UserReservation from './UserReservation';
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -59,6 +60,7 @@ const Profile = () => {
       ) : (
         <p>No profile information available.</p>
       )}
+      <UserReservation />
     </div>
   );
 };

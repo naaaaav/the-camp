@@ -70,7 +70,8 @@ const Payment = () => {
           reserveStartDate : state.reserveStartDate,
           reserveEndDate : state.reserveEndDate,
           adults : state.adults,
-          children : state.children
+          children : state.children,
+          campsiteName : state.campSiteName
         }),
       });
   
@@ -124,7 +125,8 @@ const Payment = () => {
           reserveStartDate : state.reserveStartDate,
           reserveEndDate : state.reserveEndDate,
           adults : state.adults,
-          children : state.children
+          children : state.children,
+          campsiteName : state.campSiteName
         }),
       });
   
