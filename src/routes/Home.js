@@ -92,7 +92,7 @@ const Home = () => {
         </div>
       )}
       
-      <Footer /> {/* Ensure Footer is rendered */}
+      
     </div>
   );
 };

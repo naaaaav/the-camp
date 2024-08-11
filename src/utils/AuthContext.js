@@ -24,6 +24,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem('Authorization');
         setLoggedIn(false);
         // 페이지 리로드
+        window.location.reload();
       
       } else {
         console.error('로그아웃 요청 실패');

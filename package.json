@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.3",
+    "cookie": "^0.6.0",
     "cors": "^2.8.5",
     "data-fns": "^1.1.0",
     "eslint": "^8.57.0",
