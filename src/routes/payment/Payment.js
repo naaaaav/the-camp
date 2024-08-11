@@ -18,7 +18,7 @@ const Payment = () => {
 
   const userPayment = async () => {
     try {
-      const response = await apiFetch(`/api/user/payment`, {
+      const response = await apiFetch(`/api/user/data`, {
         method: "GET",
         headers: { 
           "Content-Type": "application/json",

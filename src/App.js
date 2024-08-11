@@ -22,6 +22,10 @@ import ThemePage from './routes/campList/ThemePage';
 import ResetPasswordForm from './components/ResetPassword';
 import UpdatePasswordForm from './components/UpdatePassword';
 import TokenRefresh from './components/TokenRefresh';
+import ReviewCreate from './routes/review/ReviewCreate';
+import ReviewList from './routes/review/ReviewList';
+import ReviewCampsiteList from './routes/review/ReviewCampsiteList';
+import ReviewUpdate from './routes/review/ReviewUpdate';
 
 const App = () => {
   return (
@@ -39,6 +43,12 @@ const App = () => {
           <Route path="/theme" element={<ThemePage/>}/>
           <Route path="/profile" element={<Profile />} />
           <Route path="/campList" element={<CampListPage />} />
+
+          <Route path='/review/list' element={<ReviewList />} />
+          <Route path='/review/update' element={<ReviewUpdate />} />
+          <Route path='/review/list/:campsiteId' element={<ReviewCampsiteList />} />
+          <Route path='/review/create/:campsiteId' element={<ReviewCreate />} />
+
           <Route element={<AuthRoutes />}>
             <Route path="/user/*" element={<UserProtectedRoutes />} />
             <Route path="/admin/*" element={<AdminProtectedRoutes />} />
@@ -47,7 +57,6 @@ const App = () => {
         </Routes> 
         <Footer />
       </TokenRefresh>
-      
     </>
   );
 };
