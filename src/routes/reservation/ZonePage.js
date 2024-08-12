@@ -138,7 +138,7 @@ const ZonePage = () => {
     console.log(totalPrice);
 
     const navigateReservationPage = () => {
-        navigate('/reservation');
+        navigate('/user/reservation');
     };
 
     return (
