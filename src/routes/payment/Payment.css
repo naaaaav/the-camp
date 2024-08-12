@@ -1,0 +1,48 @@
+
+.Group {
+  width: 550px; 
+  padding: 20px; 
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #D9D9D9;
+  display: flex;
+  flex-direction: column;
+  margin: 80px auto;
+}
+
+
+.ButtonGroup {
+  display: flex;
+  gap: 100px; 
+  margin-top: 40px; 
+}
+
+.Kakao-Button {
+  flex: 1;
+  height: 40px; 
+  background-color: #fee92b;
+  border-radius: 8px;
+  border: 1px solid #D9D9D9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  font-size: 16px; 
+  font-weight: 400;
+  cursor: pointer; 
+}
+
+.Toss-Button {
+  flex: 1;
+  height: 40px; 
+  background-color: #2298ff;
+  border-radius: 8px;
+  border: 1px solid #D9D9D9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #F5F5F5;
+  font-size: 16px; 
+  font-weight: 400;
+  cursor: pointer; 
+}

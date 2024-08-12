@@ -2,6 +2,7 @@ import * as PortOne from "@portone/browser-sdk/v2";
 import apiFetch from "../../utils/api";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import './Payment.css';
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -146,14 +147,20 @@ const Payment = () => {
   }
 
   return (
-    <div>
-      <h1>{state.campSiteName} 캠핑장 결제</h1>
-      <h2>예약기간 {state.reserveStartDate.toLocaleDateString('ko-KR', options)} ~ {state.reserveEndDate.toLocaleDateString('ko-KR', options)}</h2>
-      <h2>결제금액 : {state.totalPrice}원</h2>
-      <h3>성인 {state.adults}명, 아이 {state.children}명</h3>
-      <h3>결제자 {userData?.fullName}</h3>
-      <button onClick={kaKaoPaymentAlert}>카카오결제</button>
-      <button onClick={tossPaymentAlert}>토스결제</button>
+    <div className='Group'>
+      <h2>{state.campSiteName} 캠핑장</h2>
+      <h4>예약 일시</h4> 
+      <p>{state.reserveStartDate.toLocaleDateString('ko-KR', options)} ~ {state.reserveEndDate.toLocaleDateString('ko-KR', options)}</p>
+      <h4>결제금액</h4>
+      <p>{state.totalPrice}원</p>
+      <h4>인원</h4>
+      <p>성인 {state.adults}명, 아이 {state.children}명</p>
+      <h4>결제자</h4>
+      <p>{userData?.fullName}</p>
+      <div className="ButtonGroup">
+        <button className='Kakao-Button' onClick={kaKaoPaymentAlert}>카카오결제</button>
+        <button className='Toss-Button' onClick={tossPaymentAlert}>토스결제</button>
+      </div>
     </div>
   )
 }
