@@ -5,6 +5,7 @@ import Login from './routes/user/Login';
 import './App.css';
 import Join from './routes/user/Join';
 import Profile from './routes/user/Profile';
+import ReviewCreatePage from './routes/review/ReviewCreatePage';
 import AuthRoutes from './utils/AuthRoutes';
 import UserProtectedRoutes from './utils/UserProtectedRoutes';
 import AdminProtectedRoutes from './utils/AdminProtectedRoutes';
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/campList" element={<CampListPage />} />
         <Route path="/theme" element={<ThemePage/>}/>
+        <Route path="/review" element={<ReviewCreatePage />} />
         <Route element={<AuthRoutes />}>
           <Route path="/user/*" element={<UserProtectedRoutes />} />
           <Route path="/admin/*" element={<AdminProtectedRoutes />} />
