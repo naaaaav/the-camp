@@ -54,7 +54,7 @@ const ReviewComponent = ({ campsiteSeq, item, loginEmail, isLike, isDisplay }) =
   return (
     <div>
       {review !== null ?       
-      <div style={{ border: '1px solid black', padding: '10px' }}>
+      <div style={{ border: '1px solid #D9D9D9', padding: '10px', borderRadius : '8px' }}>
         <h4 style={{display : isDisplay ? 'block' : 'none'}}>
           캠핑장 명 : <Link to={`/detail/${review.campsiteSeq}`}>{review.campName}</Link>
         </h4>

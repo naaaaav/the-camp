@@ -65,7 +65,10 @@ function DetailPage(){
     }
 
     const changeToReviewCreatePage = (e, campsiteSeq) => {
-        navigate(`/user/review/create/${campsiteSeq}`)
+        const data = {
+            campsiteName : campsite.facltNm
+        }
+        navigate(`/user/review/create/${campsiteSeq}`, { state : data})
     }
 
     
