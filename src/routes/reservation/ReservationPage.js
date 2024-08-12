@@ -26,6 +26,8 @@ const calculateTotalPrice = (start, end, pricePerDay, adults) => {
     return price;
 };
 
+
+
 const ReservationPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -66,7 +68,7 @@ const ReservationPage = () => {
             campSiteName: state.zone.campSiteName,
             totalPrice: state.totalPrice,
             // campsiteSeq: id, //id가 camsiteSeq가 맞나요? -> campsiteSeq는 reservation에 필요 없습니다.
-            siteSeq: state.selectedSite.seq, //siteSeq를 어디서 가져와야할지 잘 모르겠습니다...
+            siteSeq: state.site.seq, //siteSeq를 어디서 가져와야할지 잘 모르겠습니다...
             reserveStartDate: state.startDate,
             reserveEndDate: state.endDate,
             adults: adults,

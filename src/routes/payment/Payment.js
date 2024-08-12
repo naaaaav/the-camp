@@ -3,37 +3,46 @@ import apiFetch from "../../utils/api";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+const formatDateToYYYYMMDD = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 const Payment = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
   const [userData, setUserData] = useState();
   const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-  
+  const formatStartDate = formatDateToYYYYMMDD(state.reserveStartDate);
+  const formatEndDate = formatDateToYYYYMMDD(state.reserveEndDate);
+
   useEffect(() => {
     userPayment();
   }, [])
-  
+
   console.log(userData);
 
   const userPayment = async () => {
     try {
       const response = await apiFetch(`/api/user/data`, {
         method: "GET",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
-          "Authorization" : localStorage.getItem("Authorization")
+          "Authorization": localStorage.getItem("Authorization")
         }
       });
       if (response.ok) {
         const json = await response.json();
         setUserData(json);
       }
-    } catch(error) {
+    } catch (error) {
       console.error(error);
     }
   }
-  
+
   const kaKaoPaymentAlert = async () => {
     try {
       const paymentId = `kakao-payment-${crypto.randomUUID()}`;
@@ -44,10 +53,10 @@ const Payment = () => {
         paymentId: paymentId,
         orderName: `${state.campSiteName} 예약`,
         totalAmount: state.totalPrice,
-        customer : {
-          fullName : userData.fullName,
-          phoneNumber : userData.phoneNumber,
-          email : userData.email,
+        customer: {
+          fullName: userData.fullName,
+          phoneNumber: userData.phoneNumber,
+          email: userData.email,
         },
         currency: "CURRENCY_KRW",
         payMethod: "EASY_PAY",
@@ -56,26 +65,26 @@ const Payment = () => {
       if (response.code != null) {
         return alert(response.message);
       }
-        
+
       const notified = await apiFetch(`/payment/complete`, {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
-          "Authorization" : localStorage.getItem("Authorization")
+          "Authorization": localStorage.getItem("Authorization")
         },
         body: JSON.stringify({
           paymentId,
-          campsiteSeq : state.campsiteSeq,
-          siteSeq : state.siteSeq,
-          reserveStartDate : state.reserveStartDate,
-          reserveEndDate : state.reserveEndDate,
-          adults : state.adults,
-          children : state.children,
-          campsiteName : state.campSiteName
+          campsiteSeq: state.campsiteSeq,
+          siteSeq: state.siteSeq,
+          reserveStartDate: formatStartDate,
+          reserveEndDate: formatEndDate,
+          adults: state.adults,
+          children: state.children,
+          campsiteName: state.campSiteName
         }),
       });
-  
-      if(notified.status === 400) {
+
+      if (notified.status === 400) {
         alert('결제 금액이 일치하지 않습니다.');
         response.code = null;
       }
@@ -99,10 +108,10 @@ const Payment = () => {
         paymentId: paymentId,
         orderName: `${state.campSiteName} 예약`,
         totalAmount: state.totalPrice,
-        customer : {
-          fullName : userData.fullName,
-          phoneNumber : userData.phoneNumber,
-          email : userData.email,
+        customer: {
+          fullName: userData.fullName,
+          phoneNumber: userData.phoneNumber,
+          email: userData.email,
         },
         currency: "CURRENCY_KRW",
         payMethod: "EASY_PAY",
@@ -111,25 +120,25 @@ const Payment = () => {
       if (response.code != null) {
         return alert(response.message);
       }
-        
+
       const notified = await apiFetch(`/payment/complete`, {
         method: "POST",
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
-          "Authorization" : localStorage.getItem("Authorization")
+          "Authorization": localStorage.getItem("Authorization")
         },
         body: JSON.stringify({
           paymentId,
-          campsiteSeq : state.campsiteSeq,
-          siteSeq : state.siteSeq,
-          reserveStartDate : state.reserveStartDate,
-          reserveEndDate : state.reserveEndDate,
-          adults : state.adults,
-          children : state.children,
-          campsiteName : state.campSiteName
+          campsiteSeq: state.campsiteSeq,
+          siteSeq: state.siteSeq,
+          reserveStartDate: formatStartDate,
+          reserveEndDate: formatEndDate,
+          adults: state.adults,
+          children: state.children,
+          campsiteName: state.campSiteName
         }),
       });
-  
+
       if (notified.status === 400) {
         alert('결제 금액이 일치하지 않습니다.');
         response.code = null;
