@@ -42,13 +42,30 @@ const Join = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!joinForm.email) newErrors.email = '이메일을 입력하세요';
+
+
+
+    // 비밀번호 검증
     if (!joinForm.password) newErrors.password = '비밀번호를 입력하세요';
+    else if (joinForm.password.length < 8) newErrors.password = '비밀번호는 최소 8자 이상이어야 합니다';
+
+    // 비밀번호 확인 검증
     if (joinForm.password !== joinForm.passwordConfirmation) newErrors.passwordConfirmation = '비밀번호가 일치하지 않습니다';
+
+    // 이름 검증
     if (!joinForm.name) newErrors.name = '이름을 입력하세요';
+    else if (/[^a-zA-Z가-힣]/.test(joinForm.name)) newErrors.name = '이름은 한글 또는 영어만 포함할 수 있습니다';
+
+    // 생년월일 검증
     if (!joinForm.birthday) newErrors.birthday = '생년월일을 입력하세요';
+    else if (!/^\d{4}-\d{2}-\d{2}$/.test(joinForm.birthday)) newErrors.birthday = '유효한 날짜 형식(YYYY-MM-DD)을 입력하세요';
+
+    // 전화번호 검증
     if (!joinForm.phoneNumber) newErrors.phoneNumber = '전화번호를 입력하세요';
-    if (!joinForm.gender) newErrors.gender = '성별을 입력하세요';
+    else if (!/^\d{10,11}$/.test(joinForm.phoneNumber)) newErrors.phoneNumber = '유효한 전화번호를 입력하세요';
+
+
+
     return newErrors;
   };
 
@@ -162,7 +179,7 @@ const Join = () => {
             name="phoneNumber"
             value={joinForm.phoneNumber}
             onChange={onChangeForm}
-            placeholder="전화번호"
+            placeholder="전화번호 ( &quot;-&quot; 없이 입력해주세요)"
             disabled={!isEmailVerified} 
             required
           />
@@ -170,15 +187,18 @@ const Join = () => {
         </div>
         <div className="form-field">
           <label className="field-label">Gender</label>
-          <input
+          <select
             type="text"
             name="gender"
             value={joinForm.gender}
             onChange={onChangeForm}
-            placeholder="성별"
             disabled={!isEmailVerified} 
             required
-          />
+          >
+            <option value="">성별을 선택하세요</option>
+            <option value="남자">남자</option>
+            <option value="여자">여자</option>
+          </select>
           {errors.gender && <div className="error-message">{errors.gender}</div>}
         </div>
         <div className="ButtonGroup">

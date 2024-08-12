@@ -1,7 +1,5 @@
 import { useState } from 'react';
-
 import './EmailVerification.css'; // Import the CSS file
-
 import apiFetch from '../utils/api';
 
 const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
@@ -11,6 +9,11 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
   const [error, setError] = useState('');
 
   const sendVerificationEmail = async () => {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('유효한 이메일 주소를 입력하세요.');
+      return;
+    }
+    
     try {
       const response = await apiFetch('/mailSend', {
         method: 'POST',
@@ -96,25 +99,24 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
       
       {isEmailSent && (
         <>
-        <div className="verify-label">Verfiy-code</div>
-        <div className="auth-code-container">
-          
-          <input
-            type="text"
-            className="auth-code-input"
-            value={authCode}
-            onChange={(e) => setAuthCode(e.target.value)}
-            placeholder="인증 코드를 입력해주세요"
-            required
-          />
-          <button
-            type="button"
-            className="verify-button"
-            onClick={checkAuthCode}
-          >
-            인증 코드 확인
-          </button>
-        </div>
+          <div className="verify-label">인증 코드</div>
+          <div className="auth-code-container">
+            <input
+              type="text"
+              className="auth-code-input"
+              value={authCode}
+              onChange={(e) => setAuthCode(e.target.value)}
+              placeholder="인증 코드를 입력해주세요"
+              required
+            />
+            <button
+              type="button"
+              className="verify-button"
+              onClick={checkAuthCode}
+            >
+              인증 코드 확인
+            </button>
+          </div>
         </>
       )}
       {error && <div className="error-message">{error}</div>}

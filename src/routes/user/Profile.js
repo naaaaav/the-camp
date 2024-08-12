@@ -4,6 +4,7 @@ import apiFetch from '../../utils/api';
 import UserReservation from './UserReservation';
 import Modal from '../../tools/Modal';
 import UpdatePasswordForm from '../../components/UpdatePassword'; 
+import './Profile.css'
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -50,18 +51,23 @@ const Profile = () => {
   if (error) return <p>Error: {error}</p>; 
 
   return (
-    <div>
-      <h1>User Profile</h1>
+    <div className="profile-container">
+
+      <span className="profile-title">내정보</span>
+      <hr />
       {profile ? (
-        <div>
-          <p>Email: {profile.email}</p>
-          <p>Name: {profile.name}</p>
-          <p>Gender: {profile.gender}</p>
-          <p>PhoneNumber: {profile.phoneNumber}</p>
-          <p>Birthday: {profile.birthday}</p>
-          <button onClick={() => setShowUpdatePassword(true)}>
+        <div className="profile-info">
+          <p className="info-item"><strong>Email:</strong> {profile.email}</p>
+          <p className="info-item"><strong>Name:</strong> {profile.name}</p>
+          <p className="info-item"><strong>PhoneNumber:</strong> {profile.phoneNumber}</p>
+          <p className="info-item"><strong>Birthday:</strong> {profile.birthday}</p>
+          <p className="info-item"><strong>Gender:</strong> {profile.gender}</p>
+          <button 
+            onClick={() => setShowUpdatePassword(true)} 
+            className="update-password-button"
+          >
             비밀번호 변경
-          </button> 
+          </button>
         </div>
       ) : (
         <p>No profile information available.</p>
