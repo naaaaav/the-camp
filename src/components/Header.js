@@ -94,8 +94,6 @@ const Header = () => {
       return (
         <>  
           <button><Link to={"/campList?page=0"}>전체</Link></button>
-          <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
-          <button onClick={() => handleNavClick('카라반')}>카라반</button>
           <button><Link to={"/theme"}>테마별</Link></button>
           <button onClick={() => navigate('/review/list')}>리뷰</button>
         </>
@@ -106,17 +104,17 @@ const Header = () => {
       case 'ROLE_ADMIN':
         return (
           <>
-            <button onClick={() => handleNavClick('어드민')}>Dashboard</button>
-            <button onClick={() => handleNavClick('어드민')}>Settings</button>
-            <button onClick={() => handleNavClick('')}>Manage Users</button>
+            <button><Link to={"/campList?page=0"}>전체</Link></button>
+            <button><Link to={"/theme"}>테마별</Link></button>
+            <button onClick={() => navigate('/review/list')}>리뷰</button>
+            <button><Link to={"/admin"}>관리</Link></button>
+            
           </>
         );
       case 'ROLE_USER':
         return (
           <>
             <button><Link to={"/campList?page=0"}>전체</Link></button>
-            <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
-            <button onClick={() => handleNavClick('카라반')}>카라반</button>
             <button><Link to={"/theme"}>테마별</Link></button>
             <button onClick={() => navigate('/review/list')}>리뷰</button>
             <button onClick={() => navigate('/profile')}>Profile</button>
