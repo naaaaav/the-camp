@@ -58,7 +58,7 @@ const ReservationPage = () => {
             campSiteName: zone.campSiteName,
             totalPrice: totalPrice,
             // campsiteSeq: id, //id가 camsiteSeq가 맞나요? -> campsiteSeq는 reservation에 필요 없습니다.
-            siteSeq: selectedSite, //siteSeq를 어디서 가져와야할지 잘 모르겠습니다...
+            siteSeq: selectedSite.seq, //siteSeq를 어디서 가져와야할지 잘 모르겠습니다...
             reserveStartDate: startDate,
             reserveEndDate: endDate,
             adults: adults,
