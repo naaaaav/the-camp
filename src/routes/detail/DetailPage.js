@@ -3,7 +3,7 @@ import ImageBox from "../../components/detail/ImageBox";
 import TitleBox from "../../components/detail/TitleBox";
 import styles from "../../styles/detail/DetailPage.module.css"
 import ReviewBox from "../../components/detail/ReviewBox";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ZoneBox from "../../components/admin/ZoneBox"
 import apiFetch from "../../utils/api";
 import ReviewCampsiteList from '../review/ReviewCampsiteList';
@@ -96,14 +96,16 @@ function DetailPage(){
             <TitleBox title="구역">
                 {
                     campsite?.zones?.map((item,i)=>
+                        <Link to={"/zone/"+item.seq}>
                         <div style={{border:"1px solid black" , borderRadius:"10px",margin:"10px", width:"1200px"}}>
                             <h3>{ item.title }</h3>
                             <p>{ item.intro}</p>
                             <p>
                                 <span>체크인:{item.checkin}</span>
-                                <span style={{marginLeft:"10px"}}>체크아웃:{item.checkin}</span>
+                                <span style={{marginLeft:"10px"}}>체크아웃:{item.checkout}</span>
                             </p>
                         </div>
+                        </Link>
                     )
                 }
             </TitleBox>

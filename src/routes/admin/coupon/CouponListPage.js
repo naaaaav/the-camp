@@ -19,7 +19,13 @@ const CouponListPage = () => {
 
     const fetchCoupons = async () => {
       try {
-        const response = await apiFetch('/coupons');
+        const response = await apiFetch('/coupons' , {
+          method:'GET',
+          headers:{
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('Authorization')
+        }
+        });
         const data = await response.json();
         setCoupons(data.content);
       } catch (error) {

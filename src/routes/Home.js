@@ -78,19 +78,7 @@ const Home = () => {
           </div>
         ))}
       </div>
-      {totalPages > 1 && (
-        <div className="pagination">
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <button
-              key={index}
-              className={`page-button ${index === page ? 'active' : ''}`}
-              onClick={() => handlePageChange(index)}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-      )}
+     
       
       
     </div>
