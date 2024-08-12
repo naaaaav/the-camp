@@ -1,10 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
+import PagingComponent from '../../components/paging/PagingComponent';
 import apiFetch from '../../utils/api';
 
 const UserReservation = () => {
+  const [dataCurrentPage, setDataCurrentPage] = useState(0);
   const paymentIdRef = useRef(null);
   const reservationIdRef = useRef(null);
   const [data, setData] = useState();
+
+  const onDataPageChange = ({ selected }) => {
+    setDataCurrentPage(selected);
+    setData(null);
+  }
 
   const UserReservationData = async () => {
     try {
@@ -26,15 +33,17 @@ const UserReservation = () => {
   }
 
   useEffect(() => {
+    setData(null);
+    setDataCurrentPage(dataCurrentPage);
     UserReservationData();
-  }, [])
+  }, [dataCurrentPage])
 
   const cancelPayment = async (paymentId, reservationId, reserveStartDate) => {    
-    const response = await fetch(`http://localhost:8080/payment/cancel`,{
+    const response = await apiFetch(`/payment/cancel`,{
       method: "POST",
       headers: { 
         "Content-Type": "application/json",
-        "access" : localStorage.getItem("access")
+        "Authorization": localStorage.getItem('Authorization'),
       },
       body: JSON.stringify({
         paymentId,
@@ -45,6 +54,7 @@ const UserReservation = () => {
 
     if (response.status === 201) {
       alert("결제 취소 성공");
+      setData(null);
     }
   }
 
@@ -75,6 +85,7 @@ const UserReservation = () => {
           </form>
         </div>
       ))}
+      <PagingComponent currentPage={data?.number} pageCount={data?.totalPages} onPageChange={onDataPageChange} />
     </div>
   )
 }
