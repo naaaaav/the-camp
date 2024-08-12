@@ -64,6 +64,8 @@ const App = () => {
 export function UserRoutes() {
   return (
     <Routes>
+      <Route path='/zone/:id' element={<ZonePage />} />
+      <Route path='/reservation' element={<ReservationPage />} />
       <Route path='/payment' element={<Payment />} />
       <Route path='/review/update' element={<ReviewUpdate />} />
       <Route path='/review/create/:campsiteId' element={<ReviewCreate />} />

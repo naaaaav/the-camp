@@ -61,11 +61,14 @@ function DetailPage(){
     },[id]);
 
     const changeToReservationPage = (e, campsiteSeq) => {
-        navigate(`/reservation/${campsiteSeq}`)
+        navigate(`/user/zone/${campsiteSeq}`)
     }
 
     const changeToReviewCreatePage = (e, campsiteSeq) => {
-        navigate(`/user/review/create/${campsiteSeq}`)
+        const data = {
+            campsiteName : campsite.facltNm
+        }
+        navigate(`/user/review/create/${campsiteSeq}`, { state : data})
     }
 
     

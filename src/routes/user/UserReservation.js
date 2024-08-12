@@ -1,12 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
+import PagingComponent from '../../components/paging/PagingComponent';
 import apiFetch from '../../utils/api';
 
 const UserReservation = () => {
+  const [dataCurrentPage, setDataCurrentPage] = useState(0);
   const paymentIdRef = useRef(null);
   const reservationIdRef = useRef(null);
   const [data, setData] = useState();
 
-  const UserReservationData = async () => {
+  const onDataPageChange = ({ selected }) => {
+    setDataCurrentPage(selected);
+    setData(null);
+  }
+
+  const userReservationData = async () => {
     try {
       const response = await apiFetch(`/user/reservation/list`, {
         method: 'GET',
@@ -26,15 +33,17 @@ const UserReservation = () => {
   }
 
   useEffect(() => {
-    UserReservationData();
-  }, [])
+    setData(null);
+    setDataCurrentPage(dataCurrentPage);
+    userReservationData();
+  }, [dataCurrentPage])
 
   const cancelPayment = async (paymentId, reservationId, reserveStartDate) => {    
-    const response = await fetch(`http://localhost:8080/payment/cancel`,{
+    const response = await apiFetch(`/payment/cancel`,{
       method: "POST",
       headers: { 
         "Content-Type": "application/json",
-        "access" : localStorage.getItem("access")
+        "Authorization": localStorage.getItem('Authorization'),
       },
       body: JSON.stringify({
         paymentId,
@@ -45,6 +54,9 @@ const UserReservation = () => {
 
     if (response.status === 201) {
       alert("결제 취소 성공");
+      userReservationData();
+    } else if (response.status === 400) {
+      alert("예약 하루전 부터는 예약을 취소할 수 없습니다.");
     }
   }
 
@@ -75,6 +87,7 @@ const UserReservation = () => {
           </form>
         </div>
       ))}
+      <PagingComponent currentPage={data?.number} pageCount={data?.totalPages} onPageChange={onDataPageChange} />
     </div>
   )
 }
