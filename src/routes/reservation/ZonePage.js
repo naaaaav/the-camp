@@ -5,7 +5,7 @@ import styles from "../../styles/reservation/ZonePage.module.css";
 import { getZoneByZoneSeq } from '../../tools/ZoneFunctions';
 import { getSiteByZone } from '../../tools/SiteFunctions';
 import { getReservationExistence } from '../../tools/ReservationFunctions';
-import { adultsState, childrenState, startDateState, endDateState, daysState, datesSelectedState, sitesState, zoneState, selectedSiteState } from '../../recoil/atom/ReservationAtom';
+import { adultsState, childrenState } from '../../recoil/atom/ReservationAtom';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from "recoil";
 
@@ -14,12 +14,19 @@ const formatTime = (timeString) => {
     return `${hours}:${minutes}`;
 };
 
-const calculateTotalPrice = (start, end, pricePerDay) => {
+const calculateTotalPrice = (start, end, pricePerDay, adults) => {
     if (!start || !end || !pricePerDay) return 0;
     const startDate = new Date(start);
     const endDate = new Date(end);
     const days = (endDate - startDate) / (1000 * 60 * 60 * 24);
-    return days * pricePerDay;
+
+    let price = days * pricePerDay;
+
+    if (adults > 2) {
+        price += (adults - 2) * 10000;
+    }
+
+    return price;
 };
 
 const formatDateToYYYYMMDD = (date) => {
@@ -33,13 +40,13 @@ const ZonePage = () => {
     const { id } = useParams();
     const [adults, setAdults] = useRecoilState(adultsState);
     const [children, setChildren] = useRecoilState(childrenState);
-    const [startDate, setStartDate] = useRecoilState(startDateState);
-    const [endDate, setEndDate] = useRecoilState(endDateState);
-    const [days, setDays] = useRecoilState(daysState);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [days, setDays] = useState(null);
     const [datesSelected, setDatesSelected] = useState(false);
     const [sites, setSites] = useState([]);
-    const [zone, setZone] = useRecoilState(zoneState);
-    const [selectedSite, setSelectedSite] = useRecoilState(selectedSiteState);
+    const [zone, setZone] = useState(null);
+    const [selectedSite, setSelectedSite] = useState(null);
     const [siteStatus, setSiteStatus] = useState([]);
     const navigate = useNavigate();
 
@@ -81,7 +88,11 @@ const ZonePage = () => {
                     getReservationExistence({
                         siteSeq: site.seq,
                         reservationStartDate: formattedStartDate,
-                        reservationEndDate: formattedEndDate
+                        reservationEndDate: formattedEndDate,
+                        adults: adults,
+                        children: children,
+                        days: days,
+
                     })
                 );
                 const statusResults = await Promise.all(statusPromises);
@@ -133,12 +144,23 @@ const ZonePage = () => {
         console.log(site);
     };
 
-    const totalPrice = zone ? calculateTotalPrice(startDate, endDate, zone.offSeasonPrice) : 0;
+    const totalPrice = zone ? calculateTotalPrice(startDate, endDate, zone.offSeasonPrice, adults) : 0;
     console.log(startDate, endDate);
     console.log(totalPrice);
 
     const navigateReservationPage = () => {
-        navigate('/reservation');
+        const reservationData = {
+            campSiteName: zone.campSiteName,
+            days: days,
+            totalPrice: totalPrice,
+            site: selectedSite,
+            startDate: startDate,
+            endDate: endDate,
+            adults: adults,
+            children: children,
+            zone: zone
+        }
+        navigate('/reservation', { state: reservationData });
     };
 
     return (
