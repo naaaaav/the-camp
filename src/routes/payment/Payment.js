@@ -149,10 +149,11 @@ const Payment = () => {
   return (
     <div className='Group'>
       <h2>{state.campSiteName} 캠핑장</h2>
+      <hr />
       <h4>예약 일시</h4> 
       <p>{state.reserveStartDate.toLocaleDateString('ko-KR', options)} ~ {state.reserveEndDate.toLocaleDateString('ko-KR', options)}</p>
       <h4>결제금액</h4>
-      <p>{state.totalPrice}원</p>
+      <p><strong>{state.totalPrice}원</strong></p>
       <h4>인원</h4>
       <p>성인 {state.adults}명, 아이 {state.children}명</p>
       <h4>결제자</h4>
