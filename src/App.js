@@ -67,8 +67,6 @@ const App = () => {
         </Routes> 
         <Footer />
       </TokenRefresh>
-      
->>>>>>> e34ec249a0fc758c6e66e3a42059d3780e474ee9
     </>
   );
 };
