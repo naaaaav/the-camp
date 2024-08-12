@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import Header from './../../components/Header';
-import Footer from './../../components/Footer';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
 import styles from "../../styles/reservation/ReservationPage.module.css";
 import { adultsState, childrenState } from "../../recoil/atom/ReservationAtom";
 

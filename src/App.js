@@ -29,6 +29,8 @@ import ReviewList from './routes/review/ReviewList';
 import ReviewCampsiteList from './routes/review/ReviewCampsiteList';
 import ReviewUpdate from './routes/review/ReviewUpdate';
 
+import ReservationSettingPage from './routes/admin/reservation/ReservationSettingPage';
+
 const App = () => {
   return (
     <TokenRefresh>
@@ -83,6 +85,7 @@ export function AdminRoutes() {
       <Route path="/camp/:id" element={<CampSettingDetailPage />} />
       <Route path='coupons' element={<CouponListPage />} />
       <Route path='coupons/create' element={<CouponCreatePage />} />
+      <Route path='reservations' element={<ReservationSettingPage />}/> 
     </Routes>
   )
 }

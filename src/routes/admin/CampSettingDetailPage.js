@@ -142,8 +142,8 @@ function CampSettingDetailPage(){
             console.log(seasons);
         }
     ).catch(err => {
-        console.log(err);
-        alert(err);
+        console.log("에러객체:"+err);
+        alert(err.message);
     })
     }
 
