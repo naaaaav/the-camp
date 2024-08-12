@@ -55,7 +55,7 @@ const CouponCreatePage = () => {
 
   const handlePopupClose = () => {
     setShowPopup(false);
-    navigate('/coupons'); // 절대 경로 사용
+    navigate('/coupons'); 
   };
 
   return (
