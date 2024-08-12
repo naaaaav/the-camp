@@ -13,7 +13,7 @@ const UserReservation = () => {
     setData(null);
   }
 
-  const UserReservationData = async () => {
+  const userReservationData = async () => {
     try {
       const response = await apiFetch(`/user/reservation/list`, {
         method: 'GET',
@@ -35,7 +35,7 @@ const UserReservation = () => {
   useEffect(() => {
     setData(null);
     setDataCurrentPage(dataCurrentPage);
-    UserReservationData();
+    userReservationData();
   }, [dataCurrentPage])
 
   const cancelPayment = async (paymentId, reservationId, reserveStartDate) => {    
@@ -54,7 +54,9 @@ const UserReservation = () => {
 
     if (response.status === 201) {
       alert("결제 취소 성공");
-      setData(null);
+      userReservationData();
+    } else if (response.status === 400) {
+      alert("예약 하루전 부터는 예약을 취소할 수 없습니다.");
     }
   }
 
