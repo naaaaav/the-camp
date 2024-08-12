@@ -5,6 +5,7 @@ import styles from "../../styles/reservation/ZonePage.module.css";
 import { getZoneByZoneSeq } from '../../tools/ZoneFunctions';
 import { getSiteByZone } from '../../tools/SiteFunctions';
 import { getReservationExistence } from '../../tools/ReservationFunctions';
+import { getSeasonType } from '../../tools/SeasonFunction'; // 시즌 타입 가져오는 함수
 import { adultsState, childrenState } from '../../recoil/atom/ReservationAtom';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from "recoil";
@@ -23,7 +24,7 @@ const calculateTotalPrice = (start, end, pricePerDay, adults) => {
     let price = days * pricePerDay;
 
     if (adults > 2) {
-        price += (adults - 2) * 10000;
+        price += (adults - 2) * 10000; // 추가 인원 당 요금
     }
 
     return price;
@@ -48,6 +49,8 @@ const ZonePage = () => {
     const [zone, setZone] = useState(null);
     const [selectedSite, setSelectedSite] = useState(null);
     const [siteStatus, setSiteStatus] = useState([]);
+    const [seasonType, setSeasonType] = useState('NORMAL'); // 시즌 타입 상태 추가
+    const [pricePerDay, setPricePerDay] = useState(null);
     const navigate = useNavigate();
 
     const totalGuests = adults + children;
@@ -92,12 +95,31 @@ const ZonePage = () => {
                         adults: adults,
                         children: children,
                         days: days,
-
                     })
                 );
                 const statusResults = await Promise.all(statusPromises);
-                //Promise.allSettled
                 setSiteStatus(statusResults.map(result => result.data.existence));
+
+                // 시즌 타입 가져오기
+                console.log("zone.campsite ", zone.campSite);
+                const seasonType = await getSeasonType(zone.campSite, {
+                    start: formattedStartDate,
+                    end: formattedEndDate,
+                });
+
+                setSeasonType(seasonType);
+
+                console.log(seasonType);
+
+                if (seasonType === 'PEAK') {
+                    setPricePerDay(zone.peakSeasonPrice);
+                } else if (seasonType === 'BEST_PEAK') {
+                    setPricePerDay(zone.bestPeakSeasonPrice);
+                } else {
+                    setPricePerDay(zone.offSeasonPrice);
+                }
+
+                console.log(pricePerDay);
 
                 console.log(statusResults.map(result => result.data.existence));
                 console.log(statusResults.map(result => result.existence));
@@ -105,7 +127,7 @@ const ZonePage = () => {
         };
 
         checkReservations();
-    }, [startDate, endDate, sites]);
+    }, [startDate, endDate, sites, adults, children, days]);
 
     const handleIncrease = (setter, value) => {
         if (totalGuests < 6) {
@@ -144,7 +166,7 @@ const ZonePage = () => {
         console.log(site);
     };
 
-    const totalPrice = zone ? calculateTotalPrice(startDate, endDate, zone.offSeasonPrice, adults) : 0;
+    const totalPrice = zone ? calculateTotalPrice(startDate, endDate, pricePerDay, adults) : 0;
     console.log(startDate, endDate);
     console.log(totalPrice);
 
@@ -159,7 +181,7 @@ const ZonePage = () => {
             adults: adults,
             children: children,
             zone: zone
-        }
+        };
         navigate('/reservation', { state: reservationData });
     };
 
@@ -182,7 +204,6 @@ const ZonePage = () => {
                 )}
                 <div className={styles.map}>
                     <h3>배치도</h3>
-                    {/* <img src="https://your-map-url.com" alt="배치도" /> */}
                 </div>
                 <h2>예약안내</h2>
                 <div className={styles.selection}>
