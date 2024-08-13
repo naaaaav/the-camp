@@ -4,6 +4,7 @@ import apiFetch from '../../utils/api';
 import UserReservation from './UserReservation';
 import Modal from '../../tools/Modal';
 import UpdatePasswordForm from '../../components/UpdatePassword'; 
+import { useAuth } from '../../utils/AuthContext'
 import './Profile.css'
 
 const Profile = () => {
@@ -12,13 +13,14 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const [showUpdatePassword, setShowUpdatePassword] = useState(false); // 모달 상태
   const navigate = useNavigate();
-
+  const {logOut} = useAuth()
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('Authorization'); 
 
         if (!token) {
+          logOut();
           navigate('/login'); 
           return;
         }

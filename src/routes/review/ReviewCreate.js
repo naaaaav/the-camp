@@ -44,7 +44,7 @@ const ReviewCreate = () => {
   }
 
   const LoadLoginUser = async () => {
-    const response = await apiFetch(`/user/data`, {
+    const response = await apiFetch(`/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

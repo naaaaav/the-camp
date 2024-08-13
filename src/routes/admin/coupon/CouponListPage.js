@@ -97,7 +97,7 @@ const CouponListPage = () => {
         </tbody>
       </table>
       <div className={styles.buttonContainer}>
-        <button onClick={() => navigate('/coupons/create')} className={styles.addButton}>
+        <button onClick={() => navigate('/admin/coupons/create')} className={styles.addButton}>
           쿠폰 추가
         </button>
         <button 
