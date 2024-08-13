@@ -147,7 +147,7 @@ const Payment = () => {
 
       if (notified.status === 201) {
         alert("결제되었습니다.");
-        navigate("/profile");
+        navigate("/user/profile");
       }
     } catch (error) {
       alert("결제 실패");
