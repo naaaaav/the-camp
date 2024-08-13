@@ -181,6 +181,7 @@ const ZonePage = () => {
             adults: adults,
             children: children,
             zone: zone
+            pricePerDay: pricePerDay
         };
         navigate('/reservation', { state: reservationData });
     };

@@ -36,7 +36,7 @@ const ReservationPage = () => {
     const { state } = location;
 
     const totalGuests = adults + children;
-    const totalPrice = calculateTotalPrice(state.startDate, state.endDate, state.zone.offSeasonPrice, adults);
+    const totalPrice = calculateTotalPrice(state.startDate, state.endDate, state.pricePerDay, adults);
 
     console.log(state);
 
@@ -66,7 +66,7 @@ const ReservationPage = () => {
         console.log(state.selectedSite);
         const data = {
             campSiteName: state.zone.campSiteName,
-            totalPrice: state.totalPrice,
+            totalPrice: totalPrice,
             // campsiteSeq: id, //id가 camsiteSeq가 맞나요? -> campsiteSeq는 reservation에 필요 없습니다.
             siteSeq: state.site.seq, //siteSeq를 어디서 가져와야할지 잘 모르겠습니다...
             reserveStartDate: state.startDate,
