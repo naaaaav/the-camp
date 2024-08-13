@@ -20,9 +20,8 @@ const AuthRoutes = () => {
     }
     
     (async () => {
-      try {
-          //if (rolePath === '/') return;        
-          const response =  await apiFetch('/api/role', {
+      try {        
+          const response =  await apiFetch('/user/role', {
 
           method : 'GET',
           headers : {

@@ -182,7 +182,7 @@ const ZonePage = () => {
             children: children,
             zone: zone
         };
-        navigate('/reservation', { state: reservationData });
+        navigate('/user/reservation', { state: reservationData });
     };
 
     return (

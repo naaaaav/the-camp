@@ -8,7 +8,7 @@ import apiFetch from '../utils/api';
 import { Link } from 'react-router-dom';
 
 
-const PRIVATE_PATHS = ["/profile", "/payment"];
+const PRIVATE_PATHS = ["/user/profile", "/user/payment"];
 
 
 const Header = () => {
@@ -23,7 +23,7 @@ const Header = () => {
       const Authorization = localStorage.getItem('Authorization');
       if (Authorization) {
         try {
-          const response = await apiFetch('/api/role', {
+          const response = await apiFetch('/user/role', {
             method: 'GET',
             headers: {
               "Authorization": Authorization,
@@ -57,7 +57,7 @@ const Header = () => {
     const checkAuth = async () => {
       if (PRIVATE_PATHS.includes(location.pathname)) {
         try {
-          const response = await apiFetch('/api/auth', {
+          const response = await apiFetch('/user/auth', {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -117,7 +117,7 @@ const Header = () => {
             <button><Link to={"/campList?page=0"}>전체</Link></button>
             <button><Link to={"/theme"}>테마별</Link></button>
             <button onClick={() => navigate('/review/list')}>리뷰</button>
-            <button onClick={() => navigate('/profile')}>Profile</button>
+            <button onClick={() => navigate('/user/profile')}>Profile</button>
           </>
         );
       case 'ROLE_GUEST':
