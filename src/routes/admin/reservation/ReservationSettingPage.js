@@ -35,8 +35,13 @@ function ReservationSettingPage(){
     }
 
     const updateReservation = function(item){
+        console.log(item);
         fetch("/api/reservation",{
             method:'PATCH',
+            headers:{
+                'Content-Type': 'application/json;',
+                'Authorization': localStorage.getItem('Authorization')
+            },
             body: JSON.stringify(item)
         })
         .then(res => { return res.json()})
@@ -61,7 +66,12 @@ function ReservationSettingPage(){
                 {
                     reservations?.map( (item,i) => 
                         <tr key={i}>
-                            <td>{item.reservationId}</td>4
+                            <td>{item.reservationId}</td>
+                            <td>{item.campsiteName}</td>
+                            <td>{item.zoneName}</td>
+                            <td>{item.siteTitle}</td>
+                            <td>{item.reserveStartDate}</td>
+                            <td>{item.reserveEndDate}</td>
                             <td>성인:{item.adults} 어린이:{item.children}</td>
                             <td>{item.totalPrice}</td>
                             <td>
