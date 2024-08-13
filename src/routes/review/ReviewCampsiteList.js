@@ -13,7 +13,7 @@ const ReviewCampsiteList = ({ campsiteSeq, isDisplay }) => {
   const [data, setData] = useState();
 
   const LoadLoginUser = async () => {
-    const response = await apiFetch(`/user/data`, {
+    const response = await apiFetch(`/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
