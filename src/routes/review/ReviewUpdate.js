@@ -13,6 +13,11 @@ const ReviewUpdate = () => {
   const [content, setContent] = useState(state.content);
 
   const reviewUpdateClick = async () => {
+    if (!content) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
+    
     const response = await apiFetch(`/reviews/${state.id}`, {
       method: 'PUT',
       headers: {
