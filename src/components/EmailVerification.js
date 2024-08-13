@@ -48,34 +48,52 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
 
   const checkAuthCode = async () => {
     try {
-      const response = await apiFetch('/verify-code', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, authNumber: authCode }),
-      });
+        const response = await apiFetch('/verify-code', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, authNumber: authCode }),
+        });
 
-      if (!response.ok) {
-        throw new Error('인증 코드 확인 실패');
-      }
+        if (response.status === 400) {
+            alert('숫자 형식이 아닙니다.');
+            setError('숫자 형식이 아닙니다.');
+            return;
+        }
 
-      const data = await response.json();
+        if (response.status === 403) {
+            alert('인증 코드가 만료되었습니다.');
+            setError('인증 코드가 만료되었습니다.');
+            return;
+        }
 
-      if (data.success) {
-        alert('인증 성공');
-        onVerificationSuccess(); 
-        setError('');
-      } else {
-        alert(data.message || '인증 코드가 일치하지 않습니다.');
-        setError(data.message || '인증 코드가 일치하지 않습니다.');
-      }
+        if (response.status === 500) {
+            alert('인증 코드가 틀립니다.');
+            setError('인증 코드가 틀립니다.');
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error('인증 코드 확인 실패');
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+            alert('인증 성공');
+            onVerificationSuccess();
+            setError('');
+        } else {
+            alert(data.message || '인증 코드가 일치하지 않습니다.');
+            setError(data.message || '인증 코드가 일치하지 않습니다.');
+        }
     } catch (error) {
-      console.error('인증 코드 확인 중 오류 발생:', error);
-      alert('서버 오류입니다.');
-      setError('서버 오류입니다.');
+        console.error('인증 코드 확인 중 오류 발생:', error);
+        alert('서버 오류입니다.');
+        setError('서버 오류입니다.');
     }
-  };
+};
 
   return (
     <div className="EmailVerification">

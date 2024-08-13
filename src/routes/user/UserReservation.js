@@ -16,7 +16,7 @@ const UserReservation = () => {
 
   const userReservationData = async () => {
     try {
-      const response = await apiFetch(`/user/reservation/list`, {
+      const response = await apiFetch(`/user/reservation`, {
         method: 'GET',
         headers: {
           "Authorization": localStorage.getItem('Authorization'),

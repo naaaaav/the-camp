@@ -57,7 +57,7 @@ const Header = () => {
     const checkAuth = async () => {
       if (PRIVATE_PATHS.includes(location.pathname)) {
         try {
-          const response = await apiFetch('/api/auth', {
+          const response = await apiFetch('/auth', {
             method: 'GET',
             credentials: 'include',
             headers: {
