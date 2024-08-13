@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await apiFetch('/logout', {
         method: 'POST',
+        Credential: 'include',
         headers: {
           'Content-Type': 'application/json',
         },

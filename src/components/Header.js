@@ -17,10 +17,10 @@ const Header = () => {
   const { loggedIn, logOut } = useAuth();
   const role = useRecoilValue(roleAtom);
   const setRole = useSetRecoilState(roleAtom);
+  const Authorization = localStorage.getItem('Authorization');
 
   useEffect(() => {
     const fetchRole = async () => {
-      const Authorization = localStorage.getItem('Authorization');
       if (Authorization) {
         try {
           const response = await apiFetch('/api/role', {
@@ -51,7 +51,7 @@ const Header = () => {
     if (loggedIn) {
       fetchRole();
     }
-  }, [loggedIn, setRole, navigate,logOut]);
+  }, [loggedIn, setRole, navigate, logOut, Authorization]);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -71,7 +71,8 @@ const Header = () => {
           }
         } catch (error) {
           console.error('Error checking auth:', error);
-          logOut();
+          localStorage.removeItem('Authorization');
+          window.location.reload();
           navigate('/login');
         }
       }
@@ -86,6 +87,7 @@ const Header = () => {
 
   const handleLogout = () => {
     logOut();
+    localStorage.removeItem('Authorization')
     navigate('/login');
   };
 
