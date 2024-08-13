@@ -4,6 +4,7 @@ import apiFetch from '../../utils/api';
 
 const UserReservation = () => {
   const [dataCurrentPage, setDataCurrentPage] = useState(0);
+  const [deleteFlag, setDeleteFlag] = useState(false);
   const paymentIdRef = useRef(null);
   const reservationIdRef = useRef(null);
   const [data, setData] = useState();
@@ -36,27 +37,36 @@ const UserReservation = () => {
     setData(null);
     setDataCurrentPage(dataCurrentPage);
     userReservationData();
-  }, [dataCurrentPage])
+  }, [dataCurrentPage, deleteFlag])
 
   const cancelPayment = async (paymentId, reservationId, reserveStartDate) => {    
-    const response = await apiFetch(`/payment/cancel`,{
-      method: "POST",
-      headers: { 
-        "Content-Type": "application/json",
-        "Authorization": localStorage.getItem('Authorization'),
-      },
-      body: JSON.stringify({
-        paymentId,
-        reservationId,
-        reserveStartDate
-      }),
-    });
+    try {
+      console.log("paymentId : " + paymentId);
+      console.log("reservationId : " + reservationId);
+      console.log("reserveStartDate : " + reserveStartDate);
+      //http://localhost:8080
+      const response = await apiFetch(`/payment/cancel`,{
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": localStorage.getItem('Authorization'),
+        },
+        body: JSON.stringify({
+          paymentId,
+          reservationId,
+          reserveStartDate
+        }),
+      });
+  
+      if (response.status === 201) {
+        alert("결제 취소 성공");
+        setDeleteFlag(!deleteFlag);
+      } else if (response.status) {
 
-    if (response.status === 201) {
-      alert("결제 취소 성공");
-      userReservationData();
-    } else if (response.status === 400) {
-      alert("예약 하루전 부터는 예약을 취소할 수 없습니다.");
+      }
+    } catch(err) {
+      console.log(err.message);
+      console.log(err.data)
     }
   }
 

@@ -16,6 +16,10 @@ const ReviewCreate = () => {
   }
 
   const reviewOnClick = async () => {
+    if (!content) {
+      alert("내용을 입력해주세요.");
+      return;
+    }
     try {
       const response = await apiFetch(`/reviews/${campsiteId}`, {
         method: 'POST',
