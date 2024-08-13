@@ -35,6 +35,7 @@ const App = () => {
     <TokenRefresh>
       <Header />
       <Routes>
+        {/* 로그인 권한 필요없는 url 세팅하는 곳입니다 */}
         <Route path='/' element={<Home />} />
         <Route path='/join' element={<Join />} />
         <Route path='/login' element={<Login />} />
@@ -46,7 +47,11 @@ const App = () => {
         <Route path='/review/list/:campsiteId' element={<ReviewCampsiteList />} />
         
         <Route element={<AuthRoutes />}>
+          {/* 접속 하실때는 원래 경로에서 앞에 /user를 추가하시면 되고 
+          Route는 밑에 UserRoutes()에 추가하시면 됩니다 */}
           <Route path="/user/*" element={<UserProtectedRoutes />} />
+          {/* 원래 경로에서 /admin를 추가하시면 되고 
+          Route는 밑에 AdminRoutes()에 추가하시면 됩니다 */}
           <Route path="/admin/*" element={<AdminProtectedRoutes />} />
         </Route>
       </Routes>
@@ -64,7 +69,6 @@ export function UserRoutes() {
       <Route path='/payment' element={<Payment />} />
       <Route path='/review/update' element={<ReviewUpdate />} />
       <Route path='/review/create/:campsiteId' element={<ReviewCreate />} />
-      <Route path='profile' element={<Profile />} />
       <Route path='/update-password' element={<UpdatePasswordForm />} />
     </Routes>
   )
