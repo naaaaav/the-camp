@@ -42,7 +42,7 @@ function CampListPage(){
                 const queryStr = query.get("query");
                 const type = query.get("type");
 
-                const response = apiFetch("/campsite/searchCampsites?page="+page+"&query="+queryStr+"&type="+type
+                const response = apiFetch("/campsite/?page="+page+"&query="+queryStr+"&type="+type
         +"&size=6",{
             method:'GET'
         }).then((res) => res.json())

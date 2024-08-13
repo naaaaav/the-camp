@@ -8,7 +8,6 @@ import './Login.css';
 
 import apiFetch from '../../utils/api';
 
-
 const Login = () => {
   const navigate = useNavigate();
   const { logIn } = useAuth();
@@ -16,6 +15,7 @@ const Login = () => {
     email: '',
     password: ''
   });
+  const [error, setError] = useState('');  // 오류 메시지를 관리하는 상태 추가
   const [showResetPassword, setShowResetPassword] = useState(false);
 
   const onChangeForm = (e) => {
@@ -24,19 +24,17 @@ const Login = () => {
 
   const LoginProcess = async (e) => {
     e.preventDefault();
-
+  
     try {
-
-    const response =  await apiFetch('/login', {
-      method : 'POST',
-      credentials : 'include',
-      headers : {
-        "Content-Type": "application/json",
-      },
-      body : JSON.stringify(loginForm),
-    })
-
-
+      const response = await apiFetch('/login', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginForm),
+      });
+  
       if (response.ok) {
         const Authorization = response.headers.get('Authorization');
         if (Authorization) {
@@ -44,17 +42,24 @@ const Login = () => {
           logIn();
           alert('로그인 성공');
           navigate('/');
-          
         } else {
-        alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+          setError('아이디 또는 비밀번호가 틀립니다.'); 
+        }
+      } else if (response.status === 401) {
+        setError('사용자 인증에 실패 하였습니다.');
+      } else if (response.status === 404) {
+        setError('등록되지 않은 이메일입니다.');
+      } else if (response.status === 400) {
+        setError('잘못된 비밀번호입니다.');
+      } else {
+        setError('로그인 중 오류가 발생했습니다.');
       }
-    }
-
     } catch (error) {
       console.error('로그인 중 오류 발생:', error);
-      alert('로그인 중 오류가 발생했습니다.');
+      setError('아이디 또는 비밀번호가 틀립니다.');
     }
   };
+  
 
   return (
     <div className="login-container">
@@ -89,6 +94,7 @@ const Login = () => {
               />
             </div>
           </div>
+          {error && <div className="error-message">{error}</div>}  
           <div className="button-group">
             <button type="submit" className="button">로그인</button>
           </div>

@@ -12,7 +12,7 @@ function CampSettingPage(){
     let [searchParam, setSearchParam ] = useSearchParams();
     useEffect(()=>{
 
-        apiFetch("/campsite/searchCampsites?page="+searchParam.get("page")+"&query="+searchParam.get("keyword") , {
+        apiFetch("/campsite/?page="+searchParam.get("page")+"&query="+searchParam.get("keyword") , {
             method:'GET'
         } ).then((res) => res.json())
         .then((data)=>{
