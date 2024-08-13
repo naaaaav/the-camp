@@ -22,7 +22,7 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   const fetchResults = async (query, region, category, page) => {
-    const response = await apiFetch(`/campsite?query=${query || ''}&region=${region || ''}&category=${category || ''}&page=${page}&size=9`,{
+    const response = await apiFetch(`/campsite/?query=${query || ''}&region=${region || ''}&category=${category || ''}&page=${page}&size=9`,{
       method:'GET'
     });
     const data = await response.json();
