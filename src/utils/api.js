@@ -17,7 +17,8 @@ const apiFetch = async (endpoint, options = {}) => {
 
     const defaultOptions = {
         headers:{
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;',
+            'Authorization': localStorage.getItem('Authorization')
         },
         ...options,
     };

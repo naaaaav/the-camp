@@ -24,17 +24,25 @@ const ReviewComponent = ({ campsiteSeq, item, loginEmail, isLike, isDisplay }) =
     console.log(review.id);
     const confirm = window.confirm("정말 리뷰를 삭제하시겠습니까?");
     if (confirm === false) return;
-    const response = await apiFetch(`/reviews/${review.id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('Authorization')
+    try {
+      const response = await apiFetch(`/reviews/${review.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('Authorization')
+        }
+      });
+  
+      if (response.ok) {
+        setReviewFlag(prev => !prev);
+        alert("리뷰가 삭제되었습니다.");
       }
-    });
-
-    if (response.ok) {
-      setReviewFlag(prev => !prev);
-      alert("리뷰가 삭제되었습니다.");
+    } catch(error) {
+      if (error.message === 404) {
+        alert("로그인한 뒤 이용해주세요");
+      } else if (error.message === 400) {
+        alert("리뷰를 작성자가 아닙니다.");
+      }
     }
   }
 

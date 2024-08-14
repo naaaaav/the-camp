@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
         },
       });
 
-      // 로그아웃 성공 시 로컬 스토리지에서 Authorization 제거
       localStorage.removeItem('Authorization');
       setLoggedIn(false);
       // 페이지 리로드

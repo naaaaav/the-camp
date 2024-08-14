@@ -28,7 +28,7 @@ const Payment = () => {
 
   const userPayment = async () => {
     try {
-      const response = await apiFetch(`/user/data`, {
+      const response = await apiFetch(`/user`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -49,8 +49,8 @@ const Payment = () => {
       const paymentId = `kakao-payment-${crypto.randomUUID()}`;
 
       const response = await PortOne.requestPayment({
-        storeId: "store-5c664fd7-4801-4c86-8776-e090581e64f7",
-        channelKey: "channel-key-8cf77eb8-75e9-46b5-9ef4-20f8c575630d",
+        storeId: process.env.REACT_APP_PAYMENT_STOREID,
+        channelKey: process.env.REACT_APP_PAYMENT_KAKAO_CHANNEL_KEY,
         paymentId: paymentId,
         orderName: `${state.campSiteName} 예약`,
         totalAmount: state.totalPrice,
@@ -92,7 +92,7 @@ const Payment = () => {
 
       if (notified.status === 201) {
         alert("결제되었습니다.");
-        navigate("/profile");
+        navigate("/user/profile");
       }
     } catch (error) {
       alert("결제 실패");
@@ -104,8 +104,8 @@ const Payment = () => {
     try {
       const paymentId = `toss-payment-${Math.random().toString(36).slice(2)}`;
       const response = await PortOne.requestPayment({
-        storeId: "store-5c664fd7-4801-4c86-8776-e090581e64f7",
-        channelKey: "channel-key-cc1cc64a-17b1-43b9-b633-7b5516169986",
+        storeId: process.env.REACT_APP_PAYMENT_STOREID,
+        channelKey: process.env.REACT_APP_PAYMENT_TOSS_CHANNEL_KEY,
         paymentId: paymentId,
         orderName: `${state.campSiteName} 예약`,
         totalAmount: state.totalPrice,
@@ -147,7 +147,7 @@ const Payment = () => {
 
       if (notified.status === 201) {
         alert("결제되었습니다.");
-        navigate("/profile");
+        navigate("/user/profile");
       }
     } catch (error) {
       alert("결제 실패");
