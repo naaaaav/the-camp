@@ -51,7 +51,10 @@ const Login = () => {
         setError('등록되지 않은 이메일입니다.');
       } else if (response.status === 400) {
         setError('잘못된 비밀번호입니다.');
-      } else {
+      }else if (response.status === 504) {
+        setError('사용자 인증에 실패 하였습니다.');
+      } 
+      else {
         setError('로그인 중 오류가 발생했습니다.');
       }
     } catch (error) {

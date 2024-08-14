@@ -40,8 +40,17 @@ const Join = () => {
     }));
   };
 
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   const validateForm = () => {
     const newErrors = {};
+    const today = getTodayDate();
 
 
 
@@ -58,13 +67,18 @@ const Join = () => {
 
     // 생년월일 검증
     if (!joinForm.birthday) newErrors.birthday = '생년월일을 입력하세요';
-    else if (!/^\d{4}-\d{2}-\d{2}$/.test(joinForm.birthday)) newErrors.birthday = '유효한 날짜 형식(YYYY-MM-DD)을 입력하세요';
+    else if (!/^\d{4}-\d{2}-\d{2}$/.test(joinForm.birthday)) {
+      newErrors.birthday = '유효한 날짜 형식(YYYY-MM-DD)을 입력하세요';
+    } else if (joinForm.birthday > today) {
+      newErrors.birthday = '생년월일을 올바르게 입력하세요';
+    }
 
     // 전화번호 검증
     if (!joinForm.phoneNumber) newErrors.phoneNumber = '전화번호를 입력하세요';
     else if (!/^\d{10,11}$/.test(joinForm.phoneNumber)) newErrors.phoneNumber = '유효한 전화번호를 입력하세요';
 
 
+    if (!joinForm.gender) newErrors.gender = '성별을 선택하세요';
 
     return newErrors;
   };

@@ -90,8 +90,8 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
         }
     } catch (error) {
         console.error('인증 코드 확인 중 오류 발생:', error);
-        alert('서버 오류입니다.');
-        setError('서버 오류입니다.');
+        alert('인증번호가 만료되었거나 틀렸습니다.');
+        setError('인증번호가 만료되었거나 틀렸습니다.');
     }
 };
 

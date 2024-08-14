@@ -180,10 +180,9 @@ const ZonePage = () => {
             endDate: endDate,
             adults: adults,
             children: children,
-            zone: zone,
-            pricePerDay: pricePerDay
+            zone: zone
         };
-        navigate('/reservation', { state: reservationData });
+        navigate('/user/reservation', { state: reservationData });
     };
 
     return (

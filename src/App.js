@@ -23,7 +23,6 @@ import ZonePage from './routes/reservation/ZonePage';
 import ThemePage from './routes/campList/ThemePage';
 import ResetPasswordForm from './components/ResetPassword';
 import UpdatePasswordForm from './components/UpdatePassword';
-import TokenRefresh from './components/TokenRefresh';
 import ReviewCreate from './routes/review/ReviewCreate';
 import ReviewList from './routes/review/ReviewList';
 import ReviewCampsiteList from './routes/review/ReviewCampsiteList';
@@ -33,7 +32,7 @@ import ReservationSettingPage from './routes/admin/reservation/ReservationSettin
 
 const App = () => {
   return (
-    <TokenRefresh>
+    <>
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
@@ -59,7 +58,7 @@ const App = () => {
         </Route>
       </Routes>
       <Footer />
-    </TokenRefresh>
+    </>
   );
 };
 
