@@ -3,6 +3,7 @@ import apiFetch from "../../utils/api";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './Payment.css';
+import { applyCoupon as applyCouponAPI, UserCoupons } from '../../tools/InventoryFunction';
 
 const formatDateToYYYYMMDD = (date) => {
   const year = date.getFullYear();
@@ -16,15 +17,31 @@ const Payment = () => {
   const location = useLocation();
   const { state } = location;
   const [userData, setUserData] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [coupons, setCoupons] = useState([]);
+  const [selectedCoupon, setSelectedCoupon] = useState(null);
   const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
   const formatStartDate = formatDateToYYYYMMDD(state.reserveStartDate);
   const formatEndDate = formatDateToYYYYMMDD(state.reserveEndDate);
+  const [totalPrice, setTotalPrice] = useState(state.totalPrice);
 
   useEffect(() => {
     userPayment();
-  }, [])
+  }, []);
 
-  console.log(userData);
+  useEffect(() => {
+    if (isModalOpen) {
+      fetchCoupons();
+    }
+  }, [isModalOpen]);
+
+  useEffect(() => {
+    if (selectedCoupon !== null) {
+      console.log("Selected Coupon: ", selectedCoupon);
+
+      setTotalPrice(state.totalPrice - selectedCoupon.count);
+    }
+  }, [selectedCoupon]);
 
   const userPayment = async () => {
     try {
@@ -42,7 +59,12 @@ const Payment = () => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
+
+  const fetchCoupons = async () => {
+    const coupons = await UserCoupons();
+    setCoupons(coupons);
+  };
 
   const kaKaoPaymentAlert = async () => {
     try {
@@ -54,6 +76,7 @@ const Payment = () => {
         paymentId: paymentId,
         orderName: `${state.campSiteName} 예약`,
         totalAmount: state.totalPrice,
+        coupon: selectedCoupon,
         customer: {
           fullName: userData.fullName,
           phoneNumber: userData.phoneNumber,
@@ -98,7 +121,7 @@ const Payment = () => {
       alert("결제 실패");
       return;
     }
-  }
+  };
 
   const tossPaymentAlert = async () => {
     try {
@@ -153,26 +176,55 @@ const Payment = () => {
       alert("결제 실패");
       return;
     }
-  }
+  };
+
+  const couponUse = async () => {
+    setIsModalOpen(true);
+  };
+
+  const applyCoupon = (coupon) => {
+    setSelectedCoupon(coupon);
+    setIsModalOpen(false);
+  };
 
   return (
     <div className='Group'>
       <h2>{state.campSiteName} 캠핑장</h2>
       <hr />
-      <h4>예약 일시</h4> 
+      <h4>예약 일시</h4>
       <p>{state.reserveStartDate.toLocaleDateString('ko-KR', options)} ~ {state.reserveEndDate.toLocaleDateString('ko-KR', options)}</p>
       <h4>결제금액</h4>
-      <p><strong>{state.totalPrice}원</strong></p>
+      <p><strong>{totalPrice}원</strong></p>
       <h4>인원</h4>
       <p>성인 {state.adults}명, 아이 {state.children}명</p>
       <h4>결제자</h4>
       <p>{userData?.fullName}</p>
+      <button onClick={couponUse}>쿠폰 사용</button>
       <div className="ButtonGroup">
         <button className='Kakao-Button' onClick={kaKaoPaymentAlert}>카카오결제</button>
         <button className='Toss-Button' onClick={tossPaymentAlert}>토스결제</button>
       </div>
+
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h4>사용 가능한 쿠폰 목록</h4>
+            <ul>
+              {coupons.map((coupon) => (
+                <li key={coupon.invenSeq}>
+                  <p>{coupon.couponName}</p>
+                  <p>{coupon.couponType}</p>
+                  <p>{coupon.expireDate}</p>
+                  <button onClick={() => applyCoupon(coupon)}>쿠폰 사용</button>
+                </li>
+              ))}
+            </ul>
+            <button onClick={() => setIsModalOpen(false)}>닫기</button>
+          </div>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default Payment;
