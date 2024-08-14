@@ -18,19 +18,27 @@ const ReviewUpdate = () => {
       return;
     }
     
-    const response = await apiFetch(`/reviews/${state.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('Authorization')
-      },
-      body : JSON.stringify({content})
-    });
-    
-    if (response.ok) {
-      alert('리뷰 수정 성공');
-      setReviewFlag(prev => !prev);
-      navigate(`/detail/${state.campsiteSeq}`);
+    try {
+      const response = await apiFetch(`/reviews/${state.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('Authorization')
+        },
+        body : JSON.stringify({content})
+      });
+      
+      if (response.ok) {
+        alert('리뷰 수정 성공');
+        setReviewFlag(prev => !prev);
+        navigate(`/detail/${state.campsiteSeq}`);
+      }
+    } catch(error) {
+      if (error.message === 404) {
+        alert("로그인 한뒤 이용해주세요");
+      } else if (error.message === 400) {
+        alert("작성자가 아닙니다");
+      }
     }
   }
 

@@ -39,22 +39,28 @@ const ReviewCreate = () => {
         alert('작성권한이 없습니다.');
       }
     } catch(error) {
-      console.error(error);
+      
     }
   }
 
   const LoadLoginUser = async () => {
-    const response = await apiFetch(`/user`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        "Authorization" : localStorage.getItem("Authorization")
+    try {
+      const response = await apiFetch(`/user`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization" : localStorage.getItem("Authorization")
+        }
+      });
+      const json = await response.json();
+      if (response.ok) {
+        console.log(json);
+        setLoginName(json.fullName);
       }
-    });
-    const json = await response.json();
-    if (response.ok) {
-      console.log(json);
-      setLoginName(json.fullName);
+    } catch(error) {
+      if (error.message === 404) {
+        return;
+      }
     }
   }
 

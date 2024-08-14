@@ -13,16 +13,22 @@ const ReviewCampsiteList = ({ campsiteSeq, isDisplay }) => {
   const [data, setData] = useState();
 
   const LoadLoginUser = async () => {
-    const response = await apiFetch(`/user`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        "Authorization" : localStorage.getItem("Authorization")
+    try {
+      const response = await apiFetch(`/user`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization" : localStorage.getItem("Authorization")
+        }
+      });
+      const json = await response.json();
+      if (response.ok) {
+        setLoginEmail(json.email);
       }
-    });
-    const json = await response.json();
-    if (response.ok) {
-      setLoginEmail(json.email);
+    } catch(error) {
+      if (error.message === 404) {
+        return;
+      }
     }
   }
 
@@ -51,8 +57,6 @@ const ReviewCampsiteList = ({ campsiteSeq, isDisplay }) => {
     reviewCamsite();
     LoadLoginUser();
   }, [dataCurrentPage, reviewFlag])
-
-  console.log(data);
 
   return (
     <div>

@@ -10,16 +10,22 @@ const ReviewList = () => {
   const [loginEmail, setLoginEmail] = useState();
   
   const LoadLoginUser = async () => {
-    const response = await apiFetch(`/user`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        "Authorization" : localStorage.getItem("Authorization")
+    try {
+      const response = await apiFetch(`/user`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization" : localStorage.getItem("Authorization")
+        }
+      });
+      const json = await response.json();
+      if (response.ok) {
+        setLoginEmail(json.email);
       }
-    });
-    const json = await response.json();
-    if (response.ok) {
-      setLoginEmail(json.email);
+    } catch(error) {
+      if (error.message === 404) {
+        return;
+      }
     }
   }
   useEffect(() => {
