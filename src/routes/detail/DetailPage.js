@@ -7,6 +7,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import ZoneBox from "../../components/admin/ZoneBox"
 import apiFetch from "../../utils/api";
 import ReviewCampsiteList from '../review/ReviewCampsiteList';
+import styled from 'styled-components';
 
 
 function DetailPage(){
@@ -140,8 +141,8 @@ function DetailPage(){
 
             <TitleBox title="후기">
                 <ReviewCampsiteList campsiteSeq={id} isDisplay={false}  />
-                <button onClick={(e) => changeToReservationPage(e, id)}>예약하기</button>
-                {isLogin ? <button onClick={(e) => changeToReviewCreatePage(e, id)}>리뷰작성</button>
+                <ReservationButton onClick={(e) => changeToReservationPage(e, id)}>예약하기</ReservationButton>
+                {isLogin ? <ReviewButton onClick={(e) => changeToReviewCreatePage(e, id)}>리뷰작성</ReviewButton>
                 : null}
                 
             </TitleBox>
@@ -149,6 +150,44 @@ function DetailPage(){
         </div>
     );
 }
+
+const ReservationButton = styled.button`
+  background-color: #000000;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #565656;
+  }
+`;
+
+const ReviewButton = styled.button`
+  background-color: #979797;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #adadad;
+  }
+`;
 
 
 export default DetailPage;

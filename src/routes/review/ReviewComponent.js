@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { likeFlagAtom, reviewFlagAtom } from '../../recoil/atom/UserAtom';
 import apiFetch from '../../utils/api';
+import likeImg from '../../resources/img/like.png';
 
 const ReviewComponent = ({ campsiteSeq, item, loginEmail, isLike, isDisplay }) => {
   const navigate = useNavigate();
@@ -75,14 +76,16 @@ const ReviewComponent = ({ campsiteSeq, item, loginEmail, isLike, isDisplay }) =
         </h4>
         <p>작성자 : {review.userName}</p>
         <p>내용 : {review.content}</p>
-        <div>
-          <p>좋아요 수 : {review.likeCount}</p>
-          {isLike ? <button onClick={reviewLikeCountClick}>좋아요</button> : null}
-        </div>
+        {isLike ? <div onClick={reviewLikeCountClick}>
+          <p><img src= {likeImg} width={'20px'} height={'20px'} /> {review.likeCount}</p>  
+        </div> : <div>
+          <p><img src= {likeImg} width={'20px'} height={'20px'} /> {review.likeCount}</p>  
+        </div>}
+
         {review.email === loginEmail ?
         <div>
-          <button onClick={reviewUpdateClick}>수정하기</button>
-          <button onClick={reviewDeleteClick}>삭제하기</button>
+          <button className='Review-Update-Button' onClick={reviewUpdateClick}>수정하기</button>
+          <button className='Review-Delete-Button' onClick={reviewDeleteClick}>삭제하기</button>
         </div> : null}
       </div>: null}
     </div>     
