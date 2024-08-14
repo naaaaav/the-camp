@@ -141,7 +141,6 @@ function DetailPage(){
 
             <TitleBox title="후기">
                 <ReviewCampsiteList campsiteSeq={id} isDisplay={false}  />
-                <ReservationButton onClick={(e) => changeToReservationPage(e, id)}>예약하기</ReservationButton>
                 {isLogin ? <ReviewButton onClick={(e) => changeToReviewCreatePage(e, id)}>리뷰작성</ReviewButton>
                 : null}
                 
@@ -150,25 +149,6 @@ function DetailPage(){
         </div>
     );
 }
-
-const ReservationButton = styled.button`
-  background-color: #000000;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 12px;
-  transition: background-color 0.3s;
-
-  &:hover {
-    background-color: #565656;
-  }
-`;
 
 const ReviewButton = styled.button`
   background-color: #979797;
