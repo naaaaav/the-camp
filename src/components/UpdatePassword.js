@@ -14,6 +14,12 @@ const UpdatePasswordForm = ({ onClose }) => {
     setMessage('');
     setError('');
 
+
+    if (newPassword.length < 8) {
+      alert('새 비밀번호는 최소 8자 이상이어야 합니다.');
+      return;
+    }
+
     try {
       const response = await apiFetch('/update-password', {
         method: 'POST',
@@ -25,7 +31,7 @@ const UpdatePasswordForm = ({ onClose }) => {
       });
       
       if (response.ok) {
-        setMessage('비밀번호가 성공적으로 변경되었습니다.');
+        alert('비밀번호가 성공적으로 변경되었습니다.');
         setCurrentPassword('');
         setNewPassword('');
         onClose();
@@ -37,7 +43,7 @@ const UpdatePasswordForm = ({ onClose }) => {
       }
     } catch (err) {
       // 오류 처리
-      setError(err.message || '비밀번호 변경 중 오류 발생');
+      alert('현재 사용중인 비밀번호가 틀립니다.');
     }
   };
 
