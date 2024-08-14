@@ -15,6 +15,7 @@ function DetailPage(){
     console.log(id);
 
     const[campsite,setCampsite] = useState({});
+    const[isLogin, setIsLogin] = useState(false);
 
     useEffect(()=>{
 
@@ -59,6 +60,30 @@ function DetailPage(){
         return ()=> script.remove();
         
     },[id]);
+
+    useEffect(() => {
+        const LoadLoginUser = async () => {
+            try {
+                const response = await apiFetch(`/user`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization" : localStorage.getItem("Authorization")
+                    }
+                });
+                const json = await response.json();
+                if (response.ok) {
+                    setIsLogin(true);
+                }
+            } catch(error) {
+                if (error.message === "404") {
+                    setIsLogin(false);
+                    return;
+                }
+            }
+        }
+        LoadLoginUser();
+    }, [])
 
     const changeToReservationPage = (e, campsiteSeq) => {
         navigate(`/user/zone/${campsiteSeq}`)
@@ -116,7 +141,9 @@ function DetailPage(){
             <TitleBox title="후기">
                 <ReviewCampsiteList campsiteSeq={id} isDisplay={false}  />
                 <button onClick={(e) => changeToReservationPage(e, id)}>예약하기</button>
-                <button onClick={(e) => changeToReviewCreatePage(e, id)}>리뷰작성</button>
+                {isLogin ? <button onClick={(e) => changeToReviewCreatePage(e, id)}>리뷰작성</button>
+                : null}
+                
             </TitleBox>
             </div>
         </div>
