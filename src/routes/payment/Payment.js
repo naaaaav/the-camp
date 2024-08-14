@@ -16,6 +16,7 @@ const Payment = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
+  const [invenSeq, setInvenSeq] = useState();
   const [userData, setUserData] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [coupons, setCoupons] = useState([]);
@@ -24,6 +25,7 @@ const Payment = () => {
   const formatStartDate = formatDateToYYYYMMDD(state.reserveStartDate);
   const formatEndDate = formatDateToYYYYMMDD(state.reserveEndDate);
   const [totalPrice, setTotalPrice] = useState(state.totalPrice);
+  const [paymentCouponData, setPaymentCouponData] = useState();
 
   useEffect(() => {
     userPayment();
@@ -38,7 +40,7 @@ const Payment = () => {
   useEffect(() => {
     if (selectedCoupon !== null) {
       console.log("Selected Coupon: ", selectedCoupon);
-
+      setPaymentCouponData(selectedCoupon);
       setTotalPrice(state.totalPrice - selectedCoupon.count);
     }
   }, [selectedCoupon]);
@@ -66,7 +68,10 @@ const Payment = () => {
     setCoupons(coupons);
   };
 
+  console.log(coupons);
+
   const kaKaoPaymentAlert = async () => {
+    console.log(paymentCouponData);
     try {
       const paymentId = `kakao-payment-${crypto.randomUUID()}`;
 
@@ -75,7 +80,7 @@ const Payment = () => {
         channelKey: process.env.REACT_APP_PAYMENT_KAKAO_CHANNEL_KEY,
         paymentId: paymentId,
         orderName: `${state.campSiteName} 예약`,
-        totalAmount: state.totalPrice,
+        totalAmount: totalPrice,
         coupon: selectedCoupon,
         customer: {
           fullName: userData.fullName,
@@ -104,7 +109,14 @@ const Payment = () => {
           reserveEndDate: formatEndDate,
           adults: state.adults,
           children: state.children,
-          campsiteName: state.campSiteName
+          campsiteName: state.campSiteName,
+          count : paymentCouponData.count,
+          couponName : paymentCouponData.couponName,
+          couponSeq : paymentCouponData.couponSeq,
+          couponType : paymentCouponData.couponType,
+          expireDate : paymentCouponData.expireDate,
+          invenSeq : paymentCouponData.seq,
+          use : paymentCouponData.use
         }),
       });
 
@@ -124,6 +136,7 @@ const Payment = () => {
   };
 
   const tossPaymentAlert = async () => {
+    console.log(paymentCouponData);
     try {
       const paymentId = `toss-payment-${Math.random().toString(36).slice(2)}`;
       const response = await PortOne.requestPayment({
@@ -131,7 +144,7 @@ const Payment = () => {
         channelKey: process.env.REACT_APP_PAYMENT_TOSS_CHANNEL_KEY,
         paymentId: paymentId,
         orderName: `${state.campSiteName} 예약`,
-        totalAmount: state.totalPrice,
+        totalAmount: totalPrice,
         customer: {
           fullName: userData.fullName,
           phoneNumber: userData.phoneNumber,
@@ -159,7 +172,14 @@ const Payment = () => {
           reserveEndDate: formatEndDate,
           adults: state.adults,
           children: state.children,
-          campsiteName: state.campSiteName
+          campsiteName: state.campSiteName,
+          count : paymentCouponData.count,
+          couponName : paymentCouponData.couponName,
+          couponSeq : paymentCouponData.couponSeq,
+          couponType : paymentCouponData.couponType,
+          expireDate : paymentCouponData.expireDate,
+          invenSeq : paymentCouponData.seq,
+          use : paymentCouponData.use
         }),
       });
 
