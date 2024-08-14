@@ -5,7 +5,7 @@ import { likeFlagAtom, reviewFlagAtom } from '../../recoil/atom/UserAtom';
 import apiFetch from '../../utils/api';
 import likeImg from '../../resources/img/like.png';
 
-const ReviewComponent = ({ campsiteSeq, item, loginEmail, isLike, isDisplay }) => {
+const ReviewComponent = ({ item, loginEmail, isDisplay, ImgUrl }) => {
   const navigate = useNavigate();
   const setReviewFlag = useSetRecoilState(reviewFlagAtom);
   const [review, setReview] = useState(item);
@@ -72,16 +72,16 @@ const ReviewComponent = ({ campsiteSeq, item, loginEmail, isLike, isDisplay }) =
       {review !== null ?       
       <div style={{ border: '1px solid #D9D9D9', padding: '10px', borderRadius : '8px' }}>
         <h4 style={{display : isDisplay ? 'block' : 'none'}}>
-          캠핑장 명 : <Link to={`/detail/${review.campsiteSeq}`}>{review.campName}</Link>
+          캠핑장 명 : <Link to={`/detail/${review.campsiteSeq}`}>{review.campName}
+          <br /><br />
+          <img src={review.campsiteUrl} style={{width : '200px', height : '150px', borderRadius : '10px'}} />
+          </Link>
         </h4>
         <p>작성자 : {review.userName}</p>
         <p>내용 : {review.content}</p>
-        {isLike ? <div onClick={reviewLikeCountClick}>
+        <div onClick={reviewLikeCountClick}>
           <p><img src= {likeImg} width={'20px'} height={'20px'} /> {review.likeCount}</p>  
-        </div> : <div>
-          <p><img src= {likeImg} width={'20px'} height={'20px'} /> {review.likeCount}</p>  
-        </div>}
-
+        </div>
         {review.email === loginEmail ?
         <div>
           <button className='Review-Update-Button' onClick={reviewUpdateClick}>수정하기</button>

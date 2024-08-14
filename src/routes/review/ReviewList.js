@@ -4,6 +4,7 @@ import { reviewFlagAtom } from '../../recoil/atom/UserAtom';
 import PagingComponent from '../../components/paging/PagingComponent';
 import ReviewComponent from './ReviewComponent';
 import apiFetch from '../../utils/api';
+import './ReviewSelect.css';
 
 const ReviewList = () => {
   const reviewFlag = useRecoilValue(reviewFlagAtom);
@@ -34,61 +35,13 @@ const ReviewList = () => {
 
   return (
     <div>
-      <ReviewLikeDesc loginEmail={loginEmail} reviewFlag={reviewFlag} />
-      <ReviewDesc loginEmail={loginEmail} reviewFlag={reviewFlag} />
+      <ReviewSort loginEmail={loginEmail} reviewFlag={reviewFlag} />
     </div>
   )
 }
 
-const ReviewLikeDesc = ({ loginEmail, reviewFlag }) => {
-  const [likeDataCurrentPage, setLikeDataCurrentPage] = useState(0);
-  const [likeData, setLikeData] = useState();
-
-  const onLikeDataPageChange = ({ selected }) => {
-    setLikeDataCurrentPage(selected);
-    setLikeData(null);
-  }
-
-  const reviewOrderByLikeDesc = async () => {
-    const response = await apiFetch(`/reviews/desc/like?page=${likeDataCurrentPage}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
-
-    if (response.ok) {
-      const json = await response.json();
-      setLikeData(json);
-    }
-  }
-
-  console.log(likeData);
-
-  useEffect(() => {
-    setLikeData(null);
-    setLikeDataCurrentPage(likeDataCurrentPage);
-    reviewOrderByLikeDesc();
-  }, [likeDataCurrentPage, reviewFlag])
-
-  return (
-    <div style={{marginLeft : '200px', marginRight : '200px'}}>
-      <h1>리뷰 좋아요 순</h1>
-      {likeData?.content.map((item, idx) => (
-        <ReviewComponent 
-          key={idx} 
-          item={item} 
-          loginEmail={loginEmail} 
-          isLike={false}
-          isDisplay={true}
-        />
-      ))}
-      <PagingComponent currentPage={likeData?.number} pageCount={likeData?.totalPages} onPageChange={onLikeDataPageChange} />
-    </div>
-  )
-}
-
-const ReviewDesc = ({ loginEmail, reviewFlag }) => {
+const ReviewSort = ({ loginEmail, reviewFlag }) => {
+  const [type, setType] = useState("likeCount");
   const [dataCurrentPage, setDataCurrentPage] = useState(0);
   const [data, setData] = useState();
 
@@ -97,8 +50,12 @@ const ReviewDesc = ({ loginEmail, reviewFlag }) => {
     setData(null);
   }
 
-  const reviewOrderByDesc = async () => {
-    const response = await fetch(`/reviews/desc?page=${dataCurrentPage}`, {
+  const onChangeType = (e) => {
+    setType(e.target.value);
+  }
+
+  const reviewSort = async () => {
+    const response = await fetch(`/reviews/sort?page=${dataCurrentPage}&type=${type}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -114,23 +71,26 @@ const ReviewDesc = ({ loginEmail, reviewFlag }) => {
   useEffect(() => {
     setData(null);
     setDataCurrentPage(dataCurrentPage);
-    reviewOrderByDesc();
-  }, [dataCurrentPage, reviewFlag])
-
-  console.log(data);
+    reviewSort();
+  }, [dataCurrentPage, reviewFlag, type])
 
   return (
     <div style={{marginLeft : '200px', marginRight : '200px'}}>
-      <h1>리뷰 최신 순</h1>
+      <h1>캠핑장 후기</h1>
+      {data?.totalElements !== 0 ?
+        <select class="custom-select" onChange={onChangeType}>
+          <option value="likeCount">좋아요순</option>
+          <option value="createdAt">최신순</option>
+        </select> : null}
       {data?.content.map((item, idx) => (
         <ReviewComponent
           key={idx} 
           item={item} 
           loginEmail={loginEmail} 
-          isLike={false} 
-          isDisplay={true} />
+          isDisplay={true}
+        />
       ))}
-      <PagingComponent currentPage={data?.number} pageCount={data?.totalPages} onPageChange={onDataPageChange} />
+      {data?.totalElements !== 0 ? <PagingComponent currentPage={data?.number} pageCount={data?.totalPages} onPageChange={onDataPageChange} /> : null}
     </div>
   )
 }
