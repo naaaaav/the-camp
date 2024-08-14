@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import PagingComponent from '../../components/paging/PagingComponent';
 import apiFetch from '../../utils/api';
+import './UserReservation.css';
 
 const UserReservation = () => {
   const [dataCurrentPage, setDataCurrentPage] = useState(0);
@@ -64,7 +65,8 @@ const UserReservation = () => {
 
       }
     } catch(error) {
-      if (error.message === "400") {
+      console.log("예약취소 " + error.message);
+      if (error.message === "406") {
         alert("하루 전에는 예약을 취소 할 수 없습니다.");
       }
     }
@@ -79,24 +81,38 @@ const UserReservation = () => {
   }
 
   return (
-    <div>
-      <h1>유저 예약 목록</h1>
+    <div className='user-reservation-container'>
+      <span className='user-reservation-title'>유저 예약 목록</span>
+      <hr />
+      <table>
+        <tr>
+          <td>캠핑장</td>
+          <td>결제 금액</td>
+          <td>결제 일시</td>
+          <td>성인 (명)</td>
+          <td>아이 (명)</td>
+          <td>예약 시작일</td>
+          <td>예약 종료일</td>
+        </tr>
       {data?.content.map((item, idx) => (
-        <div key={idx}>
-          <p>캠핑장 : {item.campsiteName}</p>
-          <p>총 결제 금액 : {item.totalPrice}</p>
-          <p>결제 일시 : {item.createdAt}</p>
-          <p>성인 (명) : {item.adults}</p>
-          <p>아이 (명) : {item.children}</p>
-          <p>예약시작일 : {item.reserveStartDate}</p>
-          <p>예약종료일 : {item.reserveEndDate}</p>
-          <form>
-            <input type={'hidden'} value={item.paymentId} ref={paymentIdRef} />
-            <input type={'hidden'} value={item.reservationId} ref={reservationIdRef} />
-            <button type='button' onClick={(e) => reservationCancel(e, item.reserveStartDate)}>예약 취소하기</button>
-          </form>
-        </div>
+        <tr key={idx}>
+          <td>{item.campsiteName}</td>
+          <td>{item.totalPrice}</td>
+          <td>{item.createdAt}</td>
+          <td>{item.adults}</td>
+          <td>{item.children}</td>
+          <td>{item.reserveStartDate}</td>
+          <td>{item.reserveEndDate}</td>
+          <td>
+            <form>
+              <input type={'hidden'} value={item.paymentId} ref={paymentIdRef} />
+              <input type={'hidden'} value={item.reservationId} ref={reservationIdRef} />
+              <button className='user-reservation-button' type='button' onClick={(e) => reservationCancel(e, item.reserveStartDate)}>예약 취소</button>
+            </form>
+          </td>
+        </tr>
       ))}
+      </table>
       <PagingComponent currentPage={data?.number} pageCount={data?.totalPages} onPageChange={onDataPageChange} />
     </div>
   )
