@@ -111,16 +111,15 @@ const Join = () => {
       if (response.ok) {
         alert('회원가입 성공');
         navigate('/login');
-      } else if (response.status === 409) {
-        setErrors({ email: '이미 가입된 이메일이 존재합니다.' });
-      } else if (response.status === 400) {
+      }
+       else if (response.status === 400) {
         setErrors({ form: '잘못된 요청입니다. 입력값을 확인하세요.' });
       } else {
         alert('회원가입 실패');
       }
     } catch (error) {
       console.error('회원가입 중 오류 발생:', error);
-      alert('회원가입 중 오류가 발생했습니다.');
+      alert('이미 가입된 이메일이 존재합니다.');
     }
   };
 
