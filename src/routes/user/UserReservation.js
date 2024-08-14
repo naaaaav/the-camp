@@ -44,7 +44,6 @@ const UserReservation = () => {
       console.log("paymentId : " + paymentId);
       console.log("reservationId : " + reservationId);
       console.log("reserveStartDate : " + reserveStartDate);
-      //http://localhost:8080
       const response = await apiFetch(`/payment/cancel`,{
         method: "POST",
         headers: { 
@@ -64,9 +63,10 @@ const UserReservation = () => {
       } else if (response.status) {
 
       }
-    } catch(err) {
-      console.log(err.message);
-      console.log(err.data)
+    } catch(error) {
+      if (error.message === "400") {
+        alert("하루 전에는 예약을 취소 할 수 없습니다.");
+      }
     }
   }
 
