@@ -34,9 +34,9 @@ const ReviewUpdate = () => {
         navigate(`/detail/${state.campsiteSeq}`);
       }
     } catch(error) {
-      if (error.message === 404) {
+      if (error.message === "404") {
         alert("로그인 한뒤 이용해주세요");
-      } else if (error.message === 400) {
+      } else if (error.message === "400") {
         alert("작성자가 아닙니다");
       }
     }

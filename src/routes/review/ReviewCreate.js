@@ -58,7 +58,8 @@ const ReviewCreate = () => {
         setLoginName(json.fullName);
       }
     } catch(error) {
-      if (error.message === 404) {
+      if (error.message === "404") {
+        alert("로그인 한 뒤 이용해주세요");
         return;
       }
     }
