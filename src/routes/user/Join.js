@@ -56,7 +56,7 @@ const Join = () => {
 
     // 비밀번호 검증
     if (!joinForm.password) newErrors.password = '비밀번호를 입력하세요';
-    else if (joinForm.password.length < 8) newErrors.password = '비밀번호는 최소 8자 이상이어야 합니다';
+    else if (joinForm.password.length < 8) newErrors.password = '비밀번호는  8자 이상이어야 합니다';
 
     // 비밀번호 확인 검증
     if (joinForm.password !== joinForm.passwordConfirmation) newErrors.passwordConfirmation = '비밀번호가 일치하지 않습니다';
@@ -146,7 +146,7 @@ const Join = () => {
             disabled={!isEmailVerified} 
             required
           />
-          {errors.password && <div className="error-message">alert({errors.password})</div>}
+          {errors.password && <div className="error-message">{errors.password}</div>}
         </div>
         <div className="form-field">
           <label className="field-label">Password Check</label>

@@ -5,6 +5,7 @@ import UserReservation from './UserReservation';
 import Modal from '../../tools/Modal';
 import UpdatePasswordForm from '../../components/UpdatePassword'; 
 import { useAuth } from '../../utils/AuthContext'
+import UserCoupons  from './UserCoupon';
 import './Profile.css'
 
 const Profile = () => {
@@ -55,7 +56,6 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-
       <span className="profile-title">내정보</span>
       <hr />
       {profile ? (
@@ -75,7 +75,9 @@ const Profile = () => {
       ) : (
         <p>No profile information available.</p>
       )}
+      
       <UserReservation />
+      <UserCoupons />
 
       {showUpdatePassword && (
         <Modal onClose={() => setShowUpdatePassword(false)}>

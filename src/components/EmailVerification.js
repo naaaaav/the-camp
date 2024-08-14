@@ -6,6 +6,7 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
   const [email, setEmail] = useState('');
   const [authCode, setAuthCode] = useState('');
   const [isEmailSent, setIsEmailSent] = useState(false);
+  const [authCodeVerified, setAuthCodeVerified] = useState(false); // 인증 코드 확인 상태 추가
   const [error, setError] = useState('');
 
   const sendVerificationEmail = async () => {
@@ -56,24 +57,6 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
             body: JSON.stringify({ email, authNumber: authCode }),
         });
 
-        if (response.status === 400) {
-            alert('숫자 형식이 아닙니다.');
-            setError('숫자 형식이 아닙니다.');
-            return;
-        }
-
-        if (response.status === 403) {
-            alert('인증 코드가 만료되었습니다.');
-            setError('인증 코드가 만료되었습니다.');
-            return;
-        }
-
-        if (response.status === 500) {
-            alert('인증 코드가 틀립니다.');
-            setError('인증 코드가 틀립니다.');
-            return;
-        }
-
         if (!response.ok) {
             throw new Error('인증 코드 확인 실패');
         }
@@ -82,6 +65,7 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
 
         if (data.success) {
             alert('인증 성공');
+            setAuthCodeVerified(true); // 인증 성공 시 상태 업데이트
             onVerificationSuccess();
             setError('');
         } else {
@@ -89,11 +73,25 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
             setError(data.message || '인증 코드가 일치하지 않습니다.');
         }
     } catch (error) {
-        console.error('인증 코드 확인 중 오류 발생:', error);
-        alert('인증번호가 만료되었거나 틀렸습니다.');
-        setError('인증번호가 만료되었거나 틀렸습니다.');
+      if (error.message === "400") {
+        alert('숫자 형식이 아닙니다.');
+        setError('숫자 형식이 아닙니다.');
+        return;
+      }
+
+      if (error.message === "403") {
+        alert('인증 코드가 만료되었습니다.');
+        setError('인증 코드가 만료되었습니다.');
+        return;
+      }
+
+      if (error.message === "500") {
+        alert('인증 코드가 틀립니다.');
+        setError('인증 코드가 틀립니다.');
+        return;
+      }
     }
-};
+  };
 
   return (
     <div className="EmailVerification">
@@ -115,7 +113,7 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
         </button>
       </div>
       
-      {isEmailSent && (
+      {isEmailSent && !authCodeVerified && ( // 인증 성공 전까지만 인증 코드 입력창 표시
         <>
           <div className="verify-label">인증 코드</div>
           <div className="auth-code-container">
