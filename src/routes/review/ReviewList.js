@@ -23,7 +23,7 @@ const ReviewList = () => {
         setLoginEmail(json.email);
       }
     } catch(error) {
-      if (error.message === 404) {
+      if (error.message === "404") {
         return;
       }
     }

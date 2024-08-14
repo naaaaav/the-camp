@@ -60,7 +60,7 @@ const ReviewComponent = ({ campsiteSeq, item, loginEmail, isLike, isDisplay }) =
       setReview(prev => ({...prev, likeCount : json.likeCount}))
     } catch(error) {
       console.log("좋아요 : " + error.message);
-      if (error.message === 404) {
+      if (error.message === "404") {
         alert("로그인 후 이용해주세요");
       }
     }
