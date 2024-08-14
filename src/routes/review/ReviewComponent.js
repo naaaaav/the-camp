@@ -47,16 +47,23 @@ const ReviewComponent = ({ campsiteSeq, item, loginEmail, isLike, isDisplay }) =
   }
 
   const reviewLikeCountClick = async () => {
-    const response = await apiFetch(`/reviews/like/${review.id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('Authorization')
+    try {
+      const response = await apiFetch(`/reviews/like/${review.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': localStorage.getItem('Authorization')
+        }
+      });
+  
+      const json = await response.json();
+      setReview(prev => ({...prev, likeCount : json.likeCount}))
+    } catch(error) {
+      console.log("좋아요 : " + error.message);
+      if (error.message === 404) {
+        alert("로그인 후 이용해주세요");
       }
-    });
-
-    const json = await response.json();
-    setReview(prev => ({...prev, likeCount : json.likeCount}))
+    }
   }
 
   return (
