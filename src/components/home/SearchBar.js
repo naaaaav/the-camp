@@ -3,7 +3,8 @@ import { FaSearch } from 'react-icons/fa';
 import { useRecoilState } from 'recoil';
 import { CampListAtom } from '../../recoil/atom/CampListAtom';
 import { useNavigate } from 'react-router-dom';
-import './SearchBar.css'; 
+import styles from './SearchBar.module.css';
+
 
 function SearchBar(props) {
   const [input, setInput] = useState('');
@@ -31,19 +32,19 @@ function SearchBar(props) {
   };
 
   return (
-    <div className="container">
-      <select className="select" onChange={handleType}>
+    <div className={styles.searchbar}>
+      <select className={styles.regiondropdown} onChange={handleType}>
         <option value="region">지역별</option>
         <option value="title">캠핑장명</option>
       </select>
       <input
         type="text"
-        className="input"
+        className={styles.searchinput}
         placeholder="검색어를 입력하세요"
         onChange={handleInput}
         onKeyDown={handleKeyDown}
       />
-      <button className="button" onClick={handleSearch}>
+      <button className={styles.searchbutton} onClick={handleSearch}>
         <FaSearch />
       </button>
     </div>

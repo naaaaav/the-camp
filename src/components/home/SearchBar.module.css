@@ -1,18 +1,18 @@
-.search-bar {
+.searchbar {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 20px 0;
 }
 
-.region-dropdown {
+.regiondropdown {
   padding: 10px;
   margin-right: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-.search-input {
+.searchinput {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -20,7 +20,7 @@
   flex-grow: 1;
 }
 
-.search-button {
+.searchbutton {
   padding: 10px;
   background-color: #007bff;
   border: none;
@@ -32,6 +32,11 @@
   justify-content: center;
 }
 
-.search-button:hover {
+.searchbutton:hover {
   background-color: #0056b3;
+}
+
+
+.container{
+  display: flex;
 }
