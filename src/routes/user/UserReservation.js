@@ -11,13 +11,14 @@ const UserReservation = () => {
   const [data, setData] = useState();
 
   const onDataPageChange = ({ selected }) => {
+    console.log(selected);
     setDataCurrentPage(selected);
     setData(null);
   }
 
   const userReservationData = async () => {
     try {
-      const response = await apiFetch(`/user/reservation`, {
+      const response = await apiFetch(`/user/reservation?page=${dataCurrentPage}`, {
         method: 'GET',
         headers: {
           "Authorization": localStorage.getItem('Authorization'),

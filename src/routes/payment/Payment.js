@@ -16,7 +16,7 @@ const Payment = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { state } = location;
-  const [invenSeq, setInvenSeq] = useState();
+  const [paymentIsNotCoupon, setPaymentIsNotCoupon] = useState(true);
   const [userData, setUserData] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [coupons, setCoupons] = useState([]);
@@ -25,7 +25,7 @@ const Payment = () => {
   const formatStartDate = formatDateToYYYYMMDD(state.reserveStartDate);
   const formatEndDate = formatDateToYYYYMMDD(state.reserveEndDate);
   const [totalPrice, setTotalPrice] = useState(state.totalPrice);
-  const [paymentCouponData, setPaymentCouponData] = useState();
+  const [paymentCouponData, setPaymentCouponData] = useState(null);
 
   useEffect(() => {
     userPayment();
@@ -40,6 +40,7 @@ const Payment = () => {
   useEffect(() => {
     if (selectedCoupon !== null) {
       console.log("Selected Coupon: ", selectedCoupon);
+      setPaymentIsNotCoupon(false);
       setPaymentCouponData(selectedCoupon);
       setTotalPrice(state.totalPrice - selectedCoupon.count);
     }
@@ -71,7 +72,16 @@ const Payment = () => {
   console.log(coupons);
 
   const kaKaoPaymentAlert = async () => {
-    console.log(paymentCouponData);
+    const couponJson =  paymentCouponData !== null ? {
+      count : paymentCouponData.count,
+      couponName : paymentCouponData.couponName,
+      couponSeq : paymentCouponData.couponSeq,
+      couponType : paymentCouponData.couponType,
+      expireDate : paymentCouponData.expireDate,
+      invenSeq : paymentCouponData.seq,
+      use : paymentCouponData.use
+    } : null;
+
     try {
       const paymentId = `kakao-payment-${crypto.randomUUID()}`;
 
@@ -110,13 +120,8 @@ const Payment = () => {
           adults: state.adults,
           children: state.children,
           campsiteName: state.campSiteName,
-          count : paymentCouponData.count,
-          couponName : paymentCouponData.couponName,
-          couponSeq : paymentCouponData.couponSeq,
-          couponType : paymentCouponData.couponType,
-          expireDate : paymentCouponData.expireDate,
-          invenSeq : paymentCouponData.seq,
-          use : paymentCouponData.use
+          paymentIsNotCoupon : paymentIsNotCoupon,
+          ...(paymentIsNotCoupon ? {} : couponJson)
         }),
       });
 
@@ -136,7 +141,16 @@ const Payment = () => {
   };
 
   const tossPaymentAlert = async () => {
-    console.log(paymentCouponData);
+    const couponJson = paymentCouponData !== null ? {
+      count : paymentCouponData.count,
+      couponName : paymentCouponData.couponName,
+      couponSeq : paymentCouponData.couponSeq,
+      couponType : paymentCouponData.couponType,
+      expireDate : paymentCouponData.expireDate,
+      invenSeq : paymentCouponData.seq,
+      use : paymentCouponData.use
+    } : null;
+
     try {
       const paymentId = `toss-payment-${Math.random().toString(36).slice(2)}`;
       const response = await PortOne.requestPayment({
@@ -173,13 +187,8 @@ const Payment = () => {
           adults: state.adults,
           children: state.children,
           campsiteName: state.campSiteName,
-          count : paymentCouponData.count,
-          couponName : paymentCouponData.couponName,
-          couponSeq : paymentCouponData.couponSeq,
-          couponType : paymentCouponData.couponType,
-          expireDate : paymentCouponData.expireDate,
-          invenSeq : paymentCouponData.seq,
-          use : paymentCouponData.use
+          paymentIsNotCoupon : paymentIsNotCoupon,
+          ...(paymentIsNotCoupon ? {} : couponJson)
         }),
       });
 
