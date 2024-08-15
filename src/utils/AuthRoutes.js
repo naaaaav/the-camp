@@ -9,6 +9,7 @@ const AuthRoutes = () => {
   const [role, setRole] = useRecoilState(roleAtom);
   const rolePath = useRecoilValue(rolePathAtom);
   
+  
   useEffect(() => {
     setLoading(false);
     const authorization = localStorage.getItem('Authorization');
@@ -20,7 +21,9 @@ const AuthRoutes = () => {
     
     (async () => {
       try {
-        const response =  await apiFetch('/api/role', {
+          //if (rolePath === '/') return;        
+          const response =  await apiFetch('/api/role', {
+
           method : 'GET',
           headers : {
             "Content-Type": "application/json",

@@ -1,0 +1,51 @@
+.couponListPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 수평 중앙 정렬 */
+  padding: 20px;
+}
+
+.couponTable {
+  width: 60%; /* 테이블의 너비를 조정 */
+  max-width: 800px; /* 최대 너비를 설정 */
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.couponTable th, .couponTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.couponTable th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  width: 60%; /* 버튼 컨테이너의 너비를 테이블과 동일하게 조정 */
+  max-width: 800px;
+  margin-top: 20px;
+}
+
+.deleteButton {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.addButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 10px;
+  border-radius: 4px;
+}

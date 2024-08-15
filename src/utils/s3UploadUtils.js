@@ -27,3 +27,21 @@ export async function uploadFileToS3(file, presignedUrl) {
         throw new Error('File upload failed');
     }
 }
+
+export async function getImageFromS3(imageKey) {
+    try {
+        const response = await fetch(`/api/get-image?key=${encodeURIComponent(imageKey)}`, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch image');
+        }
+
+        const blob = await response.blob();
+        return URL.createObjectURL(blob);
+    } catch (error) {
+        console.error('Error fetching image from S3:', error);
+        throw error;
+    }
+}

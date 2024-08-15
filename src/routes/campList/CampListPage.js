@@ -17,6 +17,11 @@ function CampListPage(){
     const [total, setTotal] = useState(0);
     useEffect(()=>{
 
+        // if (!query.has('page')) {
+        //     // 'param' 파라미터가 없으면 초기값을 설정
+        //     setQuery({ page: 0 });
+        //   }
+
         // mount  -> index.html 의 script
 
         const script = document.createElement("script");
@@ -33,7 +38,11 @@ function CampListPage(){
              };
                 const map = new window.kakao.maps.Map(container, options);
 
-                const response = apiFetch("/campsite/searchCampsites?page="+query.get("page")+"&query="+query.get("query")+"&type="+query.get("type")
+                const page = query.get("page") || "0";
+                const queryStr = query.get("query");
+                const type = query.get("type");
+
+                const response = apiFetch("/campsite/searchCampsites?page="+page+"&query="+queryStr+"&type="+type
         +"&size=6",{
             method:'GET'
         }).then((res) => res.json())

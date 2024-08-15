@@ -18,7 +18,7 @@ const Payment = () => {
 
   const userPayment = async () => {
     try {
-      const response = await apiFetch(`/api/user/payment`, {
+      const response = await apiFetch(`/api/user/data`, {
         method: "GET",
         headers: { 
           "Content-Type": "application/json",
@@ -70,7 +70,8 @@ const Payment = () => {
           reserveStartDate : state.reserveStartDate,
           reserveEndDate : state.reserveEndDate,
           adults : state.adults,
-          children : state.children
+          children : state.children,
+          campsiteName : state.campSiteName
         }),
       });
   
@@ -124,7 +125,8 @@ const Payment = () => {
           reserveStartDate : state.reserveStartDate,
           reserveEndDate : state.reserveEndDate,
           adults : state.adults,
-          children : state.children
+          children : state.children,
+          campsiteName : state.campSiteName
         }),
       });
   

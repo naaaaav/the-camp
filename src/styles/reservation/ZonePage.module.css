@@ -1,0 +1,150 @@
+.reservationPage {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.mainImage {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.dateSelection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.counter button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+    background: none;
+    cursor: pointer;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    /* 버튼 사이 간격 */
+    flex-wrap: wrap;
+    /* 버튼이 화면에 맞게 자동으로 줄 바꿈 */
+}
+
+.siteButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    /* 버튼 너비 */
+    height: 80px;
+    /* 버튼 높이 */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    /* 둥근 모서리 */
+    background-color: white;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* 부드러운 전환 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* 그림자 추가 */
+}
+
+.siteButton:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    /* 호버 시 그림자 강조 */
+}
+
+.siteButton.active {
+    background-color: #4CAF50;
+    /* 선택된 버튼의 배경색 */
+    color: white;
+    /* 선택된 버튼의 글자색 */
+    border-color: #4CAF50;
+    /* 선택된 버튼의 테두리색 */
+}
+
+.gallerySelection,
+.map,
+.info,
+.price,
+.actions {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.couponButton,
+.paymentButton {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-right: 10px;
+    border-radius: 5px;
+    /* 둥근 모서리 */
+    transition: background-color 0.3s ease;
+    /* 부드러운 배경 전환 */
+}
+
+.couponButton:hover,
+.paymentButton:hover {
+    background-color: #218838;
+    /* 호버 시 색상 변경 */
+}
+
+.map img {
+    width: 100%;
+    max-width: 600px;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

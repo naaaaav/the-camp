@@ -1,14 +1,18 @@
-import React, { useEffect }  from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { roleAtom } from '../recoil/atom/UserAtom';
 import { useAuth } from '../utils/AuthContext'; 
 import './Header.css';
-import { useSetRecoilState } from 'recoil';
 import apiFetch from '../utils/api';
 import { Link } from 'react-router-dom';
 
+
+const PRIVATE_PATHS = ["/profile", "/payment"];
+
+
 const Header = () => {
+  const location = useLocation(); 
   const navigate = useNavigate();
   const { loggedIn, logOut } = useAuth();
   const role = useRecoilValue(roleAtom);
@@ -31,10 +35,15 @@ const Header = () => {
             const roleData = await response.json();
             setRole(roleData.role);
           } else {
-            console.error('역할을 가져오는 데 실패했습니다');
+            console.error('Failed to fetch role');
+            logOut();
+            navigate('/login');
           }
         } catch (error) {
-          console.error('역할을 가져오는 중 오류 발생:', error);
+          console.error('Error fetching role:', error);
+          logOut();
+
+          navigate('/login');
         }
       }
     };
@@ -42,8 +51,34 @@ const Header = () => {
     if (loggedIn) {
       fetchRole();
     }
-  }, [loggedIn, setRole]);
+  }, [loggedIn, setRole, navigate,logOut]);
 
+  useEffect(() => {
+    const checkAuth = async () => {
+      if (PRIVATE_PATHS.includes(location.pathname)) {
+        try {
+          const response = await apiFetch('/api/auth', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
+          if (!response.ok) {
+            logOut();
+            navigate('/login');
+          }
+        } catch (error) {
+          console.error('Error checking auth:', error);
+          logOut();
+          navigate('/login');
+        }
+      }
+    };
+
+    checkAuth();
+  }, [location, navigate, logOut]);
 
   const handleNavClick = (category) => {
     navigate(`/?category=${category}`);
@@ -59,10 +94,8 @@ const Header = () => {
       return (
         <>  
           <button><Link to={"/campList?page=0"}>전체</Link></button>
-          <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
-          <button onClick={() => handleNavClick('카라반')}>카라반</button>
           <button><Link to={"/theme"}>테마별</Link></button>
-          <button onClick={() => handleNavClick('리뷰')}>리뷰</button>
+          <button onClick={() => navigate('/review/list')}>리뷰</button>
         </>
       );
     }
@@ -71,21 +104,20 @@ const Header = () => {
       case 'ROLE_ADMIN':
         return (
           <>
-            <button onClick={() => handleNavClick('어드민')}>Dashboard</button>
-            <button onClick={() => handleNavClick('어드민')}>Settings</button>
-            <button onClick={() => handleNavClick('')}>Manage Users</button>
+            <button><Link to={"/campList?page=0"}>전체</Link></button>
+            <button><Link to={"/theme"}>테마별</Link></button>
+            <button onClick={() => navigate('/review/list')}>리뷰</button>
+            <button><Link to={"/admin"}>관리</Link></button>
+            
           </>
         );
       case 'ROLE_USER':
         return (
           <>
             <button><Link to={"/campList?page=0"}>전체</Link></button>
-            <button onClick={() => handleNavClick('글램핑')}>글램핑</button>
-            <button onClick={() => handleNavClick('카라반')}>카라반</button>
             <button><Link to={"/theme"}>테마별</Link></button>
-            <button onClick={() => handleNavClick('리뷰')}>리뷰</button>
+            <button onClick={() => navigate('/review/list')}>리뷰</button>
             <button onClick={() => navigate('/profile')}>Profile</button>
-
           </>
         );
       case 'ROLE_GUEST':
@@ -110,7 +142,6 @@ const Header = () => {
         ) : (
           <>
             <button className="login-button" onClick={() => navigate('/login')}>Login</button>
-            
             <button className="join-button" onClick={() => navigate('/join')}>Join</button>
           </>
         )}

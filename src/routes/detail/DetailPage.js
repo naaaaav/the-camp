@@ -3,12 +3,14 @@ import ImageBox from "../../components/detail/ImageBox";
 import TitleBox from "../../components/detail/TitleBox";
 import styles from "../../styles/detail/DetailPage.module.css"
 import ReviewBox from "../../components/detail/ReviewBox";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ZoneBox from "../../components/admin/ZoneBox"
 import apiFetch from "../../utils/api";
+import ReviewCampsiteList from '../review/ReviewCampsiteList';
 
 
 function DetailPage(){
+    const navigate = useNavigate();
     const { id } = useParams();
     console.log(id);
 
@@ -58,6 +60,14 @@ function DetailPage(){
         
     },[id]);
 
+    const changeToReservationPage = (e, campsiteSeq) => {
+        navigate(`/reservation/${campsiteSeq}`)
+    }
+
+    const changeToReviewCreatePage = (e, campsiteSeq) => {
+        navigate(`/user/review/create/${campsiteSeq}`)
+    }
+
     
     return(
         <div style={{margin:"0 auto", display:"flex" , justifyContent:"center"}}>
@@ -99,19 +109,9 @@ function DetailPage(){
             </TitleBox>
 
             <TitleBox title="후기">
-                <table>
-                    <tr>
-                        <td><ReviewBox width="500px" writer="누구누구"></ReviewBox></td>
-                        <td><ReviewBox width="500px" writer="누구누구"></ReviewBox></td>
-                    </tr>
-                    <tr>
-                        <td><ReviewBox width="500px" writer="누구누구"></ReviewBox></td>
-                        <td><ReviewBox width="500px" writer="누구누구"></ReviewBox></td>
-                    </tr>
-                </table>
-
-                   
-                    
+                <ReviewCampsiteList campsiteSeq={id} isDisplay={false}  />
+                <button onClick={(e) => changeToReservationPage(e, id)}>예약하기</button>
+                <button onClick={(e) => changeToReviewCreatePage(e, id)}>리뷰작성</button>
             </TitleBox>
             </div>
         </div>

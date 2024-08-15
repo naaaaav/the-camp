@@ -5,6 +5,7 @@ import styles from '../../styles/admin/campSettingDetailPage.module.css';
 import apiFetch from "../../utils/api";
 
 
+
 function CampSettingDetailPage(){
 
     const { id } = useParams();
@@ -64,9 +65,15 @@ function CampSettingDetailPage(){
     const deleteZone = (seq) => {
         apiFetch("/zone/"+seq , {
             method:'DELETE',
-        }).then((res) => res.json())
+        }).then((res) =>  {
+           return res.json();
+        })
         .then(data => {
             console.log(data);
+            setCamp(prev => ({
+                ...prev,
+                zones:prev.zones.filter(item => item.seq !== data)
+            }));
         })
     }
 
@@ -106,6 +113,15 @@ function CampSettingDetailPage(){
     }
 
     const insertSeason = (e) => {
+
+        const start = new Date(seasonInput.start);
+        const end = new Date(seasonInput.end);
+
+        if(start > end){
+            alert('시작일은 종료일보다 작아야 합니다.');
+            return;
+        }
+
         apiFetch("/season" , {
             method:'POST',
             headers:{
@@ -120,17 +136,21 @@ function CampSettingDetailPage(){
         
         )
         .then(data => {
+          
             console.log("data:" + data.seq);
             setSeasons(prevData => [...prevData, data]);
             console.log(seasons);
         }
-    )
+    ).catch(err => {
+        console.log(err);
+        alert(err);
+    })
     }
 
     return(
         <div>
-            <TitleBox title={camp.facltNm}>
-                <div style={{ border:"1px solid black"}}>
+            <h1>{camp.facltNm}</h1>
+                <div>
                     <h1>구역 목록</h1>
                     <div id="zoneBox">
                         
@@ -153,14 +173,7 @@ function CampSettingDetailPage(){
                                         극 성수기 가격: {item.bestPeakSeasonPrice}
                                     </div>
                                     <div className={styles.siteContainer}>
-                                        {
-                                            item.sites.map(
-                                                site => 
-                                                    <div className={styles.siteBox}>
-                                                        {site.title}
-                                                    
-                                                    </div>                                            )
-                                        }
+                                        구획 수: {item?.sites?.length}
                                     </div>
                                     <button onClick={()=>deleteZone(item.seq)}>삭제</button>
                                 </div>
@@ -204,12 +217,18 @@ function CampSettingDetailPage(){
                                 })
                             })
                             .then(res => {
-                                res.json()
+                                console.log(res);
+                                return res.json()
                             })
                             .then(data => {
                                 console.log(data);
-                               
-                            })
+                                setCamp(prev => ({
+                                    ...prev,
+                                    zones:[...prev.zones,data] 
+                                }));
+                            }
+                                
+                            )
                             .catch( err => {
                                 console.log(err);
                             })
@@ -219,7 +238,7 @@ function CampSettingDetailPage(){
                 </div>
                 
 
-            </TitleBox>
+            
             <div>
                 <h1>성수기 설정</h1>
                 <span>시작:</span><input type="date" onChange={onStartChange}></input>

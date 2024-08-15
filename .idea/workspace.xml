@@ -5,17 +5,89 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91ba9d8a-8184-4347-98b1-a21ac3abf11c" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/ResetPassword.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/TokenRefresh.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UpdatePassword.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UpdatePassword.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/paging/PagingComponent.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/paging/PagingComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/recoil/atom/ReservationAtom.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/admin/coupon/CouponCreatePage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/admin/coupon/CouponListPage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/reservation/ZonePage.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/review/ReviewCampsiteList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/review/ReviewComponent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/review/ReviewCreate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/review/ReviewList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/review/ReviewUpdate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/user/Login.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/user/UserReservation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/admin/coupon/CouponCreatePage.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/admin/coupon/CouponListPage.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/styles/reservation/ZonePage.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tools/Modal.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tools/Modal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tools/ReservationFunctions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/EmailVerification.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EmailVerification.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/EmailVerification.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EmailVerification.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ResetPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ResetPassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/recoil/atom/UserAtom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/recoil/atom/UserAtom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/admin/AdminPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/AdminPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/admin/CampSettingDetailPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/CampSettingDetailPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/campList/CampListPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/campList/CampListPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/detail/DetailPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/detail/DetailPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/payment/Payment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/payment/Payment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/payment/PaymentCancel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/payment/PaymentCancel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/reservation/ReservationPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/reservation/ReservationPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/review/ReviewForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/review/ReviewForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/user/Join.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user/Join.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/user/Join.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user/Join.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/user/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user/Login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/user/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/reservation/ReservationPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/reservation/ReservationPage.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AdminProtectedRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AdminProtectedRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AuthContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AuthContext.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/AuthRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AuthRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/UserProtectedRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/UserProtectedRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/s3UploadUtils.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/s3UploadUtils.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/App.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/routes/admin/CampSettingDetailPage.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/routes/detail/DetailPage.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/routes/payment/Payment.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/routes/payment/PaymentCancel.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/routes/review/ReviewCampsiteList.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/routes/review/ReviewComponent.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/routes/review/ReviewCreate.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/routes/review/ReviewCreatePage.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/routes/review/ReviewForm.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/routes/review/ReviewList.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/routes/review/ReviewUpdate.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/styles/review/ReviewForm.css" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -33,15 +105,17 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/naaaa/Desktop/camp_frontend/src/components/review&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;18&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/naaaa/Desktop/camp_frontend&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;모듈&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15429688&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;
   }
 }</component>
@@ -49,6 +123,9 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\naaaa\Desktop\camp_frontend\src\components\review" />
       <recent name="C:\Users\naaaa\Desktop\camp_frontend\src\routes\review" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\naaaa\Desktop\camp_frontend\src\styles\review" />
     </key>
   </component>
   <component name="RunManager">
@@ -77,7 +154,9 @@
       <workItem from="1722423307668" duration="7061000" />
       <workItem from="1723095310668" duration="1189000" />
       <workItem from="1723180595128" duration="11758000" />
-      <workItem from="1723428360919" duration="2181000" />
+      <workItem from="1723428360919" duration="47265000" />
+      <workItem from="1723659544605" duration="7073000" />
+      <workItem from="1723726405077" duration="624000" />
     </task>
     <servers />
   </component>
