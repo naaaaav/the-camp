@@ -7,6 +7,9 @@ const UserCoupons = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+
+  console.log(inventories);
+
   useEffect(() => {
     const fetchInventories = async () => {
       try {
@@ -65,7 +68,7 @@ const UserCoupons = () => {
                 <td>{inventory.couponType}</td>
                 <td>{inventory.count}</td>
                 <td>{inventory.expireDate}</td>
-                <td>{inventory.isUse ? '사용됨' : '미사용'}</td>
+                <td>{inventory.use ? '사용됨' : '미사용'}</td>
               </tr>
             ))}
           </tbody>
