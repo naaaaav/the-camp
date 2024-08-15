@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import EmailVerification from './../../components/EmailVerification';
+import EmailVerification from './../../components/user/EmailVerification';
 
 import './Join.css';
 

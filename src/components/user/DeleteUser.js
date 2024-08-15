@@ -1,7 +1,7 @@
 import React from 'react';
-import Modal from '../tools/Modal';
-import apiFetch from '../utils/api';
-import { useAuth } from '../utils/AuthContext';
+import Modal from '../../tools/Modal';
+import apiFetch from '../../utils/api';
+import { useAuth } from '../../utils/AuthContext';
 import './DeleteUser.css';
 
 const DeleteUser = ({ onClose }) => {
@@ -28,8 +28,8 @@ const DeleteUser = ({ onClose }) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       logOut();
+      localStorage.removeItem('Authorization')
       window.location.href = '/login'; 
     } catch (err) {
       console.error('Failed to delete account:', err.message);

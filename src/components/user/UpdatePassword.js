@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import apiFetch from '../utils/api';
+import apiFetch from '../../utils/api';
 import './UpdatePassword.css'; 
 
 const UpdatePasswordForm = ({ onClose }) => {
