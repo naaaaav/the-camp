@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EmailVerification from './../../components/user/EmailVerification';
+import apiFetch from '../../utils/api';
 
 import './Join.css';
-
-import apiFetch from '../../utils/api';
 
 
 const Join = () => {

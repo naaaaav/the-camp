@@ -1,4 +1,3 @@
-// components/ResetPasswordForm.js
 import { useState } from 'react';
 import apiFetch from '../../utils/api';
 import './ResetPassword.css';
