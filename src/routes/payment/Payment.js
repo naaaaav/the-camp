@@ -83,8 +83,7 @@ const Payment = () => {
     } : null;
 
     try {
-      const paymentId = `kakao-payment-${crypto.randomUUID()}`;
-
+      const paymentId = `kakao-payment-${Math.random().toString(36).slice(2)}`;
       const response = await PortOne.requestPayment({
         storeId: process.env.REACT_APP_PAYMENT_STOREID,
         channelKey: process.env.REACT_APP_PAYMENT_KAKAO_CHANNEL_KEY,
