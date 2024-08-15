@@ -1,21 +1,22 @@
-import axios from 'axios';
-const RES = 'http://localhost:8080/season';
+import apiFetch from "../utils/api";
+const RES = '/season';
 
 export const getSeasonType = async (campSiteSeq, seasonDto) => {
     console.log("Data : ", seasonDto);
     try {
-        const response = await axios.get(
-            `${RES}/reserve/${campSiteSeq}`, {
-            params: {
-                start: seasonDto.start,
-                end: seasonDto.end
-            }
-        }
-        );
+        const queryParams = new URLSearchParams({
+            start: seasonDto.start,
+            end: seasonDto.end
+        }).toString();
 
-        console.log("seasonData : ", response.data);
+        const response = await apiFetch(`${RES}/${campSiteSeq}?${queryParams}`, {
+            method: 'GET',
+        });
 
-        return response.data.data; // 서버에서 반환하는 데이터 구조에 따라 수정
+        const data = await response.json();
+        console.log("seasonData : ", data);
+
+        return data.data; // 서버에서 반환하는 데이터 구조에 따라 수정
     } catch (error) {
         console.log(error.message);
         return null;
