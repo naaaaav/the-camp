@@ -16,7 +16,6 @@ const UserCoupons = () => {
           throw new Error('Unauthorized');
         }
 
-        // Fetch inventories
         const response = await apiFetch('/user/inventory', {
           method: 'GET',
           headers: {
@@ -30,7 +29,7 @@ const UserCoupons = () => {
         }
 
         const data = await response.json();
-        console.log(data);  // Inspect the data structure here
+        console.log(data);  
         setInventories(data);
       } catch (err) {
         setError(err.message);
@@ -49,7 +48,6 @@ const UserCoupons = () => {
     <div className="user-coupons-container">
       <h2 className="user-coupons-title">쿠폰 목록</h2>
       <hr />
-      {inventories.length > 0 ? (
         <table>
           <thead>
             <tr>
@@ -63,8 +61,8 @@ const UserCoupons = () => {
           <tbody>
             {inventories.map((inventory) => (
               <tr key={inventory.seq}>
-                <td>{inventory.couponName || '정보 없음'}</td>
-                <td>{inventory.couponType || '정보 없음'}</td>
+                <td>{inventory.couponName}</td>
+                <td>{inventory.couponType}</td>
                 <td>{inventory.count}</td>
                 <td>{inventory.expireDate}</td>
                 <td>{inventory.isUse ? '사용됨' : '미사용'}</td>
@@ -72,9 +70,6 @@ const UserCoupons = () => {
             ))}
           </tbody>
         </table>
-      ) : (
-        <p>쿠폰이 없습니다.</p>
-      )}
     </div>
   );
 };
