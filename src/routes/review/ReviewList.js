@@ -55,7 +55,7 @@ const ReviewSort = ({ loginEmail, reviewFlag }) => {
   }
 
   const reviewSort = async () => {
-    const response = await fetch(`/reviews/sort?page=${dataCurrentPage}&type=${type}`, {
+    const response = await apiFetch(`/reviews/sort?page=${dataCurrentPage}&type=${type}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
