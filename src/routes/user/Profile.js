@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import apiFetch from '../../utils/api';
 import UserReservation from './UserReservation';
 import Modal from '../../tools/Modal';
-import UpdatePasswordForm from '../../components/UpdatePassword'; 
+import UpdatePasswordForm from '../../components/user/UpdatePassword'; 
 import { useAuth } from '../../utils/AuthContext';
 import UserCoupons from './UserCoupon';
-import DeleteUser from '../../components/DeleteUser'; 
+import DeleteUser from '../../components/user/DeleteUser'; 
 import './Profile.css';
 
 const Profile = () => {

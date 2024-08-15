@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import EmailVerification from './EmailVerification';
-import Modal from '../tools/Modal';
-import apiFetch from '../utils/api';
+import Modal from '../../tools/Modal';
+import apiFetch from '../../utils/api';
 import './DeleteUser.css'; // Import the CSS file
 
 const DeleteUser = ({ onClose }) => {

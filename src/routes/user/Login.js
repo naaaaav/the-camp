@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ResetPasswordForm from '../../components/ResetPassword';
+import ResetPasswordForm from '../../components/user/ResetPassword';
 import { useAuth } from '../../utils/AuthContext';
-
 import Modal from '../../tools/Modal'; 
 import './Login.css'; 
 
