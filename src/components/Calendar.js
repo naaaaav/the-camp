@@ -9,6 +9,11 @@ const Calendar = ({ isAdmin, onDatesSelected }) => {
     const [endDate, setEndDate] = useState(null);
     const [days, setDays] = useState(0);
 
+    // 현재 월과 4개월 후의 마지막 날짜를 계산
+    const today = new Date();
+    const fourMonthsLater = new Date(today.getFullYear(), today.getMonth() + 4, 1);
+    const lastDayFourMonthsLater = new Date(fourMonthsLater.getFullYear(), fourMonthsLater.getMonth() + 1, 0);
+
     const handleDateChange = (dates) => {
         const [start, end] = dates;
         setStartDate(start);
@@ -28,8 +33,7 @@ const Calendar = ({ isAdmin, onDatesSelected }) => {
                 setStartDate(null);
                 setEndDate(null);
                 setDays(0);
-            }
-            else {
+            } else {
                 onDatesSelected(start, end);
             }
         }
@@ -45,9 +49,10 @@ const Calendar = ({ isAdmin, onDatesSelected }) => {
                 selectsRange
                 inline
                 locale={ko}
-                minDate={new Date()}
+                minDate={new Date()} // 오늘 날짜
+                maxDate={lastDayFourMonthsLater} // 4개월 후의 마지막 날
                 dateFormat="yyyy-MM-dd"
-                monthsShown={2}
+                monthsShown={1} // 한 개의 월만 표시
                 placeholderText="날짜를 선택하세요"
             />
             <div className={styles.dateInfo}>
