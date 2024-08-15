@@ -232,7 +232,7 @@ function CampSettingDetailPage(){
                             .catch( err => {
                                 console.log(err);
                             })
-                        }}>등록하기</button>
+                        }} style={{backgroundColor:"#0e6fd6",borderRadius:"10px", width:"100px",height:"30px",color:'white',border:"none",cursor:"pointer"}}>등록하기</button>
                     </div>
                     
                 </div>
@@ -249,7 +249,7 @@ function CampSettingDetailPage(){
                         <option value={1}>성수기</option>
                         <option value={2}>극성수기</option>
                 </select>
-                <button onClick={()=> insertSeason()}>등록</button>
+                <button onClick={()=> insertSeason()} style={{backgroundColor:"#0e6fd6",borderRadius:"10px", width:"100px",height:"30px",color:'white',border:"none",cursor:"pointer"}}>등록</button>
                 <table className={styles.table}>
                     <th >
                         구분
