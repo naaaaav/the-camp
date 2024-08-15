@@ -11,13 +11,14 @@ const UserReservation = () => {
   const [data, setData] = useState();
 
   const onDataPageChange = ({ selected }) => {
+    console.log(selected);
     setDataCurrentPage(selected);
     setData(null);
   }
 
   const userReservationData = async () => {
     try {
-      const response = await apiFetch(`/user/reservation`, {
+      const response = await apiFetch(`/user/reservation?page=${dataCurrentPage}`, {
         method: 'GET',
         headers: {
           "Authorization": localStorage.getItem('Authorization'),
@@ -66,7 +67,7 @@ const UserReservation = () => {
       }
     } catch(error) {
       console.log("예약취소 " + error.message);
-      if (error.message === "406") {
+      if (error.message === "400") {
         alert("하루 전에는 예약을 취소 할 수 없습니다.");
       }
     }
