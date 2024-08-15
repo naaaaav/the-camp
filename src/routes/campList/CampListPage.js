@@ -94,7 +94,7 @@ function CampListPage(){
             {
                 campList?.map( (item,i) => 
 
-                  <Link to={`/detail/${item.seq}`} key={i} ><CampBox src={item.firstImageUrl} price="50000원~" facltNm={item.facltNm}></CampBox></Link>  
+                  <Link to={`/detail/${item.seq}`} key={i} ><CampBox src={item.firstImageUrl} facltNm={item.facltNm}></CampBox></Link>  
                 )
             }
         </div>
