@@ -67,7 +67,7 @@ const UserReservation = () => {
       }
     } catch(error) {
       console.log("예약취소 " + error.message);
-      if (error.message === "406") {
+      if (error.message === "400") {
         alert("하루 전에는 예약을 취소 할 수 없습니다.");
       }
     }

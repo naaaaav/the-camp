@@ -135,8 +135,16 @@ const Payment = () => {
         navigate("/user/profile");
       }
     } catch (error) {
-      alert("결제 실패");
-      return;
+      console.log("예러 코드 : " + error.message);
+      if (error.message === "409") {
+        alert("이미 결제된 예약입니다.");
+      } else if (error.message === "400") {
+        alert("결제 금액이 일치하지 않습니다.");
+      } else if (error.message === "404") {
+        alert("결제오류");
+      } else {
+        alert("PG사 오류");
+      }
     }
   };
 
@@ -202,8 +210,15 @@ const Payment = () => {
         navigate("/user/profile");
       }
     } catch (error) {
-      alert("결제 실패");
-      return;
+      if (error.message === "409") {
+        alert("이미 결제된 예약입니다.");
+      } else if (error.message === "400") {
+        alert("결제 금액이 일치하지 않습니다.");
+      } else if (error.message === "404") {
+        alert("결제오류");
+      } else {
+        alert("PG사 오류");
+      }
     }
   };
 
