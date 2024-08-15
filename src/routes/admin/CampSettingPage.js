@@ -34,8 +34,8 @@ function CampSettingPage(){
 
             <div>
                 {
-                    campList?.content?.map( item =>
-                        <Link to={`/admin/camp/${ item.seq }`}>
+                    campList?.content?.map( (item,i)=>
+                        <Link to={`/admin/camp/${ item.seq }`} key={i}>
                         <div style={{display:"flex"}}>
                             <ImageBox width="80px" height="80px" src={item.firstImageUrl}></ImageBox>
                             <TitleBox title={item.facltNm}></TitleBox>
@@ -45,7 +45,7 @@ function CampSettingPage(){
                 }
             <PaginationBox>
             <Pagination
-             activePage={searchParam.get("page")}
+             activePage={Number(searchParam.get("page"))}
              itemsCountPerPage={9}
              totalItemsCount={campList.totalElements}
              pageRangeDisplayed={5}

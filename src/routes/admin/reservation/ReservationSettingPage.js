@@ -51,6 +51,7 @@ function ReservationSettingPage(){
     return(
         <div>
             <table>
+                <thead>
                 <tr>
                 <th>예약번호</th>
                 <th>캠핑장</th>
@@ -63,6 +64,8 @@ function ReservationSettingPage(){
                 <th>상태</th>
                 <th>등록</th>
                 </tr>
+                </thead>
+                <tbody>
                 {
                     reservations?.map( (item,i) => 
                         <tr key={i}>
@@ -86,6 +89,7 @@ function ReservationSettingPage(){
                         </tr>
                     )
                 }
+                </tbody>
             </table>
         </div>
     );

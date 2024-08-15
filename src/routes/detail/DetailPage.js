@@ -125,7 +125,7 @@ function DetailPage(){
             <TitleBox title="구역">
                 {
                     campsite?.zones?.map((item,i)=>
-                        <Link to={"/user/zone/"+item.seq}>
+                        <Link to={"/user/zone/"+item.seq} key={i}>
                         <div style={{border:"1px solid black" , borderRadius:"10px",margin:"10px", width:"1200px"}}>
                             <h3>{ item.title }</h3>
                             <p>{ item.intro}</p>

@@ -156,9 +156,9 @@ function CampSettingDetailPage(){
                         
                         {
                             camp?.zones?.map(
-                                item =>
+                                (item,i) =>
                                 
-                                <div className={styles.zoneContainer}>
+                                <div className={styles.zoneContainer} key={i}>
                                     <h1>{item.title}</h1>
                                     <div>
                                         구역 소개: {item.intro}
@@ -273,6 +273,7 @@ function CampSettingDetailPage(){
                     </th>
                     </tr>
                     </thead>
+                    <tbody>
                     {
                         seasons?.map((season,i)=> 
                             <tr key={i}>
@@ -283,6 +284,7 @@ function CampSettingDetailPage(){
                             </tr>
                         )
                     }
+                    </tbody>
                 </table>
             </div>
         </div>
