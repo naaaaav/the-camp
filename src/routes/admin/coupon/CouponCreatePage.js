@@ -1,99 +1,115 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { roleAtom } from '../../../recoil/atom/UserAtom';
 import apiFetch from '../../../utils/api'; 
-import styles from '../../../styles/admin/coupon/CouponCreatePage.module.css';
+import styles from '../../../styles/admin/coupon/CouponListPage.module.css';
 
-const CouponCreatePage = () => {
-  const [name, setName] = useState('');
-  const [type, setType] = useState('');
-  const [discountRate, setDiscountRate] = useState('');
-  const [expireDate, setExpireDate] = useState('');
-  const [showPopup, setShowPopup] = useState(false);
+const CouponListPage = () => {
+  const [coupons, setCoupons] = useState([]);
+  const [selectedCoupons, setSelectedCoupons] = useState([]);
   const navigate = useNavigate();
-  const nameInputRef = useRef(null);
+  const role = useRecoilValue(roleAtom);
 
   useEffect(() => {
-    const input = nameInputRef.current;
-    if (input) {
-      input.lang = 'ko';
-      input.setAttribute('inputmode', 'none');
-
-      input.addEventListener('focus', () => {
-        if (input.setSelectionRange) {
-          input.setSelectionRange(input.value.length, input.value.length);
-        }
-      });
+    if (role !== 'ROLE_ADMIN') {
+      navigate('/'); 
+      return;
     }
-  }, []);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const newCoupon = {
-      name,
-      type,
-      discountRate: parseInt(discountRate, 10),
-      expireDate: new Date(expireDate).toISOString(),
+    const fetchCoupons = async () => {
+      try {
+        const response = await apiFetch('/coupons' , {
+          method:'GET',
+          headers:{
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('Authorization')
+        }
+        });
+        const data = await response.json();
+        setCoupons(data.content);
+      } catch (error) {
+        console.error('Error fetching coupons:', error);
+      }
     };
 
+    fetchCoupons();
+  }, [role, navigate]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+  };
+
+  const handleDeleteSelected = async () => {
     try {
-      const response = await apiFetch('/coupons', {
-        method: 'POST',
-        body: JSON.stringify(newCoupon),
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok.');
-      }
-      const data = await response.json();
-      console.log('Coupon created:', data);
-      setShowPopup(true);
+      await Promise.all(
+        selectedCoupons.map(id =>
+          apiFetch(`/coupons/${id}`, {
+            method: 'DELETE',
+          })
+        )
+      );
+      setCoupons(coupons.filter(coupon => !selectedCoupons.includes(coupon.seq)));
+      setSelectedCoupons([]);
     } catch (error) {
-      console.error('Error creating coupon:', error);
-      alert('쿠폰 생성 실패');
+      console.error('Error deleting coupons:', error);
     }
   };
 
-  const handlePopupClose = () => {
-    setShowPopup(false);
-    navigate('/coupons'); 
+  const handleCheckboxChange = (id) => {
+    setSelectedCoupons(prevSelected => 
+      prevSelected.includes(id)
+        ? prevSelected.filter(couponId => couponId !== id)
+        : [...prevSelected, id]
+    );
   };
 
   return (
-    <div className={styles.couponCreatePage}>
-      <h2>쿠폰 등록</h2>
-      <form onSubmit={handleSubmit}>
-        <div className={styles.formGroup}>
-          <label>쿠폰명:</label>
-          <input 
-            type="text" 
-            value={name} 
-            onChange={(e) => setName(e.target.value)} 
-            required 
-            ref={nameInputRef} 
-          />
-        </div>
-        <div className={styles.formGroup}>
-          <label>쿠폰타입:</label>
-          <input type="text" value={type} onChange={(e) => setType(e.target.value)} required />
-        </div>
-        <div className={styles.formGroup}>
-          <label>쿠폰 할인금액:</label>
-          <input type="number" value={discountRate} onChange={(e) => setDiscountRate(e.target.value)} required />
-        </div>
-        <div className={styles.formGroup}>
-          <label>쿠폰 유효기간:</label>
-          <input type="date" value={expireDate} onChange={(e) => setExpireDate(e.target.value)} required />
-        </div>
-        <button type="submit" className={styles.submitButton}>등록하기</button>
-      </form>
-      {showPopup && (
-        <div className={styles.popup}>
-          <p>쿠폰 생성 완료</p>
-          <button onClick={handlePopupClose} className={styles.popupButton}>확인</button>
-        </div>
-      )}
+    <div className={styles.couponListPage}>
+      <h2>쿠폰 목록</h2>
+      <table className={styles.couponTable}>
+        <thead>
+          <tr>
+            <th></th>
+            <th>쿠폰명</th>
+            <th>쿠폰타입</th>
+            <th>쿠폰 유효기간</th>
+            <th>쿠폰 할인금액</th>
+          </tr>
+        </thead>
+        <tbody>
+          {coupons.map(coupon => (
+            <tr key={coupon.seq}>
+              <td>
+                <input
+                  type="checkbox"
+                  checked={selectedCoupons.includes(coupon.seq)}
+                  onChange={() => handleCheckboxChange(coupon.seq)}
+                />
+              </td>
+              <td>{coupon.name}</td>
+              <td>{coupon.type}</td>
+              <td>{formatDate(coupon.expireDate)}</td>
+              <td>{coupon.discountRate}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className={styles.buttonContainer}>
+        <button onClick={() => navigate('/admin/coupons/create')} className={styles.addButton}>
+          쿠폰 추가
+        </button>
+        <button 
+          onClick={handleDeleteSelected} 
+          className={styles.deleteButton}
+          disabled={selectedCoupons.length === 0}
+        >
+          쿠폰 삭제
+        </button>
+      </div>
     </div>
   );
 };
 
-export default CouponCreatePage;
+export default CouponListPage;
