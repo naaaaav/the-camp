@@ -3,7 +3,7 @@ import apiFetch from "../../utils/api";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './Payment.css';
-import { applyCoupon as applyCouponAPI, UserCoupons } from '../../tools/InventoryFunction';
+import { applyCoupon, UserCoupons } from '../../tools/InventoryFunction';
 
 const formatDateToYYYYMMDD = (date) => {
   const year = date.getFullYear();
@@ -110,15 +110,20 @@ const Payment = () => {
           adults: state.adults,
           children: state.children,
           campsiteName: state.campSiteName,
-          count : paymentCouponData.count,
-          couponName : paymentCouponData.couponName,
-          couponSeq : paymentCouponData.couponSeq,
-          couponType : paymentCouponData.couponType,
-          expireDate : paymentCouponData.expireDate,
-          invenSeq : paymentCouponData.seq,
-          use : paymentCouponData.use
+          count: paymentCouponData.count,
+          couponName: paymentCouponData.couponName,
+          couponSeq: paymentCouponData.couponSeq,
+          couponType: paymentCouponData.couponType,
+          expireDate: paymentCouponData.expireDate,
+          invenSeq: paymentCouponData.seq,
+          use: paymentCouponData.use
         }),
       });
+
+      console.log("paymentCoupon : ", selectedCoupon);
+      if (selectedCoupon != null) {
+        await applyCoupon(selectedCoupon.seq);
+      }
 
       if (notified.status === 400) {
         alert('결제 금액이 일치하지 않습니다.');
@@ -131,6 +136,7 @@ const Payment = () => {
       }
     } catch (error) {
       alert("결제 실패");
+      console.log(error.message);
       return;
     }
   };
@@ -173,13 +179,13 @@ const Payment = () => {
           adults: state.adults,
           children: state.children,
           campsiteName: state.campSiteName,
-          count : paymentCouponData.count,
-          couponName : paymentCouponData.couponName,
-          couponSeq : paymentCouponData.couponSeq,
-          couponType : paymentCouponData.couponType,
-          expireDate : paymentCouponData.expireDate,
-          invenSeq : paymentCouponData.seq,
-          use : paymentCouponData.use
+          count: paymentCouponData.count,
+          couponName: paymentCouponData.couponName,
+          couponSeq: paymentCouponData.couponSeq,
+          couponType: paymentCouponData.couponType,
+          expireDate: paymentCouponData.expireDate,
+          invenSeq: paymentCouponData.seq,
+          use: paymentCouponData.use
         }),
       });
 

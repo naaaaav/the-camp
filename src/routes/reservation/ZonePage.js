@@ -171,19 +171,24 @@ const ZonePage = () => {
     console.log(totalPrice);
 
     const navigateReservationPage = () => {
-        const reservationData = {
-            campSiteName: zone.campSiteName,
-            days: days,
-            totalPrice: totalPrice,
-            site: selectedSite,
-            startDate: startDate,
-            endDate: endDate,
-            adults: adults,
-            children: children,
-            zone: zone,
-            pricePerDay: pricePerDay
-        };
-        navigate('/user/reservation', { state: reservationData });
+        if (selectedSite != null) {
+            const reservationData = {
+                campSiteName: zone.campSiteName,
+                days: days,
+                totalPrice: totalPrice,
+                site: selectedSite,
+                startDate: startDate,
+                endDate: endDate,
+                adults: adults,
+                children: children,
+                zone: zone,
+                pricePerDay: pricePerDay
+            };
+            navigate('/user/reservation', { state: reservationData });
+        } else {
+            alert("사이트를 선택해주세요.");
+        }
+
     };
 
     return (
