@@ -42,7 +42,7 @@ const Payment = () => {
       console.log("Selected Coupon: ", selectedCoupon);
       setPaymentIsNotCoupon(false);
       setPaymentCouponData(selectedCoupon);
-      setTotalPrice(state.totalPrice - selectedCoupon.count);
+      setTotalPrice(state.totalPrice - (state.totalPrice * (selectedCoupon.count / 100)));
     }
   }, [selectedCoupon]);
 
