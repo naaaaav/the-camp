@@ -4,55 +4,57 @@ import apiFetch from '../../utils/api';
 import UserReservation from './UserReservation';
 import Modal from '../../tools/Modal';
 import UpdatePasswordForm from '../../components/UpdatePassword'; 
-import { useAuth } from '../../utils/AuthContext'
-import UserCoupons  from './UserCoupon';
-import './Profile.css'
+import { useAuth } from '../../utils/AuthContext';
+import UserCoupons from './UserCoupon';
+import DeleteUser from '../../components/DeleteUser'; 
+import './Profile.css';
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showUpdatePassword, setShowUpdatePassword] = useState(false); // 모달 상태
+  const [showUpdatePassword, setShowUpdatePassword] = useState(false); 
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const navigate = useNavigate();
-  const {logOut} = useAuth()
+  const { logOut } = useAuth();
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem('Authorization'); 
+        const token = localStorage.getItem('Authorization');
 
         if (!token) {
           logOut();
-          navigate('/login'); 
-
+          navigate('/login');
           return;
         }
 
         const response = await apiFetch('/user/profile', {
           method: 'GET',
           headers: {
-            'Authorization': token, 
+            'Authorization': token,
             'Content-Type': 'application/json'
           }
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`); 
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
-        setProfile(data); 
+        setProfile(data);
       } catch (err) {
-        setError(err.message); 
+        setError(err.message);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
-    fetchProfile(); 
-  }, [navigate]);
+    fetchProfile();
+  }, [navigate, logOut]);
 
-  if (loading) return <p>Loading...</p>; 
-  if (error) return <p>Error: {error}</p>; 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="profile-container">
@@ -71,9 +73,17 @@ const Profile = () => {
           >
             비밀번호 변경
           </button>
+
+          <button 
+            onClick={() => setShowDeleteConfirmation(true)} 
+            className="delete-account-button"
+          >
+            계정 삭제
+          </button>
+          
         </div>
       ) : (
-        <p>No profile information available.</p>
+        <p>사용자 프로필을 띄울 수 없습니다.</p>
       )}
       
       <UserReservation />
@@ -83,6 +93,10 @@ const Profile = () => {
         <Modal onClose={() => setShowUpdatePassword(false)}>
           <UpdatePasswordForm onClose={() => setShowUpdatePassword(false)} />
         </Modal>
+      )}
+
+      {showDeleteConfirmation && (
+        <DeleteUser onClose={() => setShowDeleteConfirmation(false)} />
       )}
     </div>
   );

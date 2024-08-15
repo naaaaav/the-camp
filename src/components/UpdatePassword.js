@@ -1,4 +1,3 @@
-// components/UpdatePasswordForm.js
 import React, { useState } from 'react';
 import apiFetch from '../utils/api';
 import './UpdatePassword.css'; 
@@ -6,6 +5,7 @@ import './UpdatePassword.css';
 const UpdatePasswordForm = ({ onClose }) => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
@@ -14,9 +14,13 @@ const UpdatePasswordForm = ({ onClose }) => {
     setMessage('');
     setError('');
 
-
     if (newPassword.length < 8) {
       alert('새 비밀번호는 최소 8자 이상이어야 합니다.');
+      return;
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      alert('새 비밀번호가 일치하지 않습니다.');
       return;
     }
 
@@ -34,15 +38,13 @@ const UpdatePasswordForm = ({ onClose }) => {
         alert('비밀번호가 성공적으로 변경되었습니다.');
         setCurrentPassword('');
         setNewPassword('');
+        setConfirmNewPassword('');
         onClose();
-
-
       } else {
         const errorData = await response.json();
         setError(errorData.message || '비밀번호 변경 중 오류 발생');
       }
     } catch (err) {
-      // 오류 처리
       alert('현재 사용중인 비밀번호가 틀립니다.');
     }
   };
@@ -66,8 +68,18 @@ const UpdatePasswordForm = ({ onClose }) => {
           <input
             type="password"
             value={newPassword}
-            placeholder="변경 할 비밀번호를 입력 해주세요"
+            placeholder="새 비밀번호를 입력 해주세요"
             onChange={(e) => setNewPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>새 비밀번호 확인</label>
+          <input
+            type="password"
+            value={confirmNewPassword}
+            placeholder="새 비밀번호를 확인 해주세요"
+            onChange={(e) => setConfirmNewPassword(e.target.value)}
             required
           />
         </div>
