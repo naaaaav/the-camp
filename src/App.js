@@ -70,7 +70,7 @@ export function UserRoutes() {
       <Route path='/review/create/:campsiteId' element={<ReviewCreate />} />
       <Route path='/update-password' element={<UpdatePasswordForm />} />
     </Routes>
-  )
+  );
 }
 
 export function AdminRoutes() {
@@ -81,9 +81,9 @@ export function AdminRoutes() {
       <Route path="/camp/:id" element={<CampSettingDetailPage />} />
       <Route path='/coupons' element={<CouponListPage />} />
       <Route path='/coupons/create' element={<CouponCreatePage />} />
-      <Route path='/reservations' element={<ReservationSettingPage />}/> 
+      <Route path='/reservations' element={<ReservationSettingPage />} />
     </Routes>
-  )
+  );
 }
 
 export default App;
