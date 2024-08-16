@@ -9,7 +9,7 @@ export const getSeasonType = async (campSiteSeq, seasonDto) => {
             end: seasonDto.end
         }).toString();
 
-        const response = await apiFetch(`${RES}/${campSiteSeq}?${queryParams}`, {
+        const response = await apiFetch(`${RES}/reserve/${campSiteSeq}?${queryParams}`, {
             method: 'GET',
         });
 
