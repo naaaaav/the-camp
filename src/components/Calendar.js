@@ -1,10 +1,12 @@
+// Calendar.js
+
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale';
 import styles from "../styles/reservation/Calendar.module.css";
 
-const Calendar = ({ isAdmin, onDatesSelected }) => {
+const Calendar = ({ isAdmin, onDatesSelected, maxNight }) => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [days, setDays] = useState(0);
@@ -23,8 +25,8 @@ const Calendar = ({ isAdmin, onDatesSelected }) => {
             const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
             setDays(diffDays);
 
-            if (diffDays > 4 && !isAdmin) {
-                alert('최대 4박까지 가능합니다.');
+            if (diffDays > maxNight && !isAdmin) {
+                alert(`최대 ${maxNight}박까지 가능합니다.`);
                 setStartDate(null);
                 setEndDate(null);
                 setDays(0);

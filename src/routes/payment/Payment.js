@@ -274,21 +274,26 @@ const Payment = () => {
         <div className="modal-overlay">
           <div className="modal-content">
             <h4>사용 가능한 쿠폰 목록</h4>
-            <ul>
-              {coupons.map((coupon) => (
-                <li key={coupon.invenSeq}>
-                  <h5>{coupon.couponName}</h5>
-                  <p>{coupon.couponType}</p>
-                  <p>~{coupon.expireDate}</p>
-                  <p>{coupon.count}%</p>
-                  <button onClick={() => applyCoupon(coupon)}>쿠폰 사용</button>
-                </li>
-              ))}
-            </ul>
+            {coupons.length > 0 ? (
+              <ul>
+                {coupons.map((coupon) => (
+                  <li key={coupon.invenSeq}>
+                    <h5>{coupon.couponName}</h5>
+                    <p>{coupon.couponType}</p>
+                    <p>~{coupon.expireDate}</p>
+                    <p>{coupon.count}%</p>
+                    <button onClick={() => applyCoupon(coupon)}>쿠폰 사용</button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>사용 가능한 쿠폰 없음.</p>
+            )}
             <button className="close-button" onClick={() => setIsModalOpen(false)}>닫기</button>
           </div>
         </div>
       )}
+
     </div>
 
   );

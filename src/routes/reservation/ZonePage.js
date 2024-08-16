@@ -211,7 +211,7 @@ const ZonePage = () => {
                 <h2>예약안내</h2>
                 <div className={styles.selection}>
                     <div className={styles.calendar}>
-                        <Calendar isAdmin={false} onDatesSelected={handleDatesSelected} />
+                        <Calendar isAdmin={false} onDatesSelected={handleDatesSelected} maxNight={zone?.maxNight} />
                     </div>
                 </div>
                 {datesSelected && (
@@ -249,8 +249,8 @@ const ZonePage = () => {
                         <div className={styles.info}>
                             <h3>안내사항</h3>
                             <ul>
-                                <li>성인 예약 가능...</li>
-                                <li>취소 및 변경 불가...</li>
+                                <li>총 인원 6명까지 가능</li>
+                                <li>예약 취소는 하루 전까지 가능</li>
                             </ul>
                         </div>
                         <div className={styles.price}>
