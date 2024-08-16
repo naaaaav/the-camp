@@ -20,14 +20,14 @@ const CouponListPage = () => {
     const fetchCoupons = async () => {
       try {
         const response = await apiFetch('/coupons' , {
-          method:'GET',
-          headers:{
+          method: 'GET',
+          headers: {
             'Content-Type': 'application/json',
             'Authorization': localStorage.getItem('Authorization')
-        }
+          }
         });
         const data = await response.json();
-        setCoupons(data.content);
+        setCoupons(data.data);  // MultiResponseDto를 통해 반환된 데이터 접근
       } catch (error) {
         console.error('Error fetching coupons:', error);
       }
@@ -47,6 +47,10 @@ const CouponListPage = () => {
         selectedCoupons.map(id =>
           apiFetch(`/coupons/${id}`, {
             method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': localStorage.getItem('Authorization')
+            }
           })
         )
       );
