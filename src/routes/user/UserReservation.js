@@ -14,7 +14,6 @@ const UserReservation = () => {
   const [data, setData] = useState();
 
   const onDataPageChange = ({ selected }) => {
-    console.log(selected);
     setDataCurrentPage(selected);
     setData(null);
   }
@@ -46,9 +45,6 @@ const UserReservation = () => {
 
   const cancelPayment = async (paymentId, reservationId, invenSeq, reserveStartDate) => {    
     try {
-      console.log("paymentId : " + paymentId);
-      console.log("reservationId : " + reservationId);
-      console.log("reserveStartDate : " + reserveStartDate);
       const response = await apiFetch(`/payment/cancel`,{
         method: "POST",
         headers: { 
@@ -70,7 +66,6 @@ const UserReservation = () => {
 
       }
     } catch(error) {
-      console.log("예약취소 " + error.message);
       if (error.message === "400") {
         alert("하루 전에는 예약을 취소 할 수 없습니다.");
       }
@@ -82,7 +77,6 @@ const UserReservation = () => {
     const paymentId = paymentIdRef.current.value;
     const reservationId = reservationIdRef.current.value;
     const invenSeq = invenSeqRef.current.value;
-    console.log(reserveStartDate);
     cancelPayment(paymentId, reservationId, invenSeq, reserveStartDate);
   }
 

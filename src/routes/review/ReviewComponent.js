@@ -22,7 +22,6 @@ const ReviewComponent = ({ item, loginEmail, isDisplay, ImgUrl }) => {
   }
 
   const reviewDeleteClick = async () => {
-    console.log(review.id);
     const confirm = window.confirm("정말 리뷰를 삭제하시겠습니까?");
     if (confirm === false) return;
     try {
@@ -60,7 +59,6 @@ const ReviewComponent = ({ item, loginEmail, isDisplay, ImgUrl }) => {
       const json = await response.json();
       setReview(prev => ({...prev, likeCount : json.likeCount}))
     } catch(error) {
-      console.log("좋아요 : " + error.message);
       if (error.message === "404") {
         alert("로그인 후 이용해주세요");
       }

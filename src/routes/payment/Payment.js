@@ -136,7 +136,6 @@ const Payment = () => {
         navigate("/user/profile");
       }
     } catch (error) {
-      console.log("예러 코드 : " + error.message);
       if (error.message === "409") {
         alert("이미 결제된 예약입니다.");
       } else if (error.message === "400") {

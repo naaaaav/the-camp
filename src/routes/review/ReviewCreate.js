@@ -54,7 +54,6 @@ const ReviewCreate = () => {
       });
       const json = await response.json();
       if (response.ok) {
-        console.log(json);
         setLoginName(json.fullName);
       }
     } catch(error) {

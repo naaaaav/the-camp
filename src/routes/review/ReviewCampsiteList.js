@@ -35,7 +35,6 @@ const ReviewCampsiteList = ({ campsiteSeq, isDisplay }) => {
   }
 
   const onChangeType = (e) => {
-    console.log("캠핑장 테스트 : " + type);
     setType(e.target.value);
   }
 
