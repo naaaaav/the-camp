@@ -6,7 +6,8 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
   const [email, setEmail] = useState('');
   const [authCode, setAuthCode] = useState('');
   const [isEmailSent, setIsEmailSent] = useState(false);
-  const [authCodeVerified, setAuthCodeVerified] = useState(false); // 인증 코드 확인 상태 추가
+  const [authCodeVerified, setAuthCodeVerified] = useState(false); 
+  const [emailDisabled, setEmailDisabled] = useState(false); 
   const [error, setError] = useState('');
 
   const sendVerificationEmail = async () => {
@@ -14,7 +15,7 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
       setError('유효한 이메일 주소를 입력하세요.');
       return;
     }
-    
+
     try {
       const response = await apiFetch('/mailSend', {
         method: 'POST',
@@ -35,7 +36,7 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
         alert('인증 이메일이 전송되었습니다.');
         setIsEmailSent(true);
         setError('');
-        onEmailChange(email); 
+        onEmailChange(email);
       } else {
         alert('이메일 전송에 실패했습니다.');
         setError(data.error || '이메일 전송에 실패했습니다.');
@@ -49,29 +50,30 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
 
   const checkAuthCode = async () => {
     try {
-        const response = await apiFetch('/verify-code', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, authNumber: authCode }),
-        });
+      const response = await apiFetch('/verify-code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, authNumber: authCode }),
+      });
 
-        if (!response.ok) {
-            throw new Error('인증 코드 확인 실패');
-        }
+      if (!response.ok) {
+        throw new Error('인증 코드 확인 실패');
+      }
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (data.success) {
-            alert('인증 성공');
-            setAuthCodeVerified(true); // 인증 성공 시 상태 업데이트
-            onVerificationSuccess();
-            setError('');
-        } else {
-            alert(data.message || '인증 코드가 일치하지 않습니다.');
-            setError(data.message || '인증 코드가 일치하지 않습니다.');
-        }
+      if (data.success) {
+        alert('인증 성공');
+        setAuthCodeVerified(true); 
+        setEmailDisabled(true);
+        onVerificationSuccess();
+        setError('');
+      } else {
+        alert(data.message || '인증 코드가 일치하지 않습니다.');
+        setError(data.message || '인증 코드가 일치하지 않습니다.');
+      }
     } catch (error) {
       if (error.message === "400") {
         alert('숫자 형식이 아닙니다.');
@@ -103,17 +105,19 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="이메일을 입력해주세요"
           required
+          disabled={emailDisabled} // 이메일 수정 비활성화 상태에 따라 입력 필드 비활성화
         />
         <button
           type="button"
           className="send-button"
           onClick={sendVerificationEmail}
+          disabled={emailDisabled} // 이메일이 비활성화되면 버튼도 비활성화
         >
           인증 이메일 전송
         </button>
       </div>
-      
-      {isEmailSent && !authCodeVerified && ( // 인증 성공 전까지만 인증 코드 입력창 표시
+
+      {isEmailSent && !authCodeVerified && (
         <>
           <div className="verify-label">인증 코드</div>
           <div className="auth-code-container">
