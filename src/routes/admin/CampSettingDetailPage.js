@@ -39,7 +39,6 @@ function CampSettingDetailPage() {
             ...inputs,
             [name]: value
         });
-        console.log(inputs);
     }
 
     useEffect(() => {
@@ -57,7 +56,7 @@ function CampSettingDetailPage() {
             method: 'GET'
         }).then((res) => res.json())
             .then(data => {
-                console.log(data);
+                
                 setSeasons(data);
             })
 
@@ -70,7 +69,7 @@ function CampSettingDetailPage() {
             return res.json();
         })
             .then(data => {
-                console.log(data);
+                
                 setCamp(prev => ({
                     ...prev,
                     zones: prev.zones.filter(item => item.seq !== data)
@@ -84,7 +83,7 @@ function CampSettingDetailPage() {
         }).then((res) => res.json())
             .then(data => {
                 setSeasons(prevData => prevData.filter(item => item.seq !== data))
-                console.log(data);
+                
             })
     }
 
@@ -110,7 +109,7 @@ function CampSettingDetailPage() {
             ...seasonInput,
             type: e.target.value
         })
-        // console.log(seasonInput);
+        
     }
 
     const insertSeason = (e) => {
@@ -138,12 +137,12 @@ function CampSettingDetailPage() {
         )
             .then(data => {
 
-                console.log("data:" + data.seq);
+                
                 setSeasons(prevData => [...prevData, data]);
-                console.log(seasons);
+               
             }
             ).catch(err => {
-                console.log("에러객체:" + err);
+                
                 alert(err.message);
             })
     }
@@ -229,11 +228,11 @@ function CampSettingDetailPage() {
                             })
                         })
                             .then(res => {
-                                console.log(res);
+                                //
                                 return res.json()
                             })
                             .then(data => {
-                                console.log(data);
+                                
                                 setCamp(prev => ({
                                     ...prev,
                                     zones: [...prev.zones, data]
