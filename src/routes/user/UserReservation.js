@@ -87,6 +87,7 @@ const UserReservation = () => {
       <table>
         <tr>
           <td>캠핑장</td>
+          <td>사이트</td>
           <td>결제 금액</td>
           <td>결제 일시</td>
           <td>성인 (명)</td>
@@ -97,6 +98,7 @@ const UserReservation = () => {
       {data?.content.map((item, idx) => (
         <tr key={idx}>
           <td>{item.campsiteName}</td>
+          <td>{item.siteSeq}</td>
           <td>{item.totalPrice}</td>
           <td>{item.createdAt}</td>
           <td>{item.adults}</td>
