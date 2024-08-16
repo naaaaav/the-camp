@@ -113,7 +113,7 @@ const ReviewForm = () => {
 
 
   const LoadLoginUser = async () => {
-    const response = await apiFetch(`/api/user/data`, {
+    const response = await apiFetch(`/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

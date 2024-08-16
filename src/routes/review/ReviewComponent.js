@@ -73,18 +73,9 @@ const ReviewComponent = ({ item, loginEmail, isDisplay, ImgUrl }) => {
       <div style={{ border: '1px solid #D9D9D9', padding: '10px', borderRadius : '8px' }}>
         <h4 style={{display : isDisplay ? 'block' : 'none'}}>
           캠핑장 명 : <Link to={`/detail/${review.campsiteSeq}`}>{review.campName}
-          <br /><br />
-          <img src={review.campsiteUrl} style={{width : '200px', height : '150px', borderRadius : '10px'}} />
           </Link>
         </h4>
-        <p>작성자 : {review.userName}</p>
-        <p>내용 : {review.content}</p>
-        <div onClick={reviewLikeCountClick}>
-          <p><img src= {likeImg} width={'20px'} height={'20px'} /> {review.likeCount}</p>
-        </div>
-        {review.email === loginEmail ?
-        <div>
-          {review.images && review.images.map((image, index) => (
+        {review.images && review.images.map((image, index) => (
               <img
                   key={image.id}
                   src={image.url}
@@ -92,6 +83,13 @@ const ReviewComponent = ({ item, loginEmail, isDisplay, ImgUrl }) => {
                   style={{width: '200px', height: '150px', borderRadius: '10px', marginRight: '10px'}}
               />
           ))}
+        <p>작성자 : {review.userName}</p>
+        <p>내용 : {review.content}</p>
+        <div onClick={reviewLikeCountClick}>
+          <p><img src= {likeImg} width={'20px'} height={'20px'} /> {review.likeCount}</p>
+        </div>
+        {review.email === loginEmail ?
+        <div>
           <button className='Review-Update-Button' onClick={reviewUpdateClick}>수정하기</button>
           <button className='Review-Delete-Button' onClick={reviewDeleteClick}>삭제하기</button>
         </div> : null}

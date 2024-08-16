@@ -30,14 +30,6 @@ import ReviewUpdate from './routes/review/ReviewUpdate';
 import ReservationSettingPage from './routes/admin/reservation/ReservationSettingPage';
 import ReviewForm from './routes/review/ReviewForm';
 
-import ReservationSettingPage from './routes/admin/reservation/ReservationSettingPage';
-/* 내 코드 import ResetPasswordForm from './components/ResetPassword';
-import UpdatePasswordForm from './components/UpdatePassword';
-import TokenRefresh from './components/TokenRefresh';
-
-import ReviewList from './routes/review/ReviewList';
-import ReviewCampsiteList from './routes/review/ReviewCampsiteList';
-import ReviewUpdate from './routes/review/ReviewUpdate'; */
 
 const App = () => {
   return (
