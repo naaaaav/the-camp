@@ -33,6 +33,7 @@ const App = () => {
   return (
     <>
       <Header />
+      <div style={{minHeight:"1200px"}}>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/join' element={<Join />} />
@@ -49,6 +50,7 @@ const App = () => {
           <Route path="/admin/*" element={<AdminProtectedRoutes />} />
         </Route>
       </Routes>
+      </div>
       <Footer />
     </>
   );
