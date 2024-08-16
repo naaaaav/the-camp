@@ -5,73 +5,119 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    background-color: #f9f9f9;
 }
 
 .mainContent {
     width: 100%;
-    max-width: 800px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .zoneInfo {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
 }
 
 .campImage {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 10px;
     margin-right: 20px;
+    object-fit: cover;
+}
+
+.zoneInfo h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.zoneInfo p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #666;
 }
 
 .dateInfo {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
+    align-items: center;
+    margin-bottom: 25px;
     background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.dateInfo div {
+    text-align: center;
+}
+
+.dateInfo h4 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.dateInfo p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #555;
 }
 
 h3 {
+    font-size: 1.6rem;
+    color: #444;
     margin-bottom: 20px;
-    font-size: 24px;
-    text-align: center;
+    text-align: left;
 }
 
 .counter {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-    padding: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: #fff;
 }
 
 .counter span {
-    font-size: 18px;
+    font-size: 1.2rem;
+    color: #333;
     font-weight: bold;
 }
 
-.counter button {
-    width: 30px;
-    height: 30px;
+.counter-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+    /* 너비를 조정하여 버튼과 숫자의 간격 조정 */
+}
+
+.counter-controls button {
+    width: 36px;
+    height: 36px;
     border: none;
     border-radius: 50%;
     background-color: #ddd;
-    font-size: 18px;
+    font-size: 1.2rem;
     font-weight: bold;
+    color: #333;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.counter button:hover {
+.counter-controls button:hover {
     background-color: #ccc;
 }
 
@@ -79,13 +125,14 @@ h3 {
     margin-top: 20px;
     padding: 15px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
+    border-radius: 8px;
+    background-color: #f8f8f8;
 }
 
 .infoBox div {
     margin-bottom: 10px;
-    font-size: 16px;
+    font-size: 1rem;
+    color: #666;
 }
 
 .submitButton {
@@ -96,11 +143,12 @@ h3 {
     background-color: #28a745;
     color: #fff;
     border: none;
-    border-radius: 5px;
-    font-size: 18px;
+    border-radius: 8px;
+    font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .submitButton:hover {

@@ -208,9 +208,6 @@ const ZonePage = () => {
                         <p>극성수기 가격: {zone.bestPeakSeasonPrice}</p>
                     </>
                 )}
-                <div className={styles.map}>
-                    <h3>배치도</h3>
-                </div>
                 <h2>예약안내</h2>
                 <div className={styles.selection}>
                     <div className={styles.calendar}>
