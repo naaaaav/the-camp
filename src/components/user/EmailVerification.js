@@ -105,13 +105,13 @@ const EmailVerification = ({ onVerificationSuccess, onEmailChange }) => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="이메일을 입력해주세요"
           required
-          disabled={emailDisabled} // 이메일 수정 비활성화 상태에 따라 입력 필드 비활성화
+          disabled={emailDisabled} 
         />
         <button
           type="button"
           className="send-button"
           onClick={sendVerificationEmail}
-          disabled={emailDisabled} // 이메일이 비활성화되면 버튼도 비활성화
+          disabled={emailDisabled} 
         >
           인증 이메일 전송
         </button>
