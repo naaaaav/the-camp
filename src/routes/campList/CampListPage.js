@@ -42,7 +42,7 @@ function CampListPage(){
                 const queryStr = query.get("query");
                 const type = query.get("type");
 
-                const response = apiFetch("/campsite/searchCampsites?page="+page+"&query="+queryStr+"&type="+type
+                const response = apiFetch("/campsite/?page="+page+"&query="+queryStr+"&type="+type
         +"&size=6",{
             method:'GET'
         }).then((res) => res.json())
@@ -94,7 +94,7 @@ function CampListPage(){
             {
                 campList?.map( (item,i) => 
 
-                  <Link to={`/detail/${item.seq}`} key={i} ><CampBox src={item.firstImageUrl} price="50000원~" facltNm={item.facltNm}></CampBox></Link>  
+                  <Link to={`/detail/${item.seq}`} key={i} ><CampBox src={item.firstImageUrl} facltNm={item.facltNm}></CampBox></Link>  
                 )
             }
         </div>

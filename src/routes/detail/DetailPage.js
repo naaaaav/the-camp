@@ -3,10 +3,11 @@ import ImageBox from "../../components/detail/ImageBox";
 import TitleBox from "../../components/detail/TitleBox";
 import styles from "../../styles/detail/DetailPage.module.css"
 import ReviewBox from "../../components/detail/ReviewBox";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ZoneBox from "../../components/admin/ZoneBox"
 import apiFetch from "../../utils/api";
 import ReviewCampsiteList from '../review/ReviewCampsiteList';
+import styled from 'styled-components';
 
 
 function DetailPage(){
@@ -15,6 +16,7 @@ function DetailPage(){
     console.log(id);
 
     const[campsite,setCampsite] = useState({});
+    const[isLogin, setIsLogin] = useState(false);
 
     useEffect(()=>{
 
@@ -60,12 +62,39 @@ function DetailPage(){
         
     },[id]);
 
+    useEffect(() => {
+        const LoadLoginUser = async () => {
+            try {
+                const response = await apiFetch(`/user`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "Authorization" : localStorage.getItem("Authorization")
+                    }
+                });
+                const json = await response.json();
+                if (response.ok) {
+                    setIsLogin(true);
+                }
+            } catch(error) {
+                if (error.message === "404") {
+                    setIsLogin(false);
+                    return;
+                }
+            }
+        }
+        LoadLoginUser();
+    }, [])
+
     const changeToReservationPage = (e, campsiteSeq) => {
-        navigate(`/reservation/${campsiteSeq}`)
+        navigate(`/user/zone/${campsiteSeq}`)
     }
 
     const changeToReviewCreatePage = (e, campsiteSeq) => {
-        navigate(`/user/review/create/${campsiteSeq}`)
+        const data = {
+            campsiteName : campsite.facltNm
+        }
+        navigate(`/user/review/create/${campsiteSeq}`, { state : data})
     }
 
     
@@ -96,27 +125,49 @@ function DetailPage(){
             <TitleBox title="구역">
                 {
                     campsite?.zones?.map((item,i)=>
+                        <Link to={"/user/zone/"+item.seq} key={i}>
                         <div style={{border:"1px solid black" , borderRadius:"10px",margin:"10px", width:"1200px"}}>
                             <h3>{ item.title }</h3>
                             <p>{ item.intro}</p>
                             <p>
                                 <span>체크인:{item.checkin}</span>
-                                <span style={{marginLeft:"10px"}}>체크아웃:{item.checkin}</span>
+                                <span style={{marginLeft:"10px"}}>체크아웃:{item.checkout}</span>
                             </p>
                         </div>
+                        </Link>
                     )
                 }
             </TitleBox>
 
             <TitleBox title="후기">
                 <ReviewCampsiteList campsiteSeq={id} isDisplay={false}  />
-                <button onClick={(e) => changeToReservationPage(e, id)}>예약하기</button>
-                <button onClick={(e) => changeToReviewCreatePage(e, id)}>리뷰작성</button>
+                {isLogin ? <ReviewButton onClick={(e) => changeToReviewCreatePage(e, id)}>리뷰작성</ReviewButton>
+                : null}
+                
             </TitleBox>
             </div>
         </div>
     );
 }
+
+const ReviewButton = styled.button`
+  background-color: #979797;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #adadad;
+  }
+`;
 
 
 export default DetailPage;

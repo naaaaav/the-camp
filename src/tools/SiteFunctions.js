@@ -1,5 +1,5 @@
-import axios from 'axios';
-const RES = 'http://localhost:8080/site';
+import apiFetch from "../utils/api";
+const RES = '/site';
 
 // 존에 따른 사이트를 받아오는 함수.
 // zoneSeq를 인자로 받는다.
@@ -7,13 +7,13 @@ const RES = 'http://localhost:8080/site';
 // 실패 시 null이 반환.
 export const getSiteByZone = async (zoneSeq) => {
     try {
-        console.log(RES);
         console.log(zoneSeq);
-        const response = await axios.get(
-            `${RES}/${zoneSeq}`
-        );
+        const response = await apiFetch(`${RES}/${zoneSeq}`, {
+            method: 'GET',
+        });
 
-        return response.data;
+        const data = await response.json();
+        return data;
     } catch (error) {
         console.log(error.message);
         return null;

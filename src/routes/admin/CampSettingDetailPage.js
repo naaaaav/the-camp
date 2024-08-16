@@ -142,8 +142,8 @@ function CampSettingDetailPage(){
             console.log(seasons);
         }
     ).catch(err => {
-        console.log(err);
-        alert(err);
+        console.log("에러객체:"+err);
+        alert(err.message);
     })
     }
 
@@ -156,9 +156,9 @@ function CampSettingDetailPage(){
                         
                         {
                             camp?.zones?.map(
-                                item =>
+                                (item,i) =>
                                 
-                                <div className={styles.zoneContainer}>
+                                <div className={styles.zoneContainer} key={i}>
                                     <h1>{item.title}</h1>
                                     <div>
                                         구역 소개: {item.intro}
@@ -182,7 +182,9 @@ function CampSettingDetailPage(){
                         }
 
                         <table>
-                            <tr>
+                            
+                                <thead>
+                                <tr>
                                 <th>구역 이름</th>
                                 <th>한줄 소개</th>
                                 <th>체크인 시간</th>
@@ -191,7 +193,10 @@ function CampSettingDetailPage(){
                                 <th>성수기 가격</th>
                                 <th>극성수기 가격</th>
                                 <th>구획 수</th>
-                            </tr>
+                                </tr>
+                                </thead>
+                            
+                            <tbody>
                             <tr>
                                 <td><input type="text" name="title" onChange={onChange}></input></td>
                                 <td><input type="text" name="intro" onChange={onChange}></input></td>
@@ -202,6 +207,7 @@ function CampSettingDetailPage(){
                                 <td><input type="number" name="bestPeakSeasonPrice" onChange={onChange}></input></td>
                                 <td><input type="number" name="numOfSite" onChange={onChange}></input></td>
                             </tr>
+                            </tbody>
                                 
                         </table>
                         <button onClick={()=> {
@@ -232,7 +238,7 @@ function CampSettingDetailPage(){
                             .catch( err => {
                                 console.log(err);
                             })
-                        }}>등록하기</button>
+                        }} style={{backgroundColor:"#0e6fd6",borderRadius:"10px", width:"100px",height:"30px",color:'white',border:"none",cursor:"pointer"}}>등록하기</button>
                     </div>
                     
                 </div>
@@ -249,8 +255,10 @@ function CampSettingDetailPage(){
                         <option value={1}>성수기</option>
                         <option value={2}>극성수기</option>
                 </select>
-                <button onClick={()=> insertSeason()}>등록</button>
+                <button onClick={()=> insertSeason()} style={{backgroundColor:"#0e6fd6",borderRadius:"10px", width:"100px",height:"30px",color:'white',border:"none",cursor:"pointer"}}>등록</button>
                 <table className={styles.table}>
+                    <thead>
+                    <tr>
                     <th >
                         구분
                     </th>
@@ -263,6 +271,9 @@ function CampSettingDetailPage(){
                     <th>
                         삭제
                     </th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     {
                         seasons?.map((season,i)=> 
                             <tr key={i}>
@@ -273,6 +284,7 @@ function CampSettingDetailPage(){
                             </tr>
                         )
                     }
+                    </tbody>
                 </table>
             </div>
         </div>

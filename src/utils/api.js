@@ -3,9 +3,10 @@ const BASE_URL = "/api";
 
 const handleResponse = async (response) => {
     if(!response.ok){
-        const errorData = await response.json();
-        throw new Error(errorData.message ||'Network response was not ok.')
+        const errorData = response;
+        throw new Error(response.status ||'Network response was not ok.')
     }
+    
     return response;
 };
 
@@ -16,7 +17,8 @@ const apiFetch = async (endpoint, options = {}) => {
 
     const defaultOptions = {
         headers:{
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json;',
+            'Authorization': localStorage.getItem('Authorization')
         },
         ...options,
     };
@@ -26,7 +28,7 @@ const apiFetch = async (endpoint, options = {}) => {
         console.log(response);
         return await handleResponse(response);
     }catch (error){
-        console.error('API call failed:', error);
+        console.error('API call failed:', error.message);
         throw error;
     }
 };

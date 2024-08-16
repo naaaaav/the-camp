@@ -1,13 +1,14 @@
-import axios from 'axios';
-const RES = 'http://localhost:8080/zone'
+import apiFetch from "../utils/api";
+const RES = '/zone'
 
 export const getZoneByZoneSeq = async (zoneSeq) => {
     try {
-        const response = await axios.get(
-            `${RES}/${zoneSeq}`
-        );
+        const response = await apiFetch(`${RES}/${zoneSeq}`, {
+            method: 'GET',
+        });
 
-        return response.data;
+        const data = await response.json();
+        return data;
     } catch (error) {
         console.log(error.message);
         return null;

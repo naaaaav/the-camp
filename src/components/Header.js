@@ -8,7 +8,7 @@ import apiFetch from '../utils/api';
 import { Link } from 'react-router-dom';
 
 
-const PRIVATE_PATHS = ["/profile", "/payment"];
+const PRIVATE_PATHS = ["/user/profile", "/user/payment"];
 
 
 const Header = () => {
@@ -17,13 +17,13 @@ const Header = () => {
   const { loggedIn, logOut } = useAuth();
   const role = useRecoilValue(roleAtom);
   const setRole = useSetRecoilState(roleAtom);
+  const Authorization = localStorage.getItem('Authorization');
 
   useEffect(() => {
     const fetchRole = async () => {
-      const Authorization = localStorage.getItem('Authorization');
       if (Authorization) {
         try {
-          const response = await apiFetch('/api/role', {
+          const response = await apiFetch('/user/role', {
             method: 'GET',
             headers: {
               "Authorization": Authorization,
@@ -51,13 +51,13 @@ const Header = () => {
     if (loggedIn) {
       fetchRole();
     }
-  }, [loggedIn, setRole, navigate,logOut]);
+  }, [loggedIn, setRole, navigate, logOut, Authorization]);
 
   useEffect(() => {
     const checkAuth = async () => {
       if (PRIVATE_PATHS.includes(location.pathname)) {
         try {
-          const response = await apiFetch('/api/auth', {
+          const response = await apiFetch('/auth', {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -71,7 +71,8 @@ const Header = () => {
           }
         } catch (error) {
           console.error('Error checking auth:', error);
-          logOut();
+          localStorage.removeItem('Authorization');
+          window.location.reload();
           navigate('/login');
         }
       }
@@ -86,6 +87,7 @@ const Header = () => {
 
   const handleLogout = () => {
     logOut();
+    localStorage.removeItem('Authorization')
     navigate('/login');
   };
 
@@ -117,7 +119,7 @@ const Header = () => {
             <button><Link to={"/campList?page=0"}>전체</Link></button>
             <button><Link to={"/theme"}>테마별</Link></button>
             <button onClick={() => navigate('/review/list')}>리뷰</button>
-            <button onClick={() => navigate('/profile')}>Profile</button>
+            <button onClick={() => navigate('/user/profile')}>Profile</button>
           </>
         );
       case 'ROLE_GUEST':

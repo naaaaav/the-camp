@@ -19,7 +19,13 @@ const CouponListPage = () => {
 
     const fetchCoupons = async () => {
       try {
-        const response = await apiFetch('/coupons');
+        const response = await apiFetch('/coupons' , {
+          method:'GET',
+          headers:{
+            'Content-Type': 'application/json',
+            'Authorization': localStorage.getItem('Authorization')
+        }
+        });
         const data = await response.json();
         setCoupons(data.content);
       } catch (error) {
@@ -91,7 +97,7 @@ const CouponListPage = () => {
         </tbody>
       </table>
       <div className={styles.buttonContainer}>
-        <button onClick={() => navigate('/coupons/create')} className={styles.addButton}>
+        <button onClick={() => navigate('/admin/coupons/create')} className={styles.addButton}>
           쿠폰 추가
         </button>
         <button 

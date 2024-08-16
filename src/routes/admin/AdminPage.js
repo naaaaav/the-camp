@@ -9,6 +9,7 @@ function AdminPage() {
         <li><Link to="coupons">쿠폰 관리</Link></li>
         <li><Link to="reservations">예약 관리</Link></li>
       </ul>
+      
       <Outlet />
     </div>
   );

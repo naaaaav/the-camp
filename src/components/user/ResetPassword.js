@@ -1,6 +1,5 @@
-// components/ResetPasswordForm.js
 import { useState } from 'react';
-import apiFetch from '../utils/api';
+import apiFetch from '../../utils/api';
 import './ResetPassword.css';
 
 const ResetPasswordForm = ({ setShowResetPassword }) => {
@@ -8,10 +7,20 @@ const ResetPasswordForm = ({ setShowResetPassword }) => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
   const handleResetPassword = async (e) => {
     e.preventDefault();
     setMessage('');
     setError('');
+
+    if (!isValidEmail(email)) {
+      alert('올바른 이메일 주소를 입력해 주세요.');
+      return;
+    }
 
     try {
       const formData = new URLSearchParams();
@@ -36,7 +45,7 @@ const ResetPasswordForm = ({ setShowResetPassword }) => {
       }
     } catch (err) {
       console.error('오류:', err);
-      setError('비밀번호 재설정 요청 중 오류 발생');
+      alert('해당 아이디가 존재 하지 않습니다.');
     }
   };
 

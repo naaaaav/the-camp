@@ -10,10 +10,6 @@ function CampBox(props){
                     {props.price}
                 </div>
             </TitleBox>
-            <TitleBox title="태그">
-                
-            </TitleBox>
-
         </div>
     );
 }
