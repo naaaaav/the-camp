@@ -276,15 +276,21 @@ const Payment = () => {
             <h4>사용 가능한 쿠폰 목록</h4>
             {coupons.length > 0 ? (
               <ul>
-                {coupons.map((coupon) => (
-                  <li key={coupon.invenSeq}>
-                    <h5>{coupon.couponName}</h5>
-                    <p>{coupon.couponType}</p>
-                    <p>~{coupon.expireDate}</p>
-                    <p>{coupon.count}%</p>
-                    <button onClick={() => applyCoupon(coupon)}>쿠폰 사용</button>
-                  </li>
-                ))}
+                {coupons.filter(coupon => !coupon.use).length > 0 ? (
+                  coupons
+                    .filter(coupon => !coupon.use)
+                    .map((coupon) => (
+                      <li key={coupon.invenSeq}>
+                        <h5>{coupon.couponName}</h5>
+                        <p>{coupon.couponType}</p>
+                        <p>~{coupon.expireDate}</p>
+                        <p>{coupon.count}%</p>
+                        <button onClick={() => applyCoupon(coupon)}>쿠폰 사용</button>
+                      </li>
+                    ))
+                ) : (
+                  <p>사용 가능한 쿠폰이 없습니다.</p>
+                )}
               </ul>
             ) : (
               <p>사용 가능한 쿠폰 없음.</p>
