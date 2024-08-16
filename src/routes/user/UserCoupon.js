@@ -59,7 +59,7 @@ const UserCoupons = () => {
             <tr>
               <th>쿠폰 이름</th>
               <th>쿠폰 타입</th>
-              <th>할인 금액</th>
+              <th>할인율</th>
               <th>만료 기간</th>
               <th>사용 여부</th>  
             </tr>
