@@ -218,7 +218,7 @@ const ZonePage = () => {
                     <>
                         <div className={styles.gallerySelection}>
                             <div className={styles.dateSelection}>
-                                <h3>날짜 및 인원 선택</h3>
+                                <h3>인원 선택</h3>
                                 <div className={styles.counter}>
                                     <span>성인</span>
                                     <button onClick={() => handleDecrease(setAdults, adults)}>-</button>
