@@ -36,7 +36,7 @@ const ReservationPage = () => {
     const { state } = location;
 
     const totalGuests = adults + children;
-    const totalPrice = calculateTotalPrice(state.startDate, state.endDate, state.zone.offSeasonPrice, adults);
+    const totalPrice = calculateTotalPrice(state.startDate, state.endDate, state.pricePerDay, adults);
 
     console.log(state);
 
