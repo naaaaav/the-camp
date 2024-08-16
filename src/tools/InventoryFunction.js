@@ -6,7 +6,6 @@ const RES = '/inventory';
 //성공 시 inventoryDto의 정보가 반환.
 //실패 시 null이 반환.
 export const applyCoupon = async (invenSeq) => {
-    console.log("Data : ", invenSeq);
     try {
         const response = await apiFetch(`${RES}/${invenSeq}`, {
             method: 'PATCH',
@@ -16,10 +15,8 @@ export const applyCoupon = async (invenSeq) => {
         });
 
         const data = await response.json();
-        console.log(data);
         return data;
     } catch (error) {
-        console.log("Failed to apply coupon:", error.message);
         return null;
     }
 };
@@ -39,10 +36,8 @@ export const UserCoupons = async () => {
         });
 
         const data = await response.json();
-        console.log("userCoupons : ", data);
         return data;
     } catch (error) {
-        console.error("Failed to fetch user coupons:", error.message);
         return null;
     }
 };

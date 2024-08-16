@@ -78,14 +78,9 @@ const ZonePage = () => {
     useEffect(() => {
         const checkReservations = async () => {
             if (startDate && endDate) {
-                console.log("start : ", startDate);
-                console.log("end : ", endDate);
 
                 const formattedStartDate = formatDateToYYYYMMDD(startDate);
                 const formattedEndDate = formatDateToYYYYMMDD(endDate);
-
-                console.log("Formatted Start Date:", formattedStartDate);
-                console.log("Formatted End Date:", formattedEndDate);
 
                 const statusPromises = sites.map(site =>
                     getReservationExistence({
@@ -100,8 +95,6 @@ const ZonePage = () => {
                 const statusResults = await Promise.all(statusPromises);
                 setSiteStatus(statusResults.map(result => result.data.existence));
 
-                // 시즌 타입 가져오기
-                console.log("zone.campsite ", zone.campSite);
                 const seasonType = await getSeasonType(zone.campSite, {
                     start: formattedStartDate,
                     end: formattedEndDate,
@@ -109,7 +102,6 @@ const ZonePage = () => {
 
                 setSeasonType(seasonType);
 
-                console.log(seasonType);
 
                 if (seasonType === 'PEAK') {
                     setPricePerDay(zone.peakSeasonPrice);
@@ -118,11 +110,6 @@ const ZonePage = () => {
                 } else {
                     setPricePerDay(zone.offSeasonPrice);
                 }
-
-                console.log(pricePerDay);
-
-                console.log(statusResults.map(result => result.data.existence));
-                console.log(statusResults.map(result => result.existence));
             }
         };
 
@@ -163,12 +150,9 @@ const ZonePage = () => {
 
     const handleSiteClick = (site) => {
         setSelectedSite(site);
-        console.log(site);
     };
 
     const totalPrice = zone ? calculateTotalPrice(startDate, endDate, pricePerDay, adults) : 0;
-    console.log(startDate, endDate);
-    console.log(totalPrice);
 
     const navigateReservationPage = () => {
         if (selectedSite != null) {

@@ -38,8 +38,6 @@ const ReservationPage = () => {
     const totalGuests = adults + children;
     const totalPrice = calculateTotalPrice(state.startDate, state.endDate, state.pricePerDay, adults);
 
-    console.log(state);
-
     const handleIncrease = (setter, value) => {
         if (totalGuests < 6) {
             setter(value + 1);
@@ -56,14 +54,7 @@ const ReservationPage = () => {
         }
     };
 
-    //인원이 front에서 받은 것과 일치한지 검증(백엔드)
-
-    console.log(state.zone.title);
-    console.log("selec : ", state.site.title);
-    console.log("start : ", state.startDate);
-
     const sendToPayment = () => {
-        console.log(state.selectedSite);
         const data = {
             campSiteName: state.zone.campSiteName,
             totalPrice: totalPrice,

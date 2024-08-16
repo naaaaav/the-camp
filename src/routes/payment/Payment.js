@@ -39,7 +39,6 @@ const Payment = () => {
 
   useEffect(() => {
     if (selectedCoupon !== null) {
-      console.log("Selected Coupon: ", selectedCoupon);
       setPaymentIsNotCoupon(false);
       setPaymentCouponData(selectedCoupon);
       setTotalPrice(state.totalPrice - (state.totalPrice * (selectedCoupon.count / 100)));
@@ -69,7 +68,6 @@ const Payment = () => {
     setCoupons(coupons);
   };
 
-  console.log(coupons);
 
   const kaKaoPaymentAlert = async () => {
     const couponJson = paymentCouponData !== null ? {
@@ -124,7 +122,6 @@ const Payment = () => {
         }),
       });
 
-      console.log("paymentCoupon : ", selectedCoupon);
       if (selectedCoupon != null) {
         await applyCoupon(selectedCoupon.seq);
       }

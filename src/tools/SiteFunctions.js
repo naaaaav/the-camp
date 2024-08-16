@@ -7,7 +7,6 @@ const RES = '/site';
 // 실패 시 null이 반환.
 export const getSiteByZone = async (zoneSeq) => {
     try {
-        console.log(zoneSeq);
         const response = await apiFetch(`${RES}/${zoneSeq}`, {
             method: 'GET',
         });
@@ -15,7 +14,6 @@ export const getSiteByZone = async (zoneSeq) => {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.log(error.message);
         return null;
     }
 };
