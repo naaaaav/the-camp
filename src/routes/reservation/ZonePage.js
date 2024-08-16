@@ -208,20 +208,17 @@ const ZonePage = () => {
                         <p>극성수기 가격: {zone.bestPeakSeasonPrice}</p>
                     </>
                 )}
-                <div className={styles.map}>
-                    <h3>배치도</h3>
-                </div>
                 <h2>예약안내</h2>
                 <div className={styles.selection}>
                     <div className={styles.calendar}>
-                        <Calendar isAdmin={false} onDatesSelected={handleDatesSelected} />
+                        <Calendar isAdmin={false} onDatesSelected={handleDatesSelected} maxNight={zone?.maxNight} />
                     </div>
                 </div>
                 {datesSelected && (
                     <>
                         <div className={styles.gallerySelection}>
                             <div className={styles.dateSelection}>
-                                <h3>날짜 및 인원 선택</h3>
+                                <h3>인원 선택</h3>
                                 <div className={styles.counter}>
                                     <span>성인</span>
                                     <button onClick={() => handleDecrease(setAdults, adults)}>-</button>
@@ -252,8 +249,8 @@ const ZonePage = () => {
                         <div className={styles.info}>
                             <h3>안내사항</h3>
                             <ul>
-                                <li>성인 예약 가능...</li>
-                                <li>취소 및 변경 불가...</li>
+                                <li>총 인원 6명까지 가능</li>
+                                <li>예약 취소는 하루 전까지 가능</li>
                             </ul>
                         </div>
                         <div className={styles.price}>

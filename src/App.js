@@ -26,6 +26,8 @@ import ReviewCreate from './routes/review/ReviewCreate';
 import ReviewList from './routes/review/ReviewList';
 import ReviewCampsiteList from './routes/review/ReviewCampsiteList';
 import ReviewUpdate from './routes/review/ReviewUpdate';
+
+import ReservationSettingPage from './routes/admin/reservation/ReservationSettingPage';
 import ReviewForm from './routes/review/ReviewForm';
 
 import ReservationSettingPage from './routes/admin/reservation/ReservationSettingPage';
@@ -41,6 +43,7 @@ const App = () => {
   return (
       <>
       <Header />
+      <div style={{minHeight:"1200px"}}>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/join' element={<Join />} />
@@ -51,11 +54,13 @@ const App = () => {
         <Route path='/detail/:id' element={<DetailPage />} />
         <Route path='/review/list' element={<ReviewList />} />
         <Route path='/review/list/:campsiteId' element={<ReviewCampsiteList />} />
+        
         <Route element={<AuthRoutes />}>          
           <Route path="/user/*" element={<UserProtectedRoutes />} />
           <Route path="/admin/*" element={<AdminProtectedRoutes />} />
         </Route>
       </Routes>
+      </div>
       <Footer />
     </>
   );

@@ -5,75 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="91ba9d8a-8184-4347-98b1-a21ac3abf11c" name="변경" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/user/DeleteUser.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/user/DeleteUser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/user/EmailVerification.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/user/ResetPassword.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/user/UpdatePassword.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/user/UpdatePassword.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/img/like.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/admin/reservation/ReservationSettingPage.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/payment/Payment.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/review/ReviewCreate.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/review/ReviewList.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/review/ReviewSelect.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/review/ReviewUpdate.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/user/Profile.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/user/UserCoupon.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/user/UserCoupon.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/user/UserReservation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tools/InventoryFunction.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tools/SeasonFunction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EmailVerification.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/EmailVerification.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EmailVerification.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ResetPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/ResetPassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/campList/CampBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/campList/CampBox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/campList/SearchBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/campList/SearchBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/SearchBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/SearchBar.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/SearchBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/SearchBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/testComponent.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/admin/AdminPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/AdminPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/recoil/atom/UserAtom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/recoil/atom/UserAtom.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/admin/CampSettingDetailPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/CampSettingDetailPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/admin/CampSettingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/CampSettingPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/admin/coupon/CouponCreatePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/coupon/CouponCreatePage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/admin/coupon/CouponListPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/admin/coupon/CouponListPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/campList/CampListPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/campList/CampListPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/detail/DetailPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/detail/DetailPage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/layout/AdminLayout.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/layout/GuestLayout.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/layout/UserLayout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/payment/Payment.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/payment/Payment.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/payment/Payment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/payment/Payment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/payment/PaymentCancel.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/payment/PaymentCancel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/reservation/ReservationPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/reservation/ReservationPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/reservation/ZonePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/reservation/ZonePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/review/ReviewCampsiteList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/review/ReviewCampsiteList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/review/ReviewComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/review/ReviewComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/review/ReviewCreate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/review/ReviewCreate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/review/ReviewList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/review/ReviewList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/review/ReviewUpdate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/review/ReviewUpdate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/test/Test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/test/TestPage.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/user/Join.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user/Join.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/user/Join.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user/Join.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/user/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/user/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user/Profile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/user/UserCoupon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user/UserCoupon.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/user/UserReservation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user/UserReservation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/admin/adminPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/admin/adminPage.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/ReservationFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/ReservationFunctions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/SiteFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/SiteFunctions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools/ZoneFunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/ZoneFunctions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/AuthContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AuthContext.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/AuthRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/AuthRoutes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/reservation/Calendar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/reservation/Calendar.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/reservation/ReservationPage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/reservation/ReservationPage.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/reservation/ZonePage.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/reservation/ZonePage.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools/InventoryFunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools/InventoryFunction.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

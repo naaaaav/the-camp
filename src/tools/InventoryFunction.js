@@ -1,5 +1,5 @@
-import axios from 'axios';
-const RES = 'http://localhost:8080/inventory';
+import apiFetch from "../utils/api";
+const RES = '/inventory';
 
 //쿠폰 사용시 api 요청 후 쿠폰 사용했다는 true 값을 보냄.
 //invenSeq을 인자로 받음.
@@ -8,15 +8,18 @@ const RES = 'http://localhost:8080/inventory';
 export const applyCoupon = async (invenSeq) => {
     console.log("Data : ", invenSeq);
     try {
-        const response = await axios.patch(
-            `${RES}/${invenSeq}`,
-        );
+        const response = await apiFetch(`${RES}/${invenSeq}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
 
-        console.log(response.data);
-
-        return response.data;
+        const data = await response.json();
+        console.log(data);
+        return data;
     } catch (error) {
-        console.log(error.message);
+        console.log("Failed to apply coupon:", error.message);
         return null;
     }
 };
@@ -27,20 +30,19 @@ export const applyCoupon = async (invenSeq) => {
 //실패 시 null이 반환.
 export const UserCoupons = async () => {
     try {
-        const response = await axios.get(
-            `${RES}`,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": localStorage.getItem("Authorization")
-                },
-            }
-        );
+        const response = await apiFetch(`${RES}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': localStorage.getItem("Authorization"),
+            },
+        });
 
-        console.log("userCoupons : ", response.data);
-        return response.data;
+        const data = await response.json();
+        console.log("userCoupons : ", data);
+        return data;
     } catch (error) {
-        console.error("쿠폰 목록을 가져오는 데 실패했습니다:", error);
+        console.error("Failed to fetch user coupons:", error.message);
         return null;
     }
 };

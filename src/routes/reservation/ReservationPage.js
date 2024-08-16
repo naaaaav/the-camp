@@ -105,16 +105,22 @@ const ReservationPage = () => {
                 <h3>전체 인원 정보</h3>
                 <div className={styles.counter}>
                     <span>성인</span>
-                    <button onClick={() => handleDecrease(setAdults, adults)}>-</button>
-                    <span>{adults}</span>
-                    <button onClick={() => handleIncrease(setAdults, adults)}>+</button>
+                    <div className={styles['counter-controls']}>
+                        <button onClick={() => handleDecrease(setAdults, adults)}>-</button>
+                        <span>{adults}</span>
+                        <button onClick={() => handleIncrease(setAdults, adults)}>+</button>
+                    </div>
                 </div>
                 <div className={styles.counter}>
                     <span>청소년 (18세 미만)</span>
-                    <button onClick={() => handleDecrease(setChildren, children)}>-</button>
-                    <span>{children}</span>
-                    <button onClick={() => handleIncrease(setChildren, children)}>+</button>
+                    <div className={styles['counter-controls']}>
+                        <button onClick={() => handleDecrease(setChildren, children)}>-</button>
+                        <span>{children}</span>
+                        <button onClick={() => handleIncrease(setChildren, children)}>+</button>
+                    </div>
                 </div>
+
+
                 <div className={styles.infoBox}>
                     <div>기준인원: 성인 2명, 미성년 2명</div>
                     <div>총 인원 제한: 6명</div>

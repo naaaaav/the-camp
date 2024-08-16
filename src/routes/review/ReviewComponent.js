@@ -9,11 +9,11 @@ const ReviewComponent = ({ item, loginEmail, isDisplay, ImgUrl }) => {
   const navigate = useNavigate();
   const setReviewFlag = useSetRecoilState(reviewFlagAtom);
   const [review, setReview] = useState(item);
-
+  
   const reviewUpdateClick = () => {
     const data = {
       campsiteSeq : review.campsiteSeq,
-      id : review.id,
+      id : review.id, 
       content: review.content,
       campName : review.campName,
       userName : review.userName
@@ -33,7 +33,7 @@ const ReviewComponent = ({ item, loginEmail, isDisplay, ImgUrl }) => {
           'Authorization': localStorage.getItem('Authorization')
         }
       });
-
+  
       if (response.ok) {
         setReviewFlag(prev => !prev);
         alert("리뷰가 삭제되었습니다.");
@@ -56,7 +56,7 @@ const ReviewComponent = ({ item, loginEmail, isDisplay, ImgUrl }) => {
           'Authorization': localStorage.getItem('Authorization')
         }
       });
-
+  
       const json = await response.json();
       setReview(prev => ({...prev, likeCount : json.likeCount}))
     } catch(error) {
@@ -69,7 +69,7 @@ const ReviewComponent = ({ item, loginEmail, isDisplay, ImgUrl }) => {
 
   return (
     <div>
-      {review !== null ?
+      {review !== null ?       
       <div style={{ border: '1px solid #D9D9D9', padding: '10px', borderRadius : '8px' }}>
         <h4 style={{display : isDisplay ? 'block' : 'none'}}>
           캠핑장 명 : <Link to={`/detail/${review.campsiteSeq}`}>{review.campName}

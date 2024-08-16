@@ -1,13 +1,20 @@
+// Calendar.js
+
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale';
 import styles from "../styles/reservation/Calendar.module.css";
 
-const Calendar = ({ isAdmin, onDatesSelected }) => {
+const Calendar = ({ isAdmin, onDatesSelected, maxNight }) => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [days, setDays] = useState(0);
+
+    // 현재 월과 4개월 후의 마지막 날짜를 계산
+    const today = new Date();
+    const fourMonthsLater = new Date(today.getFullYear(), today.getMonth() + 4, 1);
+    const lastDayFourMonthsLater = new Date(fourMonthsLater.getFullYear(), fourMonthsLater.getMonth() + 1, 0);
 
     const handleDateChange = (dates) => {
         const [start, end] = dates;
@@ -18,8 +25,8 @@ const Calendar = ({ isAdmin, onDatesSelected }) => {
             const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
             setDays(diffDays);
 
-            if (diffDays > 4 && !isAdmin) {
-                alert('최대 4박까지 가능합니다.');
+            if (diffDays > maxNight && !isAdmin) {
+                alert(`최대 ${maxNight}박까지 가능합니다.`);
                 setStartDate(null);
                 setEndDate(null);
                 setDays(0);
@@ -28,8 +35,7 @@ const Calendar = ({ isAdmin, onDatesSelected }) => {
                 setStartDate(null);
                 setEndDate(null);
                 setDays(0);
-            }
-            else {
+            } else {
                 onDatesSelected(start, end);
             }
         }
@@ -45,9 +51,10 @@ const Calendar = ({ isAdmin, onDatesSelected }) => {
                 selectsRange
                 inline
                 locale={ko}
-                minDate={new Date()}
+                minDate={new Date()} // 오늘 날짜
+                maxDate={lastDayFourMonthsLater} // 4개월 후의 마지막 날
                 dateFormat="yyyy-MM-dd"
-                monthsShown={2}
+                monthsShown={1} // 한 개의 월만 표시
                 placeholderText="날짜를 선택하세요"
             />
             <div className={styles.dateInfo}>

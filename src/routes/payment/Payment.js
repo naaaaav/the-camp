@@ -72,14 +72,14 @@ const Payment = () => {
   console.log(coupons);
 
   const kaKaoPaymentAlert = async () => {
-    const couponJson =  paymentCouponData !== null ? {
-      count : paymentCouponData.count,
-      couponName : paymentCouponData.couponName,
-      couponSeq : paymentCouponData.couponSeq,
-      couponType : paymentCouponData.couponType,
-      expireDate : paymentCouponData.expireDate,
-      invenSeq : paymentCouponData.seq,
-      use : paymentCouponData.use
+    const couponJson = paymentCouponData !== null ? {
+      count: paymentCouponData.count,
+      couponName: paymentCouponData.couponName,
+      couponSeq: paymentCouponData.couponSeq,
+      couponType: paymentCouponData.couponType,
+      expireDate: paymentCouponData.expireDate,
+      invenSeq: paymentCouponData.seq,
+      use: paymentCouponData.use
     } : null;
 
     try {
@@ -119,7 +119,7 @@ const Payment = () => {
           adults: state.adults,
           children: state.children,
           campsiteName: state.campSiteName,
-          paymentIsNotCoupon : paymentIsNotCoupon,
+          paymentIsNotCoupon: paymentIsNotCoupon,
           ...(paymentIsNotCoupon ? {} : couponJson)
         }),
       });
@@ -154,13 +154,13 @@ const Payment = () => {
 
   const tossPaymentAlert = async () => {
     const couponJson = paymentCouponData !== null ? {
-      count : paymentCouponData.count,
-      couponName : paymentCouponData.couponName,
-      couponSeq : paymentCouponData.couponSeq,
-      couponType : paymentCouponData.couponType,
-      expireDate : paymentCouponData.expireDate,
-      invenSeq : paymentCouponData.seq,
-      use : paymentCouponData.use
+      count: paymentCouponData.count,
+      couponName: paymentCouponData.couponName,
+      couponSeq: paymentCouponData.couponSeq,
+      couponType: paymentCouponData.couponType,
+      expireDate: paymentCouponData.expireDate,
+      invenSeq: paymentCouponData.seq,
+      use: paymentCouponData.use
     } : null;
 
     try {
@@ -199,7 +199,7 @@ const Payment = () => {
           adults: state.adults,
           children: state.children,
           campsiteName: state.campSiteName,
-          paymentIsNotCoupon : paymentIsNotCoupon,
+          paymentIsNotCoupon: paymentIsNotCoupon,
           ...(paymentIsNotCoupon ? {} : couponJson)
         }),
       });
@@ -239,39 +239,63 @@ const Payment = () => {
     <div className='Group'>
       <h2>{state.campSiteName} 캠핑장</h2>
       <hr />
+
       <h4>예약 일시</h4>
       <p>{state.reserveStartDate.toLocaleDateString('ko-KR', options)} ~ {state.reserveEndDate.toLocaleDateString('ko-KR', options)}</p>
+
+      <h4>쿠폰</h4>
+      <div className="coupon-section">
+        {selectedCoupon ? (
+          <div className="selected-coupon">
+            <p>사용한 쿠폰: <strong>{selectedCoupon.couponName}</strong></p>
+            <p>{selectedCoupon.count}%</p>
+          </div>
+        ) : (
+          <p>사용하신 쿠폰이 없습니다.</p>
+        )}
+        <button onClick={couponUse}>쿠폰 선택</button>
+      </div>
+
       <h4>결제금액</h4>
       <p><strong>{totalPrice}원</strong></p>
+
       <h4>인원</h4>
       <p>성인 {state.adults}명, 아이 {state.children}명</p>
+
       <h4>결제자</h4>
       <p>{userData?.fullName}</p>
-      <button onClick={couponUse}>쿠폰 사용</button>
+
       <div className="ButtonGroup">
         <button className='Kakao-Button' onClick={kaKaoPaymentAlert}>카카오결제</button>
         <button className='Toss-Button' onClick={tossPaymentAlert}>토스결제</button>
       </div>
 
       {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="payment-overlay">
+          <div className="payment-content">
             <h4>사용 가능한 쿠폰 목록</h4>
-            <ul>
-              {coupons.map((coupon) => (
-                <li key={coupon.invenSeq}>
-                  <p>{coupon.couponName}</p>
-                  <p>{coupon.couponType}</p>
-                  <p>{coupon.expireDate}</p>
-                  <button onClick={() => applyCoupon(coupon)}>쿠폰 사용</button>
-                </li>
-              ))}
-            </ul>
-            <button onClick={() => setIsModalOpen(false)}>닫기</button>
+            {coupons.length > 0 ? (
+              <ul>
+                {coupons.map((coupon) => (
+                  <li key={coupon.invenSeq}>
+                    <h5>{coupon.couponName}</h5>
+                    <p>{coupon.couponType}</p>
+                    <p>~{coupon.expireDate}</p>
+                    <p>{coupon.count}%</p>
+                    <button onClick={() => applyCoupon(coupon)}>쿠폰 사용</button>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>사용 가능한 쿠폰 없음.</p>
+            )}
+            <button className="close-button" onClick={() => setIsModalOpen(false)}>닫기</button>
           </div>
         </div>
       )}
+
     </div>
+
   );
 };
 

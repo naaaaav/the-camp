@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import PagingComponent from '../../components/paging/PagingComponent';
+import { cancelFlagAtom } from '../../recoil/atom/UserAtom';
 import apiFetch from '../../utils/api';
 import './UserReservation.css';
 
 const UserReservation = () => {
   const [dataCurrentPage, setDataCurrentPage] = useState(0);
-  const [deleteFlag, setDeleteFlag] = useState(false);
+  const [cancelFlag, setCancelFlag] = useRecoilState(cancelFlagAtom);
   const paymentIdRef = useRef(null);
   const reservationIdRef = useRef(null);
+  const invenSeqRef = useRef(null);
   const [data, setData] = useState();
 
   const onDataPageChange = ({ selected }) => {
@@ -39,9 +42,9 @@ const UserReservation = () => {
     setData(null);
     setDataCurrentPage(dataCurrentPage);
     userReservationData();
-  }, [dataCurrentPage, deleteFlag])
+  }, [dataCurrentPage, cancelFlag])
 
-  const cancelPayment = async (paymentId, reservationId, reserveStartDate) => {    
+  const cancelPayment = async (paymentId, reservationId, invenSeq, reserveStartDate) => {    
     try {
       console.log("paymentId : " + paymentId);
       console.log("reservationId : " + reservationId);
@@ -55,13 +58,14 @@ const UserReservation = () => {
         body: JSON.stringify({
           paymentId,
           reservationId,
-          reserveStartDate
+          reserveStartDate,
+          invenSeq
         }),
       });
   
       if (response.status === 201) {
         alert("결제 취소 성공");
-        setDeleteFlag(!deleteFlag);
+        setCancelFlag(!cancelFlag);
       } else if (response.status) {
 
       }
@@ -77,8 +81,9 @@ const UserReservation = () => {
     e.preventDefault();
     const paymentId = paymentIdRef.current.value;
     const reservationId = reservationIdRef.current.value;
+    const invenSeq = invenSeqRef.current.value;
     console.log(reserveStartDate);
-    cancelPayment(paymentId, reservationId, reserveStartDate);
+    cancelPayment(paymentId, reservationId, invenSeq, reserveStartDate);
   }
 
   return (
@@ -108,6 +113,7 @@ const UserReservation = () => {
             <form>
               <input type={'hidden'} value={item.paymentId} ref={paymentIdRef} />
               <input type={'hidden'} value={item.reservationId} ref={reservationIdRef} />
+              <input type={'hidden'} value={item.invenSeq} ref={invenSeqRef} />
               <button className='user-reservation-button' type='button' onClick={(e) => reservationCancel(e, item.reserveStartDate)}>예약 취소</button>
             </form>
           </td>
