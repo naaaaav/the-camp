@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { cancelFlagAtom } from '../../recoil/atom/UserAtom';
 import apiFetch from '../../utils/api';
 import './UserCoupon.css'; // CSS 파일을 import 합니다.
 
 const UserCoupons = () => {
+  const cancelFlag = useRecoilValue(cancelFlagAtom);
   const [inventories, setInventories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,7 +45,7 @@ const UserCoupons = () => {
     };
 
     fetchInventories();
-  }, []);
+  }, [cancelFlag]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;

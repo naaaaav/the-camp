@@ -19,3 +19,9 @@ export const likeFlagAtom = atom({
   key: 'likeFlagAtom',
   default: false,
 });
+
+
+export const cancelFlagAtom = atom({
+  key: 'cancelFlagAtom',
+  default: false,
+});
