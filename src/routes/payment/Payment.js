@@ -271,8 +271,8 @@ const Payment = () => {
       </div>
 
       {isModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className="payment-overlay">
+          <div className="payment-content">
             <h4>사용 가능한 쿠폰 목록</h4>
             {coupons.length > 0 ? (
               <ul>

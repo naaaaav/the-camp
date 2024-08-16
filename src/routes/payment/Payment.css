@@ -52,7 +52,7 @@ hr {
   background-color: #000000;
 }
 
-.modal-overlay {
+.payment-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -65,7 +65,7 @@ hr {
   z-index: 1000;
 }
 
-.modal-content {
+.payment-content {
   background: white;
   padding: 30px;
   border-radius: 10px;
@@ -79,20 +79,20 @@ hr {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.modal-content h4 {
+.payment-content h4 {
   font-size: 22px;
   margin-bottom: 20px;
   text-align: center;
 }
 
-.modal-content ul {
+.payment-content ul {
   list-style: none;
   padding: 0;
   margin: 0;
   width: 100%;
 }
 
-.modal-content li {
+.payment-content li {
   display: flex;
   flex-direction: column;
   background-color: #f7f7f7;
@@ -102,19 +102,19 @@ hr {
   border: 1px solid #ddd;
 }
 
-.modal-content li h5 {
+.payment-content li h5 {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.modal-content li p {
+.payment-content li p {
   margin: 0;
   font-size: 16px;
   color: #333;
 }
 
-.modal-content li button {
+.payment-content li button {
   align-self: flex-end;
   margin-top: 10px;
   padding: 8px 15px;
@@ -125,7 +125,7 @@ hr {
   cursor: pointer;
 }
 
-.modal-content li button:hover {
+.payment-content li button:hover {
   background-color: #333;
 }
 
